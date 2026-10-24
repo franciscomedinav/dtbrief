@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Daily Tech Briefing — your daily dose of tech news, in plain English. Read the top story, or listen to the full briefing." />
+    <title>Daily Tech Briefing — Your daily dose of tech news</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;0,6..72,800;1,6..72,400;1,6..72,500&family=Archivo:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #fbfaf7;
+        --ink: #16181d;
+        --ink-soft: #3d4149;
+        --ink-faint: #6d727c;
+        --rule: #ddd9d0;
+        --accent: #d63a1f;
+        --accent-soft: rgba(214, 58, 31, 0.08);
+        --card: #ffffff;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #121316;
+          --ink: #eceef1;
+          --ink-soft: #c3c7cd;
+          --ink-faint: #8f949e;
+          --rule: #2c2f35;
+          --accent: #ff6a4d;
+          --accent-soft: rgba(255, 106, 77, 0.12);
+          --card: #1a1c20;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Newsreader", Georgia, "Times New Roman", serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .sans { font-family: "Archivo", -apple-system, "Segoe UI", sans-serif; }
+      a { color: var(--accent); }
+
+      .masthead { border-bottom: 2px solid var(--ink); }
+      .masthead-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 18px 24px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+      .brand-mark {
+        width: 40px; height: 40px; flex: none;
+        border-radius: 10px; background: var(--ink);
+        display: grid; place-items: center;
+      }
+      .brand-name {
+        font-family: "Archivo", sans-serif;
+        font-weight: 700; font-size: 21px;
+        letter-spacing: -0.01em; line-height: 1.05;
+      }
+      .brand-tag { font-family: "Archivo", sans-serif; font-size: 12px; color: var(--ink-faint); margin-top: 2px; display: block; }
+      .masthead-meta {
+        font-family: "Archivo", sans-serif;
+        font-size: 12.5px; color: var(--ink-faint);
+        text-align: right; line-height: 1.5;
+      }
+      .masthead-meta strong { color: var(--ink); font-weight: 600; }
+
+      .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+      .intro { max-width: 700px; margin: 0 auto; padding: 44px 0 8px; }
+      .intro h1 {
+        font-size: clamp(34px, 5.4vw, 54px);
+        line-height: 1.04; font-weight: 800;
+        letter-spacing: -0.015em; margin: 0 0 16px;
+      }
+      .intro h1 .money { color: var(--accent); }
+      .intro .deck {
+        font-size: clamp(19px, 2.6vw, 22px);
+        line-height: 1.45; font-style: italic;
+        color: var(--ink-soft); margin: 0 0 26px;
+      }
+      .listen-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+      .listen-btn {
+        font-family: "Archivo", sans-serif;
+        font-size: 14px; font-weight: 600;
+        text-decoration: none; color: var(--ink);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        padding: 10px 18px;
+        display: inline-flex; align-items: center; gap: 8px;
+      }
+      .listen-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+      h2.section-label {
+        font-family: "Archivo", sans-serif;
+        font-size: 15px; font-weight: 700;
+        letter-spacing: 0.12em; text-transform: uppercase;
+        margin: 0 0 18px;
+      }
+      .post-card {
+        display: block;
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 24px 26px;
+        text-decoration: none;
+        color: var(--ink);
+        margin-bottom: 16px;
+      }
+      .post-card:hover { border-color: var(--accent); }
+      .post-card .kicker {
+        font-family: "Archivo", sans-serif;
+        font-size: 12px; font-weight: 700;
+        letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--accent);
+      }
+      .post-card h3 {
+        font-size: 26px; line-height: 1.2;
+        font-weight: 800; letter-spacing: -0.01em;
+        margin: 10px 0 8px;
+      }
+      .post-card p {
+        font-size: 17px; line-height: 1.55;
+        color: var(--ink-soft); margin: 0 0 10px;
+      }
+      .post-card .meta {
+        font-family: "Archivo", sans-serif;
+        font-size: 12.5px; color: var(--ink-faint);
+      }
+      .about {
+        max-width: 700px; margin: 44px auto 48px;
+        border-top: 1px solid var(--rule);
+        padding-top: 28px;
+      }
+      .about p { font-size: 18px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 14px; }
+      .about p strong { color: var(--ink); }
+      footer { border-top: 2px solid var(--ink); }
+      .footer-inner {
+        max-width: 1080px; margin: 0 auto;
+        padding: 20px 24px 34px;
+        display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+        font-family: "Archivo", sans-serif;
+        font-size: 12.5px; color: var(--ink-faint); line-height: 1.6;
+      }
+      @media (max-width: 620px) {
+        .masthead-meta { text-align: left; }
+        .intro { padding-top: 32px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="brand" href="index.html" aria-label="Daily Tech Briefing home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7.5 5.2v13.6L18.5 12 7.5 5.2z" fill="#fbfaf7"/>
+            </svg>
+          </span>
+          <span>
+            <span class="brand-name">Daily Tech Briefing</span>
+            <span class="brand-tag">Your daily dose of tech news</span>
+          </span>
+        </a>
+        <div class="masthead-meta">
+          <strong>Weekdays</strong><br />
+          The blog companion to the podcast
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <div class="intro">
+        <h1>Tech news, in <span class="money">plain English.</span></h1>
+        <p class="deck">Every weekday, the Daily Tech Briefing picks the stories that actually matter and explains what they mean — no jargon, no hype. Read the top story here, or listen to the full briefing in about 10 minutes.</p>
+        <div class="listen-row">
+          <a class="listen-btn" href="https://open.spotify.com/episode/6t5tDAf8YNZbBeyoJbHQEi" target="_blank" rel="noopener">▶ Latest episode on Spotify</a>
+          <a class="listen-btn" href="https://www.youtube.com/@dailytechbriefing" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+        </div>
+
+        <h2 class="section-label">Latest</h2>
+        <a class="post-card" href="posts/2026-10-23-openai-trillion-dollar-round.html">
+          <span class="kicker">Top Story</span>
+          <h3>OpenAI Is About to Be Worth $1.25 Trillion. Here&rsquo;s What That Actually Means.</h3>
+          <p>A funding round of nearly $30 billion, led by investors from the United Arab Emirates, would put the maker of ChatGPT in the same league as Apple and Microsoft — before it has ever turned a profit.</p>
+          <span class="meta">October 23, 2026 · 3 min read · Episode 13</span>
+        </a>
+      </div>
+
+      <div class="about">
+        <h2 class="section-label">About the show</h2>
+        <p><strong>Daily Tech Briefing</strong> is a weekday podcast — about 10 minutes, every morning — covering the top 8–10 tech stories of the day, read by Melody, your AI anchor.</p>
+        <p>Each post here takes the day&rsquo;s top story and goes one step further: what happened, why it matters, and what to watch next — with a link to the original reporting and to that day&rsquo;s episode.</p>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <span>Daily Tech Briefing — your daily dose of tech news.</span>
+        <span>dtbrief.com</span>
+      </div>
+    </footer>
+  </body>
+</html>
