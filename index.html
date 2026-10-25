@@ -5,34 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
     <meta name="description" content="Daily Tech Briefing — your daily dose of tech news, in plain English. Read the top story, or listen to the full briefing." />
+    <meta name="theme-color" content="#0A0F1E" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Daily Tech Briefing" />
+    <meta property="og:title" content="Daily Tech Briefing — Your daily dose of tech news" />
+    <meta property="og:description" content="Tech news, in plain English. Every weekday, the Daily Tech Briefing picks the stories that actually matter and explains what they mean — no jargon, no hype." />
+    <meta property="og:url" content="https://dtbrief.com/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Daily Tech Briefing — Your daily dose of tech news" />
+    <meta name="twitter:description" content="Tech news, in plain English. Every weekday, the Daily Tech Briefing picks the stories that actually matter and explains what they mean." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Blog","name":"Daily Tech Briefing","url":"https://dtbrief.com/","description":"Tech news, in plain English. A weekday briefing on the stories that matter, with the full podcast episode linked from every post."}
+    </script>
     <title>Daily Tech Briefing — Your daily dose of tech news</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;0,6..72,800;1,6..72,400;1,6..72,500&family=Archivo:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --paper: #fbfaf7;
-        --ink: #16181d;
-        --ink-soft: #3d4149;
-        --ink-faint: #6d727c;
-        --rule: #ddd9d0;
-        --accent: #d63a1f;
-        --accent-soft: rgba(214, 58, 31, 0.08);
+        --paper: #F4F6F8;
+        --ink: #0A0F1E;
+        --ink-soft: #2E3A52;
+        --ink-faint: #5A6478;
+        --rule: #D8DEE7;
+        --accent: #0090C8;
+        --accent-soft: rgba(0, 144, 200, 0.08);
         --card: #ffffff;
       }
       @media (prefers-color-scheme: dark) {
         :root {
-          --paper: #121316;
-          --ink: #eceef1;
-          --ink-soft: #c3c7cd;
-          --ink-faint: #8f949e;
-          --rule: #2c2f35;
-          --accent: #ff6a4d;
-          --accent-soft: rgba(255, 106, 77, 0.12);
-          --card: #1a1c20;
+          --paper: #070B16;
+          --ink: #EDF1F8;
+          --ink-soft: #C7D3E8;
+          --ink-faint: #93A0B8;
+          --rule: #22304F;
+          --accent: #00C2FF;
+          --accent-soft: rgba(0, 194, 255, 0.12);
+          --card: #0D1424;
         }
       }
       * { box-sizing: border-box; }
@@ -40,10 +54,10 @@
         margin: 0;
         background: var(--paper);
         color: var(--ink);
-        font-family: "Newsreader", Georgia, "Times New Roman", serif;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
         -webkit-font-smoothing: antialiased;
       }
-      .sans { font-family: "Archivo", -apple-system, "Segoe UI", sans-serif; }
+      .sans { font-family: "IBM Plex Sans", system-ui, sans-serif; }
       a { color: var(--accent); }
 
       .masthead { border-bottom: 2px solid var(--ink); }
@@ -60,17 +74,17 @@
       .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
       .brand-mark {
         width: 40px; height: 40px; flex: none;
-        border-radius: 10px; background: var(--ink);
         display: grid; place-items: center;
       }
       .brand-name {
-        font-family: "Archivo", sans-serif;
-        font-weight: 700; font-size: 21px;
+        font-family: "Sora", sans-serif;
+        font-weight: 800; font-size: 21px;
         letter-spacing: -0.01em; line-height: 1.05;
       }
-      .brand-tag { font-family: "Archivo", sans-serif; font-size: 12px; color: var(--ink-faint); margin-top: 2px; display: block; }
+      .brand-dot { color: var(--accent); }
+      .brand-tag { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 12px; color: var(--ink-faint); margin-top: 2px; display: block; }
       .masthead-meta {
-        font-family: "Archivo", sans-serif;
+        font-family: "IBM Plex Mono", monospace;
         font-size: 12.5px; color: var(--ink-faint);
         text-align: right; line-height: 1.5;
       }
@@ -79,6 +93,7 @@
       .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
       .intro { max-width: 700px; margin: 0 auto; padding: 44px 0 8px; }
       .intro h1 {
+        font-family: "Sora", sans-serif;
         font-size: clamp(34px, 5.4vw, 54px);
         line-height: 1.04; font-weight: 800;
         letter-spacing: -0.015em; margin: 0 0 16px;
@@ -91,7 +106,7 @@
       }
       .listen-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
       .listen-btn {
-        font-family: "Archivo", sans-serif;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
         font-size: 14px; font-weight: 600;
         text-decoration: none; color: var(--ink);
         background: var(--card);
@@ -103,8 +118,8 @@
       .listen-btn:hover { border-color: var(--accent); color: var(--accent); }
 
       h2.section-label {
-        font-family: "Archivo", sans-serif;
-        font-size: 15px; font-weight: 700;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 15px; font-weight: 600;
         letter-spacing: 0.12em; text-transform: uppercase;
         margin: 0 0 18px;
       }
@@ -120,12 +135,13 @@
       }
       .post-card:hover { border-color: var(--accent); }
       .post-card .kicker {
-        font-family: "Archivo", sans-serif;
-        font-size: 12px; font-weight: 700;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px; font-weight: 600;
         letter-spacing: 0.14em; text-transform: uppercase;
         color: var(--accent);
       }
       .post-card h3 {
+        font-family: "Sora", sans-serif;
         font-size: 26px; line-height: 1.2;
         font-weight: 800; letter-spacing: -0.01em;
         margin: 10px 0 8px;
@@ -135,7 +151,7 @@
         color: var(--ink-soft); margin: 0 0 10px;
       }
       .post-card .meta {
-        font-family: "Archivo", sans-serif;
+        font-family: "IBM Plex Mono", monospace;
         font-size: 12.5px; color: var(--ink-faint);
       }
       .about {
@@ -150,7 +166,7 @@
         max-width: 1080px; margin: 0 auto;
         padding: 20px 24px 34px;
         display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap;
-        font-family: "Archivo", sans-serif;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
         font-size: 12.5px; color: var(--ink-faint); line-height: 1.6;
       }
       @media (max-width: 620px) {
@@ -164,13 +180,16 @@
       <div class="masthead-inner">
         <a class="brand" href="index.html" aria-label="Daily Tech Briefing home">
           <span class="brand-mark" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M7.5 5.2v13.6L18.5 12 7.5 5.2z" fill="#fbfaf7"/>
+            <svg width="40" height="40" viewBox="0 0 96 96" aria-hidden="true">
+              <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+              <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+              <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+              <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
             </svg>
           </span>
           <span>
-            <span class="brand-name">Daily Tech Briefing</span>
-            <span class="brand-tag">Your daily dose of tech news</span>
+            <span class="brand-name">Tech Briefing<span class="brand-dot">.</span></span>
+            <span class="brand-tag">Your daily dose of tech news — signal, not noise.</span>
           </span>
         </a>
         <div class="masthead-meta">
@@ -207,7 +226,7 @@
 
     <footer>
       <div class="footer-inner">
-        <span>Daily Tech Briefing — your daily dose of tech news.</span>
+        <span>Daily Tech Briefing — your daily dose of tech news. Signal, not noise.</span>
         <span>dtbrief.com</span>
       </div>
     </footer>
