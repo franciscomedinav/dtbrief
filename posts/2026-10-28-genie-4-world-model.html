@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <meta name="theme-color" content="#0A0F1E" />
+    <meta name="description" content="Google's Genie 4 world model explained in plain English — what happened, why it matters for you, and what to watch next. From today's Daily Tech Briefing." />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Daily Tech Briefing" />
+    <meta property="og:title" content="Google's Genie 4 Builds Worlds You Can Walk Through — Daily Tech Briefing" />
+    <meta property="og:description" content="Google's new world model generates photorealistic places you can explore, change with a text prompt, and hear — and it can hold the illusion together for two full minutes." />
+    <meta property="og:url" content="https://dtbrief.com/posts/2026-10-28-genie-4-world-model.html" />
+    <meta property="article:published_time" content="2026-10-28" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"NewsArticle","headline":"Google's Genie 4 Builds Worlds You Can Walk Through. Here's What That Actually Means.","datePublished":"2026-10-28","author":{"@type":"Organization","name":"Daily Tech Briefing"},"publisher":{"@type":"Organization","name":"Daily Tech Briefing","url":"https://dtbrief.com/"},"mainEntityOfPage":"https://dtbrief.com/posts/2026-10-28-genie-4-world-model.html"}
+    </script>
+    <title>Google's Genie 4 Builds Worlds You Can Walk Through — Daily Tech Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #F4F6F8;
+        --ink: #0A0F1E;
+        --ink-soft: #2E3A52;
+        --ink-faint: #5A6478;
+        --rule: #D8DEE7;
+        --accent: #0090C8;
+        --accent-soft: rgba(0, 144, 200, 0.08);
+        --card: #ffffff;
+        --chip-bg: #0A0F1E;
+        --chip-ink: #F4F6F8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #070B16;
+          --ink: #EDF1F8;
+          --ink-soft: #C7D3E8;
+          --ink-faint: #93A0B8;
+          --rule: #22304F;
+          --accent: #00C2FF;
+          --accent-soft: rgba(0, 194, 255, 0.12);
+          --card: #0D1424;
+          --chip-bg: #EDF1F8;
+          --chip-ink: #070B16;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .sans { font-family: "IBM Plex Sans", system-ui, sans-serif; }
+
+      #progress {
+        position: fixed;
+        top: 0; left: 0;
+        height: 3px;
+        width: 0%;
+        background: #00C2FF;
+        z-index: 50;
+      }
+
+      /* ---------- Masthead ---------- */
+      .masthead {
+        border-bottom: 2px solid var(--ink);
+      }
+      .masthead-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 18px 24px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand-mark {
+        width: 40px; height: 40px;
+        flex: none;
+        display: grid;
+        place-items: center;
+      }
+      .brand-name {
+        font-family: "Sora", sans-serif;
+        font-weight: 800;
+        font-size: 21px;
+        letter-spacing: -0.01em;
+        line-height: 1.05;
+      }
+      .brand-dot { color: var(--accent); }
+      .brand-tag {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 2px;
+      }
+      .masthead-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        text-align: right;
+        line-height: 1.5;
+      }
+      .masthead-meta strong { color: var(--ink); font-weight: 600; }
+
+      /* ---------- Layout ---------- */
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      article {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 44px 0 8px;
+      }
+
+      .dateline-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      .kicker {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .sample-chip {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: var(--chip-bg);
+        color: var(--chip-ink);
+        padding: 4px 9px;
+        border-radius: 999px;
+      }
+
+      h1 {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(34px, 5.4vw, 54px);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px;
+      }
+      h1 .money { color: var(--accent); }
+      .deck {
+        font-size: clamp(19px, 2.6vw, 22px);
+        line-height: 1.45;
+        font-style: italic;
+        color: var(--ink-soft);
+        margin: 0 0 26px;
+      }
+      .byline {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        color: var(--ink-faint);
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        padding: 12px 0;
+        margin-bottom: 34px;
+      }
+      .byline .who { color: var(--ink); font-weight: 600; }
+      .byline .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+
+      /* ---------- Key numbers ---------- */
+      .keynums {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+      .keynum {
+        padding: 20px 20px 16px;
+      }
+      .keynum + .keynum { border-left: 1px solid var(--rule); }
+      .keynum .fig {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(24px, 3.4vw, 32px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .keynum .fig em { font-style: normal; color: var(--accent); }
+      .keynum .lbl {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--ink-faint);
+        margin-top: 8px;
+      }
+
+      /* ---------- Body copy ---------- */
+      section { margin-bottom: 38px; }
+      h2 {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin: 0 0 16px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      h2 .num {
+        font-family: "Sora", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0;
+        color: var(--accent);
+        line-height: 1;
+      }
+      p {
+        font-size: 19px;
+        line-height: 1.68;
+        color: var(--ink-soft);
+        margin: 0 0 18px;
+      }
+      p strong { color: var(--ink); font-weight: 700; }
+      p a, .source-card a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+      .inline-icon { width: 16px; height: 16px; vertical-align: -2px; }
+
+      .pull {
+        border-left: 3px solid var(--accent);
+        padding: 4px 0 4px 20px;
+        margin: 28px 0;
+        font-size: 22px;
+        line-height: 1.4;
+        font-weight: 500;
+        font-style: italic;
+        color: var(--ink);
+      }
+
+      ul.watch {
+        list-style: none;
+        margin: 0 0 18px;
+        padding: 0;
+      }
+      ul.watch li {
+        font-size: 19px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        padding: 12px 0 12px 0;
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 14px;
+      }
+      ul.watch li:first-child { border-top: none; padding-top: 2px; }
+      ul.watch .w-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        padding-top: 5px;
+      }
+
+      /* ---------- Source + episode ---------- */
+      .source-card {
+        background: var(--accent-soft);
+        border-radius: 14px;
+        padding: 22px 24px;
+        margin: 44px 0 18px;
+      }
+      .source-card .sc-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .source-card p { font-size: 17px; margin: 0; line-height: 1.55; }
+
+      .episode-note {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 48px;
+        background: var(--card);
+      }
+      .play-btn {
+        width: 42px; height: 42px;
+        flex: none;
+        border-radius: 50%;
+        background: #00C2FF;
+        display: grid;
+        place-items: center;
+      }
+      .episode-note p { font-size: 16.5px; margin: 0; line-height: 1.55; }
+      .episode-note .ep-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 4px;
+      }
+
+      footer {
+        border-top: 2px solid var(--ink);
+        margin-top: 8px;
+      }
+      .footer-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 20px 24px 34px;
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 620px) {
+        .keynums { grid-template-columns: 1fr; }
+        .keynum + .keynum { border-left: none; border-top: 1px solid var(--rule); }
+        ul.watch li { grid-template-columns: 1fr; gap: 2px; }
+        ul.watch .w-label { padding-top: 0; }
+        .masthead-meta { text-align: left; }
+        article { padding-top: 32px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="brand" href="../index.html" aria-label="Daily Tech Briefing home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 96 96" aria-hidden="true">
+              <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+              <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+              <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+              <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+            </svg>
+          </span>
+          <span>
+            <span class="brand-name">Tech Briefing<span class="brand-dot">.</span></span>
+            <span class="brand-tag" style="display:block;">Your daily dose of tech news — signal, not noise.</span>
+          </span>
+        </a>
+        <div class="masthead-meta">
+          <strong>Wednesday, October 28, 2026</strong><br />
+          The blog companion to the podcast
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <article>
+        <div class="dateline-row">
+          <span class="kicker">Top Story</span>
+        </div>
+
+        <h1>Google&rsquo;s Genie 4 Builds Worlds You Can <span class="money">Walk Through</span>. Here&rsquo;s What That Actually Means.</h1>
+
+        <p class="deck">Google&rsquo;s new world model generates photorealistic places you can explore, change with a text prompt, and hear &mdash; and it can hold the illusion together for two full minutes.</p>
+
+        <div class="byline">
+          <span class="who">Daily Tech Briefing</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>October 28, 2026</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>3 min read</span>
+        </div>
+
+        <div class="keynums" role="group" aria-label="Key numbers">
+          <div class="keynum">
+            <div class="fig"><em>2 min</em></div>
+            <div class="lbl">The longest consistent simulation Genie 4 can sustain &mdash; double Genie 3</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">2&times;</div>
+            <div class="lbl">Genie 3&rsquo;s one-minute limit, doubled in the new model</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">Real-time</div>
+            <div class="lbl">Prompt edits applied live, while you explore the world</div>
+          </div>
+        </div>
+
+        <section aria-labelledby="s1">
+          <h2 id="s1"><span class="num">1</span> What happened</h2>
+          <p>Google DeepMind has introduced <strong>Genie 4, a world model that generates photorealistic, interactive environments</strong> &mdash; places you can walk through, not just watch. The model renders the world in real time, complete with synchronized sound, and you can change what you see with a text prompt while you explore: ask for rain, a different building, a new character, and the scene updates around you.</p>
+          <p>The headline number is <strong>two minutes</strong>. Genie 4 can keep a simulation consistent for that long, doubling the one-minute limit of its predecessor, Genie 3, while also improving physics and making characters look and move more realistically. In plain English: earlier world models made impressive clips that fell apart the moment you tried to interact with them. Genie 4 is built to stay coherent while you poke at it.</p>
+          <p>A &ldquo;world model&rdquo; is different from a video generator. A video generator predicts the next frame of a clip. A world model tries to understand the place itself &mdash; what&rsquo;s solid, what moves, what happens if you walk behind a wall &mdash; and then renders whatever you look at, from whatever angle you choose.</p>
+        </section>
+
+        <section aria-labelledby="s2">
+          <h2 id="s2"><span class="num">2</span> Why it matters</h2>
+          <p>First, <strong>this is the step from watching AI video to inhabiting it</strong>. A two-minute interactive world is still short, but it crosses a line: the output is no longer a recording, it&rsquo;s an environment. The obvious first home is games, where a model that can dream up a playable level on demand changes what a small team &mdash; or a single player &mdash; can build.</p>
+          <p>Second, the same technology trains robots. A robot that has practiced in a thousand simulated kitchens, warehouses, and streets before it ever touches the real one is a safer, cheaper robot to deploy. Google has been explicit that world models are a core piece of its robotics work, and Genie 4&rsquo;s longer, more physically consistent simulations make that training more useful.</p>
+          <div class="pull">A video you can walk through is a different medium from a video you watch. Genie 4 is the clearest sign yet that the industry is building toward the first one.</div>
+          <p>Third, it raises the stakes in the race to simulate reality. Film and virtual production teams can already block out scenes that behave like real places. The same capability, in the wrong hands, can build photorealistic places that never existed &mdash; which is why how Google limits access, and what it discloses about generated worlds, will matter as much as the model itself.</p>
+        </section>
+
+        <section aria-labelledby="s3">
+          <h2 id="s3"><span class="num">3</span> What to watch next</h2>
+          <ul class="watch">
+            <li>
+              <span class="w-label">Public access</span>
+              <span>Google has not said when &mdash; or how widely &mdash; the public will get to try Genie 4. Watch whether it arrives as a research preview, a developer tool, or a consumer product first.</span>
+            </li>
+            <li>
+              <span class="w-label">Longer sessions</span>
+              <span>Two minutes is the new bar. The next question is whether the following generation can hold a world together for ten minutes, an hour, or an entire game session.</span>
+            </li>
+            <li>
+              <span class="w-label">The rivals</span>
+              <span>Every major lab is chasing world models. Expect competing announcements, and pay attention to who ships a usable product rather than a demo reel.</span>
+            </li>
+            <li>
+              <span class="w-label">The guardrails</span>
+              <span>Photorealistic, interactive worlds are a powerful tool for misinformation. Watch what disclosure and watermarking Google builds in before wider release.</span>
+            </li>
+          </ul>
+        </section>
+
+        <div class="source-card">
+          <div class="sc-label">Original reporting</div>
+          <p>This post is based on Google DeepMind&rsquo;s announcement: <a href="https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation" target="_blank" rel="noopener">&ldquo;Genie 4: a new generation of world simulation&rdquo; &mdash; Google DeepMind, October 28, 2026</a>. Figures are as reported by DeepMind.</p>
+        </div>
+
+        <div class="episode-note">
+          <span class="play-btn" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 4.8v14.4L19 12 7 4.8z" fill="#0A0F1E"/>
+            </svg>
+          </span>
+          <div>
+            <div class="ep-label">Heard it in the briefing</div>
+            <p>This story led <strong>Episode 18</strong> of the Daily Tech Briefing podcast &mdash; your daily dose of tech news in about 10 minutes, read by Melody, your AI anchor. <a href="https://open.spotify.com/episode/4e4orIxtbVRXGIIbEXsj0p?si=aPvEYykxQJuGpVbIVj25gA" target="_blank" rel="noopener"><svg class="inline-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1DB954" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg> Listen on Spotify</a> or <a href="https://www.youtube.com/@dailytechbriefing" target="_blank" rel="noopener"><svg class="inline-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg> watch on YouTube</a> (the Episode 18 video link will be added here once the upload completes).</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <span>Daily Tech Briefing &mdash; your daily dose of tech news. Signal, not noise.</span>
+        <span><a href="../index.html">← All posts</a> · October 28, 2026</span>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var bar = document.getElementById('progress');
+        function onScroll() {
+          var h = document.documentElement;
+          var max = h.scrollHeight - h.clientHeight;
+          var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+          bar.style.width = pct + '%';
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+    </script>
+  </body>
+</html>
