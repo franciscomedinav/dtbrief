@@ -1,0 +1,17 @@
+[
+  {
+    "date": "2026-11-10",
+    "date_long": "November 10, 2026",
+    "slug": "2026-11-10-ai-agents-explained",
+    "title": "AI Agents, Explained: What They Are, How They Work, and Why Siri Wants to Be One",
+    "deck_short": "A chatbot answers you. An agent does the job. The difference, the loop behind it, and the honest state of things.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A small robot assistant thinking at a desk, choosing between tools \u2014 a browser, code, a calendar, a database and a search \u2014 while it works toward a goal",
+      "caption": "An agent is given a goal and picks its own tools to reach it. The model decides the next step &mdash; that is the whole difference.",
+      "index_alt": "A small robot assistant thinking at a desk, choosing between tools \u2014 a browser, code, a calendar, a database and a search",
+      "index_caption": "Today&rsquo;s lesson: AI agents &mdash; what they are, how they work, and why Siri wants to be one.",
+      "src": "assets/ai-agents-hero.webp"
+    }
+  }
+]
