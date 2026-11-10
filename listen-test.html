@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Audio playback test (temporary)</title>
+</head>
+<body style="font-family:sans-serif;padding:24px;max-width:640px;margin:0 auto">
+<h1>Audio playback test</h1>
+<p>Temporary diagnostic page. Delete after the listen-aloud bug is fixed.</p>
+
+<h2>1. Drive URL (dtbrief story audio)</h2>
+<button id="b1" style="font-size:20px;padding:12px 24px">Play Drive audio</button>
+<pre id="o1" style="font-size:18px;background:#eee;padding:12px">not played yet</pre>
+<audio id="a1" src="https://drive.google.com/uc?export=download&amp;id=1memP2MPChtfPbmOaTxhDr500S3cIT6qR" preload="none"></audio>
+
+<h2>2. Control (plain static MP3)</h2>
+<button id="b2" style="font-size:20px;padding:12px 24px">Play control audio</button>
+<pre id="o2" style="font-size:18px;background:#eee;padding:12px">not played yet</pre>
+<audio id="a2" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="none"></audio>
+
+<script>
+function wire(btnId, audioId, outId) {
+  var b = document.getElementById(btnId), a = document.getElementById(audioId), o = document.getElementById(outId);
+  function report(tag) {
+    o.textContent = tag + ' | paused=' + a.paused + ' | time=' + a.currentTime.toFixed(2) + ' | readyState=' + a.readyState + ' | networkState=' + a.networkState + ' | error=' + (a.error ? a.error.code : 'none');
+  }
+  a.addEventListener('error', function(){ report('ERROR EVENT'); });
+  a.addEventListener('playing', function(){ report('PLAYING'); });
+  b.addEventListener('click', function() {
+    var p = a.play();
+    if (p) p.then(function(){ report('play() resolved'); }).catch(function(e){ report('play() REJECTED: ' + e.name); });
+    setTimeout(function(){ report('after 5s'); }, 5000);
+  });
+}
+wire('b1', 'a1', 'o1');
+wire('b2', 'a2', 'o2');
+</script>
+</body>
+</html>
