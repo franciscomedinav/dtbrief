@@ -337,6 +337,37 @@
         margin-bottom: 4px;
       }
 
+      .listen-bar {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 14px 18px;
+        margin: 0 0 28px;
+        background: var(--card);
+      }
+      .listen-toggle {
+        border: none;
+        padding: 0;
+        cursor: pointer;
+      }
+      .listen-toggle .icon-pause { display: none; }
+      .listen-bar.playing .listen-toggle .icon-play { display: none; }
+      .listen-bar.playing .listen-toggle .icon-pause { display: block; }
+      .listen-label {
+        font-family: "Sora", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 1.3;
+      }
+      .listen-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 3px;
+      }
+
       footer {
         border-top: 2px solid var(--ink);
         margin-top: 8px;
@@ -424,6 +455,18 @@
           </div>
         </div>
 
+        <div class="listen-bar">
+          <button class="listen-toggle play-btn" type="button" aria-label="Listen to this story" aria-pressed="false">
+            <svg class="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4.8v14.4L19 12 7 4.8z" fill="#0A0F1E"/></svg>
+            <svg class="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="#0A0F1E"/></svg>
+          </button>
+          <div>
+            <div class="listen-label">Listen to this story</div>
+            <div class="listen-meta">Melody reads the top story &middot; 3:13</div>
+          </div>
+          <audio src="https://drive.google.com/uc?export=download&amp;id=1L2H9OgxP39CyNh5SKSfShbFG1LRER_IH" preload="none"></audio>
+        </div>
+
         <section aria-labelledby="s1">
           <h2 id="s1"><span class="num">1</span> What happened</h2>
           <p><strong>Apple reported record September-quarter revenue of $114.5&nbsp;billion, up twelve percent from a year earlier, in chief executive John Ternus's first earnings report</strong> since he took over from Tim Cook in September. Earnings per share came in at $2.10, beating expectations, and net income reached $30.71&nbsp;billion. For the full fiscal year, Apple posted record revenue of $479&nbsp;billion.</p>
@@ -504,6 +547,24 @@
         }
         document.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
+        /* Listen-aloud: toggle the story audio on the play button. */
+        document.querySelectorAll('.listen-bar').forEach(function (listenBar) {
+          var btn = listenBar.querySelector('.listen-toggle');
+          var audio = listenBar.querySelector('audio');
+          btn.addEventListener('click', function () {
+            if (audio.paused) { audio.play(); } else { audio.pause(); }
+          });
+          audio.addEventListener('play', function () {
+            listenBar.classList.add('playing');
+            btn.setAttribute('aria-pressed', 'true');
+          });
+          function stopped() {
+            listenBar.classList.remove('playing');
+            btn.setAttribute('aria-pressed', 'false');
+          }
+          audio.addEventListener('pause', stopped);
+          audio.addEventListener('ended', stopped);
+        });
       })();
     </script>
   </body>
