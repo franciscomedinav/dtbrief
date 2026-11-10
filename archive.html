@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="theme-color" content="#0A0F1E" />
+    <meta name="description" content="Every story from every Daily Tech Briefing, newest first — each linked to the original reporting." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Daily Tech Briefing" />
+    <meta property="og:title" content="Archive — Daily Tech Briefing" />
+    <meta property="og:description" content="Every story from every Daily Tech Briefing, newest first — each linked to the original reporting." />
+    <meta property="og:url" content="https://dtbrief.com/archive.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Archive — Daily Tech Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #F4F6F8;
+        --ink: #0A0F1E;
+        --ink-soft: #2E3A52;
+        --ink-faint: #5A6478;
+        --rule: #D8DEE7;
+        --accent: #0090C8;
+        --accent-soft: rgba(0, 144, 200, 0.08);
+        --card: #ffffff;
+        --chip-bg: #0A0F1E;
+        --chip-ink: #F4F6F8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #070B16;
+          --ink: #EDF1F8;
+          --ink-soft: #C7D3E8;
+          --ink-faint: #93A0B8;
+          --rule: #22304F;
+          --accent: #00C2FF;
+          --accent-soft: rgba(0, 194, 255, 0.12);
+          --card: #0D1424;
+          --chip-bg: #EDF1F8;
+          --chip-ink: #070B16;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .sans { font-family: "IBM Plex Sans", system-ui, sans-serif; }
+
+      #progress {
+        position: fixed;
+        top: 0; left: 0;
+        height: 3px;
+        width: 0%;
+        background: #00C2FF;
+        z-index: 50;
+      }
+
+      /* ---------- Masthead ---------- */
+      .masthead {
+        border-bottom: 2px solid var(--ink);
+      }
+      .masthead-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 18px 24px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand-mark {
+        width: 40px; height: 40px;
+        flex: none;
+        display: grid;
+        place-items: center;
+      }
+      .brand-name {
+        font-family: "Sora", sans-serif;
+        font-weight: 800;
+        font-size: 21px;
+        letter-spacing: -0.01em;
+        line-height: 1.05;
+      }
+      .brand-dot { color: var(--accent); }
+      .brand-tag {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 2px;
+      }
+      .masthead-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        text-align: right;
+        line-height: 1.5;
+      }
+      .masthead-meta strong { color: var(--ink); font-weight: 600; }
+
+      /* ---------- Layout ---------- */
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      article {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 44px 0 8px;
+      }
+
+      .dateline-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      .kicker {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .sample-chip {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: var(--chip-bg);
+        color: var(--chip-ink);
+        padding: 4px 9px;
+        border-radius: 999px;
+      }
+
+      h1 {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(34px, 5.4vw, 54px);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px;
+      }
+      h1 .money { color: var(--accent); }
+      .deck {
+        font-size: clamp(19px, 2.6vw, 22px);
+        line-height: 1.45;
+        font-style: italic;
+        color: var(--ink-soft);
+        margin: 0 0 26px;
+      }
+      .byline {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        color: var(--ink-faint);
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        padding: 12px 0;
+        margin-bottom: 34px;
+      }
+      .byline .who { color: var(--ink); font-weight: 600; }
+      .byline .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+
+      /* ---------- Key numbers ---------- */
+      .keynums {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+      .keynum {
+        padding: 20px 20px 16px;
+      }
+      .keynum + .keynum { border-left: 1px solid var(--rule); }
+      .keynum .fig {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(24px, 3.4vw, 32px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .keynum .fig em { font-style: normal; color: var(--accent); }
+      .keynum .lbl {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--ink-faint);
+        margin-top: 8px;
+      }
+
+      /* ---------- Body copy ---------- */
+      section { margin-bottom: 38px; }
+      h2 {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin: 0 0 16px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      h2 .num {
+        font-family: "Sora", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0;
+        color: var(--accent);
+        line-height: 1;
+      }
+      p {
+        font-size: 19px;
+        line-height: 1.68;
+        color: var(--ink-soft);
+        margin: 0 0 18px;
+      }
+      p strong { color: var(--ink); font-weight: 700; }
+      p a, .source-card a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+      .inline-icon { width: 16px; height: 16px; vertical-align: -2px; }
+
+      .pull {
+        border-left: 3px solid var(--accent);
+        padding: 4px 0 4px 20px;
+        margin: 28px 0;
+        font-size: 22px;
+        line-height: 1.4;
+        font-weight: 500;
+        font-style: italic;
+        color: var(--ink);
+      }
+
+      ul.watch {
+        list-style: none;
+        margin: 0 0 18px;
+        padding: 0;
+      }
+      ul.watch li {
+        font-size: 19px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        padding: 12px 0 12px 0;
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 14px;
+      }
+      ul.watch li:first-child { border-top: none; padding-top: 2px; }
+      ul.watch .w-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        padding-top: 5px;
+      }
+
+      /* ---------- Source + episode ---------- */
+      .source-card {
+        background: var(--accent-soft);
+        border-radius: 14px;
+        padding: 22px 24px;
+        margin: 44px 0 18px;
+      }
+      .source-card .sc-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .source-card p { font-size: 17px; margin: 0; line-height: 1.55; }
+
+      .episode-note {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 48px;
+        background: var(--card);
+      }
+      .play-btn {
+        width: 42px; height: 42px;
+        flex: none;
+        border-radius: 50%;
+        background: #00C2FF;
+        display: grid;
+        place-items: center;
+      }
+      .episode-note p { font-size: 16.5px; margin: 0; line-height: 1.55; }
+      .episode-note .ep-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 4px;
+      }
+
+      footer {
+        border-top: 2px solid var(--ink);
+        margin-top: 8px;
+      }
+      .footer-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 20px 24px 34px;
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 620px) {
+        .keynums { grid-template-columns: 1fr; }
+        .keynum + .keynum { border-left: none; border-top: 1px solid var(--rule); }
+        ul.watch li { grid-template-columns: 1fr; gap: 2px; }
+        ul.watch .w-label { padding-top: 0; }
+        .masthead-meta { text-align: left; }
+        article { padding-top: 32px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="brand" href="index.html" aria-label="Daily Tech Briefing home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 96 96" aria-hidden="true">
+              <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+              <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+              <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+              <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+            </svg>
+          </span>
+          <span>
+            <span class="brand-name">Tech Briefing<span class="brand-dot">.</span></span>
+            <span class="brand-tag" style="display:block;">Your daily dose of tech news — signal, not noise.</span>
+          </span>
+        </a>
+                <div class="masthead-meta">
+          <strong>Archive</strong><br />
+          Every story, newest first
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <article>
+        <div class="dateline-row">
+          <span class="kicker">Archive</span>
+        </div>
+
+        <h1>Every story, <span class="money">newest first.</span></h1>
+
+        <p class="deck">The full river of Daily Tech Briefing stories &mdash; every story from every briefing, linked to the original reporting where it could be verified.</p>
+
+        <div class="byline">
+          <span class="who">Daily Tech Briefing</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>October 23 &ndash; November 10, 2026</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>59 stories</span>
+        </div>
+
+        <section aria-labelledby="d-2026-11-10">
+          <h2 id="d-2026-11-10">Tuesday, November 10, 2026</h2>
+          <p><a href="https://www.reuters.com/technology/anthropic-unveils-new-fable-mythos-models-competition-heats-up-ahead-ipo-2026-11-09/" target="_blank" rel="noopener"><strong>Anthropic launches Claude Fable 5.2 and Claude Mythos 5.2, its most capable models yet, days before its IPO roadshow</strong></a> &mdash; Reuters &middot; Nov 10, 2026</p>
+          <p><a href="https://www.reuters.com/legal/litigation/nvidia-spy-allegations-likely-spur-laws-to-tighten-chinas-access-ai-chips-2026-11-09/" target="_blank" rel="noopener"><strong>Nvidia spy allegations spur Congress to tighten China’s access to AI chips</strong></a> &mdash; Reuters &middot; Nov 10, 2026</p>
+          <p><a href="https://www.theverge.com/ai-artificial-intelligence/1029552/apple-siri-ai-agentic" target="_blank" rel="noopener"><strong>Apple is racing to make Siri a real AI agent</strong></a> &mdash; The Verge &middot; Nov 10, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/09/musk-says-tesla-will-refund-some-cybertruck-deposits-defends-decision-to-end-production/" target="_blank" rel="noopener"><strong>Tesla will end Cybertruck production in about eight months, Musk says</strong></a> &mdash; TechCrunch &middot; Nov 10, 2026</p>
+          <p><a href="https://www.reuters.com/legal/transactional/spacex-plans-24-billion-gas-power-plant-data-center-project-texas-2026-11-09/" target="_blank" rel="noopener"><strong>SpaceX wants to generate its own power and run its own supercomputer at Starbase</strong></a> &mdash; Reuters &middot; Nov 10, 2026</p>
+          <p><a href="https://betanews.com/article/instagram-ai-age-checks/" target="_blank" rel="noopener"><strong>Meta takes Instagram’s AI age checks worldwide</strong></a> &mdash; BetaNews &middot; Nov 10, 2026</p>
+          <p><a href="https://www.reuters.com/commentary/breakingviews/japan-chip-deal-everyone-wins-except-buyer-2026-11-10/" target="_blank" rel="noopener"><strong>Mitsui Chemicals to buy chip-materials maker JSR for $11.6 billion</strong></a> &mdash; Reuters &middot; Nov 10, 2026</p>
+          <p><a href="https://the-decoder.com/ai-coding-agents-still-need-human-cleanup-on-nearly-three-out-of-four-tasks-in-a-real-world-test/" target="_blank" rel="noopener"><strong>A new real-world coding test finds AI agents finish far less than benchmarks suggest</strong></a> &mdash; The Decoder &middot; Nov 10, 2026</p>
+          <p><a href="https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/" target="_blank" rel="noopener"><strong>Impossible Metals says its AI seabed-mining robot retrieved minerals from 4,000 meters down</strong></a> &mdash; Reuters &middot; Nov 10, 2026</p>
+        </section>
+
+        <section aria-labelledby="d-2026-11-09">
+          <h2 id="d-2026-11-09">Monday, November 9, 2026</h2>
+          <p><a href="https://www.reuters.com/world/asia-pacific/what-we-know-about-nvidias-probe-into-ceo-jensen-huang-2026-11-09/" target="_blank" rel="noopener"><strong>Nvidia’s board opens a probe into CEO Jensen Huang after reports he was targeted by a foreign intelligence effort</strong></a> &mdash; Reuters &middot; Nov 9, 2026</p>
+          <p><a href="https://the-decoder.com/anthropic-pushes-ahead-with-pre-thanksgiving-ipo-despite-tech-selloff-accepts-lower-valuation/" target="_blank" rel="noopener"><strong>Anthropic pushes ahead with its IPO roadshow next week at a lower valuation</strong></a> &mdash; The Decoder &middot; Nov 9, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/" target="_blank" rel="noopener"><strong>OpenAI raises $11 billion at a $1.25 trillion valuation, well short of its target</strong></a> &mdash; TechCrunch &middot; Nov 9, 2026</p>
+          <p><a href="https://www.engadget.com/2310316/suno-ai-music-generator-sued-again-for-copyright-infringement/" target="_blank" rel="noopener"><strong>Elvis Presley’s rights holders and Eminem’s publisher sue Suno over AI music</strong></a> &mdash; Engadget &middot; Nov 9, 2026</p>
+          <p><a href="http://thehackernews.com/2026/11/claude-codes-dont-ask-again-file.html" target="_blank" rel="noopener"><strong>Claude Code’s “Don’t Ask Again” feature leaked passwords into 1,122 public GitHub repositories</strong></a> &mdash; The Hacker News &middot; Nov 9, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/" target="_blank" rel="noopener"><strong>Google takes over Crusoe’s Wyoming data center site in a $17 billion bet</strong></a> &mdash; TechCrunch &middot; Nov 9, 2026</p>
+          <p><a href="https://businessexaminer.ca/victoria-articles/item/microsoft-researcher-john-langford-exits-as-ai-frontiers-group-is-declared/" target="_blank" rel="noopener"><strong>Microsoft’s flagship AI Frontiers research group is over, and its founder has left</strong></a> &mdash; Business Examiner &middot; Nov 9, 2026</p>
+          <p><a href="https://www.reuters.com/world/asia-pacific/taiwans-october-exports-surge-again-strong-ai-demand-2026-11-09/" target="_blank" rel="noopener"><strong>Taiwan’s October exports surge nearly 59% on AI demand</strong></a> &mdash; Reuters &middot; Nov 9, 2026</p>
+        </section>
+
+        <section aria-labelledby="d-2026-11-06">
+          <h2 id="d-2026-11-06">Friday, November 6, 2026</h2>
+          <p><a href="https://www.reuters.com/commentary/reuters-open-interest/global-markets-trading-day-graphic-2026-11-05/" target="_blank" rel="noopener"><strong>The AI trade implodes as tech stocks rout after the midterms</strong></a> &mdash; Reuters &middot; Nov 6, 2026</p>
+          <p><a href="https://openai.com/index/setting-new-standard-responsible-ai-infrastructure/" target="_blank" rel="noopener"><strong>OpenAI drops data-center NDAs and promises to pay its own power bills</strong></a> &mdash; OpenAI &middot; Nov 6, 2026</p>
+          <p><a href="https://www.reuters.com/technology/openai-launches-gpt-6-cyber-with-critical-cybersecurity-rating-2026-11-05/" target="_blank" rel="noopener"><strong>OpenAI launches GPT-6 Cyber with a Critical cybersecurity rating</strong></a> &mdash; Reuters &middot; Nov 6, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/05/meta-google-and-tiktok-sue-california-ag-over-teen-social-media-law/" target="_blank" rel="noopener"><strong>Meta, Google, and TikTok sue California over its teen social media law</strong></a> &mdash; TechCrunch &middot; Nov 6, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/05/claude-can-now-analyze-your-spending-with-its-new-personal-finance-tool/" target="_blank" rel="noopener"><strong>Claude can now plug into your bank account and explain where your money went</strong></a> &mdash; TechCrunch &middot; Nov 6, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/04/apple-is-reportedly-cutting-budgets-for-its-internal-ai-usage/" target="_blank" rel="noopener"><strong>Apple is cutting what its engineers can spend on AI</strong></a> &mdash; TechCrunch &middot; Nov 6, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/05/the-new-york-times-reportedly-in-talks-to-buy-letterboxd-for-330-million/" target="_blank" rel="noopener"><strong>The New York Times is reportedly in talks to buy Letterboxd for $330 million</strong></a> &mdash; TechCrunch &middot; Nov 6, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/05/airbnb-says-its-launching-an-ai-travel-agent-in-the-first-half-of-2027/" target="_blank" rel="noopener"><strong>Airbnb will launch an AI travel agent in the first half of 2027</strong></a> &mdash; TechCrunch &middot; Nov 6, 2026</p>
+          <p><a href="https://www.reuters.com/technology/ibm-amd-oak-ridge-national-laboratory-launch-quantum-error-correction-platform-2026-11-05/" target="_blank" rel="noopener"><strong>IBM, AMD, and Oak Ridge launch a quantum error correction platform</strong></a> &mdash; Reuters &middot; Nov 6, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/05/amazon-ditches-grubhub-taps-uber-eats-for-prime/" target="_blank" rel="noopener"><strong>Amazon ditches Grubhub and taps Uber Eats for Prime</strong></a> &mdash; TechCrunch &middot; Nov 6, 2026</p>
+        </section>
+
+        <section aria-labelledby="d-2026-11-05">
+          <h2 id="d-2026-11-05">Thursday, November 5, 2026</h2>
+          <p><a href="https://techcrunch.com/2026/11/04/openai-acquires-pierre-computer-company-to-make-git-keep-up-with-ai-coding-agents/" target="_blank" rel="noopener"><strong>OpenAI buys Pierre and Meta buys Conductor in a same-day coding-agent shopping spree</strong></a> &mdash; TechCrunch &middot; Nov 5, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/04/almost-no-one-uses-ai-agents-to-book-their-uber-company-says/" target="_blank" rel="noopener"><strong>Uber says AI agents booked just four rides in its busiest week</strong></a> &mdash; TechCrunch &middot; Nov 5, 2026</p>
+          <p><a href="https://community.openai.com/t/images-upgraded-introducing-chatgpt-images-2-6/1412901" target="_blank" rel="noopener"><strong>ChatGPT can now turn a prompt or a photo into an animated GIF with Images 2.6</strong></a> &mdash; OpenAI &middot; Nov 5, 2026</p>
+          <p><a href="https://www.reuters.com/technology/artificial-intelligence/midterm-ballot-measures-voters-send-message-ai-builders-2026-11-04/" target="_blank" rel="noopener"><strong>Midterm voters send a message to AI builders: slow down the data centers</strong></a> &mdash; Reuters &middot; Nov 5, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/04/nothing-ceo-says-companys-mysterious-ai-first-device-is-dropping-next-month/" target="_blank" rel="noopener"><strong>Nothing says its first AI device ships in December, and it has no screen</strong></a> &mdash; TechCrunch &middot; Nov 5, 2026</p>
+          <p><a href="https://www.reuters.com/technology/terawulf-gets-credit-backstop-google-anthropic-data-center-project-2026-11-04/" target="_blank" rel="noopener"><strong>Google backs TeraWulf with a credit backstop for its Anthropic data-center project</strong></a> &mdash; Reuters &middot; Nov 5, 2026</p>
+          <p><a href="https://www.reuters.com/technology/figma-banking-ai-credits-in-house-model-lift-margins-2026-11-04/" target="_blank" rel="noopener"><strong>Figma raises its forecast as AI credits lift margins</strong></a> &mdash; Reuters &middot; Nov 5, 2026</p>
+        </section>
+
+        <section aria-labelledby="d-2026-11-04">
+          <h2 id="d-2026-11-04">Wednesday, November 4, 2026</h2>
+          <p><a href="https://en.sedaily.com/international/2026/11/04/amd-data-center-revenue-doubles-shares-jump-8-percent" target="_blank" rel="noopener"><strong>AMD posts a record quarter as AI data-center sales nearly double</strong></a> &mdash; Seoul Economic Daily &middot; Nov 4, 2026</p>
+          <p><a href="https://www.reuters.com/technology/meta-raises-15-billion-in-five-part-us-bond-sale-2026-11-03/" target="_blank" rel="noopener"><strong>Meta raises $15 billion in bonds to fund its AI buildout</strong></a> &mdash; Reuters &middot; Nov 4, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/03/crowdstrike-to-shell-out-nearly-500m-for-2-ai-security-startups-as-the-market-for-securing-agents-takes-off/" target="_blank" rel="noopener"><strong>CrowdStrike spends nearly $500 million on two AI security startups</strong></a> &mdash; TechCrunch &middot; Nov 4, 2026</p>
+          <p><a href="https://blog.google/products-and-platforms/products/education/ai-learning-era-updates-2026/" target="_blank" rel="noopener"><strong>Google brings Guided Learning to Classroom worldwide and tightens school AI controls</strong></a> &mdash; Google &middot; Nov 4, 2026</p>
+          <p><a href="https://www.reuters.com/world/binance-says-hackers-used-fake-job-interview-compromise-computer-before-63-2026-11-03/" target="_blank" rel="noopener"><strong>Binance says hackers used a fake job interview and an AI tool in the $6.3 billion heist</strong></a> &mdash; Reuters &middot; Nov 4, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/03/reddit-tests-ads-in-search-results-as-traffic-declines-and-growth-concerns-mount/" target="_blank" rel="noopener"><strong>Reddit tests ads in search results as Google’s AI search cuts its traffic</strong></a> &mdash; TechCrunch &middot; Nov 4, 2026</p>
+          <p><a href="https://www.reuters.com/world/asia-pacific/samsung-make-amd-nvidia-chip-parts-second-texas-plant-maeil-business-reports-2026-11-03/" target="_blank" rel="noopener"><strong>Samsung’s second Texas plant will make AMD and Nvidia chip parts, report says</strong></a> &mdash; Reuters &middot; Nov 4, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/03/anthropic-is-working-on-a-system-to-prove-ai-models-identity/" target="_blank" rel="noopener"><strong>Anthropic open-sources FlashProve, a cryptographic check on which AI model answered</strong></a> &mdash; TechCrunch &middot; Nov 4, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/03/apple-restricts-dating-apps-and-ai-companions-to-users-18-and-up/" target="_blank" rel="noopener"><strong>Apple restricts dating apps and AI companions to users 18 and up</strong></a> &mdash; TechCrunch &middot; Nov 4, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/03/netflixs-new-ai-discover-tab-helps-you-find-something-to-watch-based-on-your-mood/" target="_blank" rel="noopener"><strong>Netflix launches an AI Discover tab that recommends by mood</strong></a> &mdash; TechCrunch &middot; Nov 4, 2026</p>
+        </section>
+
+        <section aria-labelledby="d-2026-11-03">
+          <h2 id="d-2026-11-03">Tuesday, November 3, 2026</h2>
+          <p><a href="https://9to5mac.com/2026/11/02/apple-stock-drops-nearly-3-after-hours-following-q4-2026-results/" target="_blank" rel="noopener"><strong>Apple beats expectations in its first earnings report under John Ternus</strong></a> &mdash; 9to5Mac &middot; Nov 3, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/02/in-one-of-the-largest-deals-in-tech-history-marvell-buys-lumentum-for-115b/" target="_blank" rel="noopener"><strong>Marvell buys Lumentum for $115 billion in one of tech’s biggest deals</strong></a> &mdash; TechCrunch &middot; Nov 3, 2026</p>
+          <p><a href="https://www.thewrap.com/industry-news/tech/new-york-times-chicago-tribune-brave-ai-copyright-lawsuit/" target="_blank" rel="noopener"><strong>The New York Times and Tribune papers sue Brave over its AI scraping index</strong></a> &mdash; TheWrap &middot; Nov 3, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/02/google-takes-dreambeans-to-india-in-bid-to-bring-ai-generated-personal-stories-to-the-masses/" target="_blank" rel="noopener"><strong>Google takes its Dreambeans AI story app to India</strong></a> &mdash; TechCrunch &middot; Nov 3, 2026</p>
+          <p><a href="https://techcrunch.com/2026/11/02/apple-watchs-ai-features-for-rewinding-and-recapping-conversations-begin-beta-testing/" target="_blank" rel="noopener"><strong>Apple Watch’s conversation-rewinding AI features enter beta testing</strong></a> &mdash; TechCrunch &middot; Nov 3, 2026</p>
+        </section>
+
+        <section aria-labelledby="d-2026-11-02">
+          <h2 id="d-2026-11-02">Monday, November 2, 2026</h2>
+          <p><a href="https://www.wsj.com/tech/ai/openai-raises-less-than-half-of-30-billion-target-in-latest-round-91aecdc5" target="_blank" rel="noopener"><strong>OpenAI raises far less than its $30 billion target</strong></a> &mdash; The Wall Street Journal &middot; Nov 2, 2026</p>
+          <p><a href="https://techcrunch.com/2026/10/31/judge-allows-naacp-lawsuit-over-xai-data-center-pollution-to-move-forward/" target="_blank" rel="noopener"><strong>Judge lets the NAACP’s pollution lawsuit over xAI’s turbines proceed</strong></a> &mdash; TechCrunch &middot; Nov 2, 2026</p>
+          <p><a href="https://ballotpedia.org/Data_center-related_ballot_measures,_2026" target="_blank" rel="noopener"><strong>Data centers are on the ballot Tuesday in towns across America</strong></a> &mdash; Ballotpedia &middot; Nov 2, 2026</p>
+          <p><a href="https://www.reuters.com/world/china/chinas-robot-makers-have-mastered-moves-now-comes-race-brains-2026-11-01/" target="_blank" rel="noopener"><strong>China’s robot makers have mastered the moves — now comes the race for brains</strong></a> &mdash; Reuters &middot; Nov 2, 2026</p>
+        </section>
+
+        <section aria-labelledby="d-2026-10-30">
+          <h2 id="d-2026-10-30">Friday, October 30, 2026</h2>
+          <p><a href="https://www.nytimes.com/2026/10/29/technology/doordash-instacart-acquisition-delivery.html" target="_blank" rel="noopener"><strong>DoorDash to buy Instacart for $17 billion</strong></a> &mdash; The New York Times &middot; Oct 30, 2026</p>
+        </section>
+
+        <section aria-labelledby="d-2026-10-29">
+          <h2 id="d-2026-10-29">Thursday, October 29, 2026</h2>
+          <p><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/" target="_blank" rel="noopener"><strong>Google unveils Gemini 4 Carbon, but only a select few can use it for now</strong></a> &mdash; Google &middot; Oct 29, 2026</p>
+        </section>
+
+        <section aria-labelledby="d-2026-10-28">
+          <h2 id="d-2026-10-28">Wednesday, October 28, 2026</h2>
+          <p><a href="https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation" target="_blank" rel="noopener"><strong>Google launches Genie 4, a world model that builds living, playable worlds</strong></a> &mdash; Google DeepMind &middot; Oct 28, 2026</p>
+        </section>
+
+        <section aria-labelledby="d-2026-10-27">
+          <h2 id="d-2026-10-27">Tuesday, October 27, 2026</h2>
+          <p><a href="https://www.wsj.com/tech/ai/anthropic-ipo-s1-report-takeaways-6eebd721" target="_blank" rel="noopener"><strong>Anthropic files for its IPO — a trillion-dollar-plus listing</strong></a> &mdash; The Wall Street Journal &middot; Oct 27, 2026</p>
+        </section>
+
+        <section aria-labelledby="d-2026-10-26">
+          <h2 id="d-2026-10-26">Monday, October 26, 2026</h2>
+          <p><a href="https://www.reuters.com/business/media-telecom/musk-says-spacex-raised-40-billion-debt-gpus-2026-10-25/" target="_blank" rel="noopener"><strong>SpaceX closes $40 billion in GPU debt</strong></a> &mdash; Reuters &middot; Oct 26, 2026</p>
+        </section>
+
+        <section aria-labelledby="d-2026-10-23">
+          <h2 id="d-2026-10-23">Friday, October 23, 2026</h2>
+          <p><a href="https://www.cnbc.com/2026/10/22/openai-funding-round-uae-investors.html" target="_blank" rel="noopener"><strong>OpenAI nears $30 billion round at $1.25 trillion valuation</strong></a> &mdash; CNBC &middot; Oct 23, 2026</p>
+        </section>
+      </article>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <span>Daily Tech Briefing &mdash; your daily dose of tech news. Signal, not noise.</span>
+        <span><a href="index.html">← All posts</a> · October 23, 2026</span>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var bar = document.getElementById('progress');
+        function onScroll() {
+          var h = document.documentElement;
+          var max = h.scrollHeight - h.clientHeight;
+          var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+          bar.style.width = pct + '%';
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+    </script>
+  </body>
+</html>
