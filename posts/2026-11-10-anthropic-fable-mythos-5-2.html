@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <meta name="theme-color" content="#0A0F1E" />
+    <meta name="description" content="Anthropic's Fable 5.2 and Mythos 5.2 explained in plain English &mdash; what happened, why it matters for you, and what to watch next. From today's Daily Tech Briefing." />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Daily Tech Briefing" />
+    <meta property="og:title" content="Anthropic's Fable 5.2 and Mythos 5.2 &mdash; Daily Tech Briefing" />
+    <meta property="og:description" content="Anthropic's most capable models yet are faster and 20% cheaper, days before its IPO roadshow &mdash; and Mythos is gated behind verification programs." />
+    <meta property="og:url" content="https://dtbrief.com/posts/2026-11-10-anthropic-fable-mythos-5-2.html" />
+    <meta property="article:published_time" content="2026-11-10" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"NewsArticle","headline":"Anthropic's Fable 5.2 and Mythos 5.2: What Happened, Why It Matters, What Comes Next","datePublished":"2026-11-10","author":{"@type":"Organization","name":"Daily Tech Briefing"},"publisher":{"@type":"Organization","name":"Daily Tech Briefing","url":"https://dtbrief.com/"},"mainEntityOfPage":"https://dtbrief.com/posts/2026-11-10-anthropic-fable-mythos-5-2.html"}
+    </script>
+    <title>Anthropic's Fable 5.2 and Mythos 5.2: What Happened, Why It Matters, What Comes Next &mdash; Daily Tech Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #F4F6F8;
+        --ink: #0A0F1E;
+        --ink-soft: #2E3A52;
+        --ink-faint: #5A6478;
+        --rule: #D8DEE7;
+        --accent: #0090C8;
+        --accent-soft: rgba(0, 144, 200, 0.08);
+        --card: #ffffff;
+        --chip-bg: #0A0F1E;
+        --chip-ink: #F4F6F8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #070B16;
+          --ink: #EDF1F8;
+          --ink-soft: #C7D3E8;
+          --ink-faint: #93A0B8;
+          --rule: #22304F;
+          --accent: #00C2FF;
+          --accent-soft: rgba(0, 194, 255, 0.12);
+          --card: #0D1424;
+          --chip-bg: #EDF1F8;
+          --chip-ink: #070B16;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .sans { font-family: "IBM Plex Sans", system-ui, sans-serif; }
+
+      #progress {
+        position: fixed;
+        top: 0; left: 0;
+        height: 3px;
+        width: 0%;
+        background: #00C2FF;
+        z-index: 50;
+      }
+
+      /* ---------- Masthead ---------- */
+      .masthead {
+        border-bottom: 2px solid var(--ink);
+      }
+      .masthead-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 18px 24px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand-mark {
+        width: 40px; height: 40px;
+        flex: none;
+        display: grid;
+        place-items: center;
+      }
+      .brand-name {
+        font-family: "Sora", sans-serif;
+        font-weight: 800;
+        font-size: 21px;
+        letter-spacing: -0.01em;
+        line-height: 1.05;
+      }
+      .brand-dot { color: var(--accent); }
+      .brand-tag {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 2px;
+      }
+      .masthead-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        text-align: right;
+        line-height: 1.5;
+      }
+      .masthead-meta strong { color: var(--ink); font-weight: 600; }
+
+      /* ---------- Layout ---------- */
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      article {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 44px 0 8px;
+      }
+
+      .dateline-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      .kicker {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .sample-chip {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: var(--chip-bg);
+        color: var(--chip-ink);
+        padding: 4px 9px;
+        border-radius: 999px;
+      }
+
+      h1 {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(34px, 5.4vw, 54px);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px;
+      }
+      h1 .money { color: var(--accent); }
+      .deck {
+        font-size: clamp(19px, 2.6vw, 22px);
+        line-height: 1.45;
+        font-style: italic;
+        color: var(--ink-soft);
+        margin: 0 0 26px;
+      }
+      .byline {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        color: var(--ink-faint);
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        padding: 12px 0;
+        margin-bottom: 34px;
+      }
+      .byline .who { color: var(--ink); font-weight: 600; }
+      .byline .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+
+      /* ---------- Key numbers ---------- */
+      .keynums {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+      .keynum {
+        padding: 20px 20px 16px;
+      }
+      .keynum + .keynum { border-left: 1px solid var(--rule); }
+      .keynum .fig {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(24px, 3.4vw, 32px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .keynum .fig em { font-style: normal; color: var(--accent); }
+      .keynum .lbl {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--ink-faint);
+        margin-top: 8px;
+      }
+
+      /* ---------- Body copy ---------- */
+      section { margin-bottom: 38px; }
+      h2 {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin: 0 0 16px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      h2 .num {
+        font-family: "Sora", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0;
+        color: var(--accent);
+        line-height: 1;
+      }
+      p {
+        font-size: 19px;
+        line-height: 1.68;
+        color: var(--ink-soft);
+        margin: 0 0 18px;
+      }
+      p strong { color: var(--ink); font-weight: 700; }
+      p a, .source-card a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+      .inline-icon { width: 16px; height: 16px; vertical-align: -2px; }
+
+      .pull {
+        border-left: 3px solid var(--accent);
+        padding: 4px 0 4px 20px;
+        margin: 28px 0;
+        font-size: 22px;
+        line-height: 1.4;
+        font-weight: 500;
+        font-style: italic;
+        color: var(--ink);
+      }
+
+      ul.watch {
+        list-style: none;
+        margin: 0 0 18px;
+        padding: 0;
+      }
+      ul.watch li {
+        font-size: 19px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        padding: 12px 0 12px 0;
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 14px;
+      }
+      ul.watch li:first-child { border-top: none; padding-top: 2px; }
+      ul.watch .w-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        padding-top: 5px;
+      }
+
+      /* ---------- Source + episode ---------- */
+      .source-card {
+        background: var(--accent-soft);
+        border-radius: 14px;
+        padding: 22px 24px;
+        margin: 44px 0 18px;
+      }
+      .source-card .sc-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .source-card p { font-size: 17px; margin: 0; line-height: 1.55; }
+
+      .episode-note {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 48px;
+        background: var(--card);
+      }
+      .play-btn {
+        width: 42px; height: 42px;
+        flex: none;
+        border-radius: 50%;
+        background: #00C2FF;
+        display: grid;
+        place-items: center;
+      }
+      .episode-note p { font-size: 16.5px; margin: 0; line-height: 1.55; }
+      .episode-note .ep-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 4px;
+      }
+
+      footer {
+        border-top: 2px solid var(--ink);
+        margin-top: 8px;
+      }
+      .footer-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 20px 24px 34px;
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 620px) {
+        .keynums { grid-template-columns: 1fr; }
+        .keynum + .keynum { border-left: none; border-top: 1px solid var(--rule); }
+        ul.watch li { grid-template-columns: 1fr; gap: 2px; }
+        ul.watch .w-label { padding-top: 0; }
+        .masthead-meta { text-align: left; }
+        article { padding-top: 32px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="brand" href="../index.html" aria-label="Daily Tech Briefing home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 96 96" aria-hidden="true">
+              <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+              <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+              <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+              <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+            </svg>
+          </span>
+          <span>
+            <span class="brand-name">Tech Briefing<span class="brand-dot">.</span></span>
+            <span class="brand-tag" style="display:block;">Your daily dose of tech news &mdash; signal, not noise.</span>
+          </span>
+        </a>
+        <div class="masthead-meta">
+          <strong>Tuesday, November 10, 2026</strong><br />
+          The blog companion to the podcast
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <article>
+        <div class="dateline-row">
+          <span class="kicker">Top Story</span>
+        </div>
+
+        <h1>Anthropic&rsquo;s Fable 5.2 and Mythos 5.2 Are <span class="money">20% Cheaper</span> &mdash; and Days From an IPO.</h1>
+
+        <p class="deck">Anthropic&rsquo;s most capable models yet arrive faster and cheaper, with a price cut aimed squarely at developers &mdash; days before the biggest AI IPO ever.</p>
+
+        <div class="byline">
+          <span class="who">Daily Tech Briefing</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>November 10, 2026</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>5 min read</span>
+        </div>
+
+        <div class="keynums" role="group" aria-label="Key numbers">
+          <div class="keynum">
+            <div class="fig"><em>49.1%</em></div>
+            <div class="lbl">Fable 5.2&rsquo;s score on Anthropic&rsquo;s FrontierCode 2.0 coding benchmark, vs 32.4% for Fable 5.1</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">$8 / $40</div>
+            <div class="lbl">Per million input / output tokens, down from $10 / $50 &mdash; a 20% price cut</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">1M tokens</div>
+            <div class="lbl">Context window on both new models, with a 128,000-token maximum output</div>
+          </div>
+        </div>
+
+        <section aria-labelledby="s1">
+          <h2 id="s1"><span class="num">1</span> What happened</h2>
+          <p>On Monday, Anthropic unveiled two new AI models, Claude Fable 5.2 and Claude Mythos 5.2, its most capable models to date. The two share the same underlying system: Fable 5.2 is broadly available and built for coding, reasoning, and AI agent work, while Mythos 5.2 is restricted to organizations approved through Anthropic&rsquo;s verification programs for cybersecurity and life-sciences research. Anthropic says the new models generate outputs up to 30 percent faster than their Fable 5.1 and Mythos 5.1 predecessors, communicate more clearly, and cost 20 percent less, at $8 per million input tokens and $40 per million output tokens, down from $10 and $50. An optional fast mode generates tokens up to two and a half times faster at double the price.</p>
+          <p>On Anthropic&rsquo;s own FrontierCode 2.0 coding benchmark, Fable 5.2 scored 49.1 percent, against 32.4 percent for Fable 5.1 and 45.5 percent for Opus 5.5, and the company says a team of about 1,000 Fable 5.2 agents formalized Fermat&rsquo;s Last Theorem in about 30 hours. Both models carry a one-million-token context window. The launch follows Anthropic&rsquo;s rollout of Claude Haiku 5.5 in October, and it lands days before the company&rsquo;s investor roadshow, expected to start next week, with a Nasdaq listing targeted for the week of November 16. Under SEC rules, the roadshow cannot begin before November 10 &mdash; today.</p>
+        </section>
+
+        <section aria-labelledby="s2">
+          <h2 id="s2"><span class="num">2</span> Why it matters</h2>
+          <p>First, <strong>this is a price war fought with better models, not worse ones</strong>. Anthropic is cutting prices and raising capability at the same time, which forces every rival to respond. OpenAI, Google, and Meta are all shipping models aimed at the same prize: coding agents that do real work for developers and enterprises. A 20 percent cut on the flagship, with a 30 percent speed bump, is a direct bid for that market.</p>
+          <p>Second, the timing. Anthropic is pressing ahead with its IPO despite last week&rsquo;s sharp selloff in tech stocks, prepared to accept a valuation of $1.25 to $1.75 trillion and raise $80 to $100 billion, according to investors cited by the <em>Financial Times</em> &mdash; well below the $2 trillion the most optimistic investors had hoped for in October. A strong new flagship, priced to win developers, is the story Anthropic wants to tell investors on the roadshow.</p>
+          <div class="pull">Anthropic is cutting prices and raising capability at the same time &mdash; the exact combination that forces every rival to respond.</div>
+          <p>Third, the launch carries a tension. It is Anthropic&rsquo;s first frontier release since chief executive Dario Amodei called in September for the industry to slow the pace of capability gains. The company&rsquo;s answer, in effect, is that it will ship the capability and gate the riskiest uses: Mythos 5.2, the version with looser cybersecurity and biology guardrails, is available only to vetted organizations, and Fable 5.2 keeps the strongest anti-distillation protections Anthropic has shipped. How well that split holds &mdash; capability for everyone, dual-use power for the vetted few &mdash; is now the company&rsquo;s central safety bet, and it will be tested in public as a listed company.</p>
+        </section>
+
+        <section aria-labelledby="s3">
+          <h2 id="s3"><span class="num">3</span> What to watch next</h2>
+          <ul class="watch">
+            <li>
+              <span class="w-label">This week &mdash; roadshow</span>
+              <span>Anthropic&rsquo;s investor roadshow is expected to start this week, with a Nasdaq listing targeted for the week of November 16, ahead of Thanksgiving. Watch the price range when it is set &mdash; it will show whether the selloff or the new models moved the valuation.</span>
+            </li>
+            <li>
+              <span class="w-label">The price response</span>
+              <span>A 20 percent cut on a flagship model rarely goes unanswered. Watch whether OpenAI or Google adjust pricing on their coding models, and whether developers actually switch &mdash; price only matters if the model is better where it counts.</span>
+            </li>
+            <li>
+              <span class="w-label">Real-world coding</span>
+              <span>Benchmarks are not the job. A new real-world coding test this week found the leading model fully completes only 26.4 percent of tasks &mdash; see the digest below. Fable 5.2&rsquo;s claims will be judged on finished work, not scores.</span>
+            </li>
+            <li>
+              <span class="w-label">Mythos access</span>
+              <span>Mythos 5.2 is limited to organizations in Anthropic&rsquo;s Cyber and Life Sciences Verification Programs. Watch who gets in, and whether the gated model becomes the template for how frontier labs handle dual-use AI.</span>
+            </li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="s4">
+          <h2 id="s4">The rest of today&rsquo;s briefing</h2>
+          <p><a href="https://www.reuters.com/legal/litigation/nvidia-spy-allegations-likely-spur-laws-to-tighten-chinas-access-ai-chips-2026-11-09/" target="_blank" rel="noopener"><strong>Nvidia spy allegations spur Congress to tighten China&rsquo;s access to AI chips</strong></a> &mdash; Congress is more likely to pass legislation tightening China&rsquo;s access to advanced AI chips after news that Nvidia CEO Jensen Huang had a relationship with a suspected Chinese intelligence agent, lawmakers and advocates said on Monday. Three measures are in play for the annual defense authorization bill: the AI Overwatch Act, the Chip Security Act, and the Match Act. Senators Elizabeth Warren and Jim Banks said in a joint statement that the confirmation makes these national security concerns even more urgent, and President Trump said the FBI was also looking into the matter. &mdash; Reuters</p>
+          <p><a href="https://www.theverge.com/ai-artificial-intelligence/1029552/apple-siri-ai-agentic" target="_blank" rel="noopener"><strong>Apple is racing to make Siri a real AI agent</strong></a> &mdash; Apple CEO John Ternus is pressuring software chief Craig Federighi to accelerate Siri&rsquo;s development into a true AI agent that can compete with OpenAI&rsquo;s Dots and Meta&rsquo;s Muse, Bloomberg&rsquo;s Mark Gurman reported. Siri should gain fine-grained control over Apple&rsquo;s own apps with iOS 27.3, expected in December, then third-party app actions in a spring release. The longer-term goal is a Siri that tracks goals and keeps going without the user starting every step, possibly as early as next year. Apple has not confirmed any timeline. &mdash; The Verge</p>
+          <p><a href="https://www.theneuron.ai/digest/everything-that-happened-in-ai-today-monday-november-9-2026/" target="_blank" rel="noopener"><strong>Anthropic reportedly struck a $3.4 billion deal for gas generators to power its future data centers</strong></a> &mdash; Anthropic agreed to a $3.4 billion transaction to secure orders for gas-powered generators capable of producing 1.7 gigawatts of electricity, the Financial Times reported. Anthropic took over existing generator orders from Texas-based OnePWR Solutions rather than buying the company. The deal was struck in September and only became public on November 8, and neither company had publicly confirmed it. The AI buildout has become an energy story as much as a software one. &mdash; Financial Times</p>
+          <p><a href="https://techcrunch.com/2026/11/09/musk-says-tesla-will-refund-some-cybertruck-deposits-defends-decision-to-end-production/" target="_blank" rel="noopener"><strong>Tesla will end Cybertruck production in about eight months, Musk says</strong></a> &mdash; Tesla CEO Elon Musk said production of the polarizing steel-clad truck will shut down in about eight months, claiming the order rate far exceeds production, and that Tesla will refund some Cybertruck deposits. Many of the truck&rsquo;s sales came from inside Musk&rsquo;s own ecosystem: SpaceX bought $131 million worth of Cybertrucks in 2025, and xAI bought $430 million worth of Tesla Megapacks before merging with SpaceX. The Cybertruck never reached the mass-market volumes Tesla once projected. &mdash; TechCrunch</p>
+          <p><a href="https://siliconnoon.com/today-in-ai-november-9-2026/" target="_blank" rel="noopener"><strong>SpaceX wants to generate its own power and run its own supercomputer at Starbase</strong></a> &mdash; A public hearing notice reported by Bloomberg shows SpaceX planning a gas-fired power plant and a supercomputing facility in Texas, with roughly $24 billion of investment in the initial phases. The plan follows the same playbook xAI used in Memphis: bring the turbines and skip the interconnection queue rather than waiting years for grid capacity. The project still needs regulatory approval, and no construction timeline has been confirmed. &mdash; Bloomberg</p>
+          <p><a href="https://betanews.com/article/instagram-ai-age-checks/" target="_blank" rel="noopener"><strong>Meta takes Instagram&rsquo;s AI age checks worldwide</strong></a> &mdash; Meta announced on November 9 that it is rolling out its AI age-estimation technology to Instagram users around the world, automatically placing accounts it suspects belong to teenagers into Teen Account protections even when the person claimed to be an adult at signup. Meta says millions more teens will get Teen Account protections, though it gave no exact count and no accuracy rate. In Australia, Meta is also using Apple&rsquo;s age-range signal as an extra check, and Threads is expected to get similar technology before the end of 2026. &mdash; BetaNews</p>
+          <p><a href="https://www.reuters.com/commentary/breakingviews/japan-chip-deal-everyone-wins-except-buyer-2026-11-10/" target="_blank" rel="noopener"><strong>Mitsui Chemicals to buy chip-materials maker JSR for $11.6 billion</strong></a> &mdash; Mitsui Chemicals said on November 9 that it will acquire chipmaking materials producer JSR from state-backed fund Japan Investment Corp for 1.84 trillion yen, about $11.6 billion. JSR makes photoresists and other materials essential to printing advanced chips. To raise funds, Mitsui will issue equity worth 150 billion yen, about $950 million, and its shares closed down 8.5 percent on the news. The deal is expected to close in the second half of the fiscal year ending March 2028. &mdash; Reuters</p>
+          <p><a href="https://www.preciseimpact.ai/briefing/ai-news-digest-2026-11-09" target="_blank" rel="noopener"><strong>A new real-world coding test finds AI agents finish far less than benchmarks suggest</strong></a> &mdash; A benchmark built by Alibaba and university researchers from real user change requests found the leading model fully completed only 26.4 percent of selected tasks, even though comparable models score above 99 percent on some older benchmarks. The test, called Co-Design Bench, measures whether an agent actually finishes a real-world coding change rather than making partial progress. The top model met about 70 percent of requirements on average while rarely delivering a complete, working result. &mdash; The Decoder</p>
+          <p><a href="https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/" target="_blank" rel="noopener"><strong>Impossible Metals says its AI seabed-mining robot retrieved minerals from 4,000 meters down</strong></a> &mdash; Deep-sea mining firm Impossible Metals said it has successfully tested an autonomous robot that uses AI to selectively retrieve critical minerals at depths of more than 4,000 meters in the Pacific Ocean. The robot&rsquo;s AI-guided claw picks up mineral nodules while avoiding aquatic life, according to the company. In a September expedition it retrieved about 450 grams of nodules and returned to the surface. The company still needs regulatory approval before any commercial mining. &mdash; Reuters</p>
+        </section>
+
+        <div class="source-card">
+          <div class="sc-label">Original reporting</div>
+          <p>This post is based on Reuters&rsquo; reporting: <a href="https://www.reuters.com/technology/anthropic-unveils-new-fable-mythos-models-competition-heats-up-ahead-ipo-2026-11-09/" target="_blank" rel="noopener">&ldquo;Anthropic unveils new Fable, Mythos models as competition heats up ahead of IPO&rdquo; &mdash; Reuters, November 9, 2026</a>. Also consulted: SiliconANGLE&rsquo;s coverage of the launch benchmarks and pricing, MLQ.ai&rsquo;s launch analysis, and the <em>Financial Times</em> reporting on Anthropic&rsquo;s IPO roadshow and valuation.</p>
+        </div>
+
+        <div class="episode-note">
+          <span class="play-btn" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 4.8v14.4L19 12 7 4.8z" fill="#0A0F1E"/>
+            </svg>
+          </span>
+          <div>
+            <div class="ep-label">Heard it in the briefing</div>
+            <p>This story led <strong>Episode 29</strong> of the Daily Tech Briefing podcast &mdash; your daily dose of tech news in about 10 minutes, read by Melody, your AI anchor. <a href="https://open.spotify.com/episode/2MkFK08HSLvZfFcC9gtHFh" target="_blank" rel="noopener"><svg class="inline-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1DB954" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg> Listen on Spotify</a> or <a href="https://podcasts.apple.com/us/podcast/daily-tech-briefing/id6822945922" target="_blank" rel="noopener"><svg class="inline-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#9933CC" d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0zm6.525 2.568c2.336 0 4.448.902 6.056 2.587 1.224 1.272 1.912 2.619 2.264 4.392.12.59.12 2.2.007 2.864a8.506 8.506 0 01-3.24 5.296c-.608.46-2.096 1.261-2.336 1.261-.088 0-.096-.091-.056-.46.072-.592.144-.715.48-.856.536-.224 1.448-.874 2.008-1.435a7.644 7.644 0 002.008-3.536c.208-.824.184-2.656-.048-3.504-.728-2.696-2.928-4.792-5.624-5.352-.784-.16-2.208-.16-3 0-2.728.56-4.984 2.76-5.672 5.528-.184.752-.184 2.584 0 3.336.456 1.832 1.64 3.512 3.192 4.512.304.2.672.408.824.472.336.144.408.264.472.856.04.36.03.464-.056.464-.056 0-.464-.176-.896-.384l-.04-.03c-2.472-1.216-4.056-3.274-4.632-6.012-.144-.706-.168-2.392-.03-3.04.36-1.74 1.048-3.1 2.192-4.304 1.648-1.737 3.768-2.656 6.128-2.656zm.134 2.81c.409.004.803.04 1.106.106 2.784.62 4.76 3.408 4.376 6.174-.152 1.114-.536 2.03-1.216 2.88-.336.43-1.152 1.15-1.296 1.15-.023 0-.048-.272-.048-.603v-.605l.416-.496c1.568-1.878 1.456-4.502-.256-6.224-.664-.67-1.432-1.064-2.424-1.246-.64-.118-.776-.118-1.448-.008-1.02.167-1.81.562-2.512 1.256-1.72 1.704-1.832 4.342-.264 6.222l.413.496v.608c0 .336-.027.608-.06.608-.03 0-.264-.16-.512-.36l-.034-.011c-.832-.664-1.568-1.842-1.872-2.997-.184-.698-.184-2.024.008-2.72.504-1.878 1.888-3.335 3.808-4.019.41-.145 1.133-.22 1.814-.211zm-.13 2.99c.31 0 .62.06.844.178a2.17 2.17 0 011.04 1.259c.464 1.578-1.208 2.96-2.72 2.254h-.015c-.712-.331-1.096-.956-1.104-1.77 0-.733.408-1.371 1.112-1.745.224-.117.534-.176.844-.176zm-.011 4.728c.988-.004 1.706.349 1.97.97.198.464.124 1.932-.218 4.302-.232 1.656-.36 2.074-.68 2.356-.44.39-1.064.498-1.656.288h-.003c-.716-.257-.87-.605-1.164-2.644-.341-2.37-.416-3.838-.218-4.302.262-.616.974-.966 1.97-.97z"/></svg> Listen on Apple Podcasts</a>.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <span>Daily Tech Briefing &mdash; your daily dose of tech news. Signal, not noise.</span>
+        <span><a href="../index.html">&larr; All posts</a> &middot; November 10, 2026</span>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var bar = document.getElementById('progress');
+        function onScroll() {
+          var h = document.documentElement;
+          var max = h.scrollHeight - h.clientHeight;
+          var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+          bar.style.width = pct + '%';
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+    </script>
+  </body>
+</html>
