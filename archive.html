@@ -359,6 +359,59 @@
         .masthead-meta { text-align: left; }
         article { padding-top: 32px; }
       }
+
+      .search-box {
+        width: 100%;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 17px;
+        padding: 13px 16px;
+        border: 1px solid var(--rule);
+        border-radius: 12px;
+        background: var(--card);
+        color: var(--ink);
+        margin: 0 0 8px;
+      }
+      .search-box:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+      .search-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        margin: 0 0 18px;
+      }
+      .search-results { margin-bottom: 8px; }
+      .search-results .post-card:last-child { margin-bottom: 24px; }
+
+      .post-card {
+        display: block;
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 24px 26px;
+        text-decoration: none;
+        color: var(--ink);
+        margin-bottom: 16px;
+      }
+      .post-card:hover { border-color: var(--accent); }
+      .post-card .kicker {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px; font-weight: 600;
+        letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--accent);
+      }
+      .post-card h3 {
+        font-family: "Sora", sans-serif;
+        font-size: 26px; line-height: 1.2;
+        font-weight: 800; letter-spacing: -0.01em;
+        margin: 10px 0 8px;
+      }
+      .post-card p {
+        font-size: 17px; line-height: 1.55;
+        color: var(--ink-soft); margin: 0 0 10px;
+      }
+      .post-card .meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px; color: var(--ink-faint);
+      }
     </style>
   </head>
   <body>
@@ -405,6 +458,12 @@
           <span>59 stories</span>
         </div>
 
+        <h2 class="section-label">Search</h2>
+        <input id="site-search" class="search-box" type="search" placeholder="Search stories &mdash; try &ldquo;Anthropic&rdquo; or &ldquo;Apple&rdquo;" autocomplete="off" aria-label="Search the briefing" />
+        <p id="search-meta" class="search-meta" aria-live="polite"></p>
+        <div id="search-results" class="search-results"></div>
+
+        <div id="browse-list">
         <section aria-labelledby="d-2026-11-10">
           <h2 id="d-2026-11-10">Tuesday, November 10, 2026</h2>
           <p><a href="https://www.reuters.com/technology/anthropic-unveils-new-fable-mythos-models-competition-heats-up-ahead-ipo-2026-11-09/" target="_blank" rel="noopener"><strong>Anthropic launches Claude Fable 5.2 and Claude Mythos 5.2, its most capable models yet, days before its IPO roadshow</strong></a> &mdash; Reuters &middot; Nov 10, 2026</p>
@@ -515,6 +574,7 @@
           <h2 id="d-2026-10-23">Friday, October 23, 2026</h2>
           <p><a href="https://www.cnbc.com/2026/10/22/openai-funding-round-uae-investors.html" target="_blank" rel="noopener"><strong>OpenAI nears $30 billion round at $1.25 trillion valuation</strong></a> &mdash; CNBC &middot; Oct 23, 2026</p>
         </section>
+        </div>
       </article>
     </div>
 
@@ -538,5 +598,6 @@
         onScroll();
       })();
     </script>
+  <script src="search.js" defer></script>
   </body>
 </html>
