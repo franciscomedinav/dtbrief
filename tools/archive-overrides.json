@@ -1,0 +1,79 @@
+{
+  "_comment": "Data for tools/build-archive.py. 'outlets' maps a URL domain (without www.) to the outlet credit shown in the archive. Only domains listed here are linked: a story whose Article URL is an aggregator or an unlisted domain is OMITTED and logged, never guessed. Add a domain here only after verifying it is the original publisher. 'url_replacements' maps date -> story number -> a verified original article URL, for stories whose briefing Article URL is an aggregator (e.g. siliconnoon.com) but whose original reporting was found elsewhere. 'headline_overrides' maps date -> story number -> the exact final headline, for the few editorial trims the number/curly-quote rules cannot reproduce.",
+  "headline_overrides": {
+    "2026-11-10": {
+      "2": "Nvidia spy allegations spur Congress to tighten China’s access to AI chips",
+      "3": "Apple is racing to make Siri a real AI agent",
+      "5": "Tesla will end Cybertruck production in about eight months, Musk says",
+      "6": "SpaceX wants to generate its own power and run its own supercomputer at Starbase",
+      "7": "Meta takes Instagram’s AI age checks worldwide"
+    }
+  },
+  "outlets": {
+    "9to5google.com": "9to5Google",
+    "9to5mac.com": "9to5Mac",
+    "androidauthority.com": "Android Authority",
+    "ap.org": "AP",
+    "apnews.com": "AP",
+    "arstechnica.com": "Ars Technica",
+    "axios.com": "Axios",
+    "ballotpedia.org": "Ballotpedia",
+    "bbc.com": "BBC",
+    "betanews.com": "BetaNews",
+    "blog.google": "Google",
+    "bloomberg.com": "Bloomberg",
+    "businessexaminer.ca": "Business Examiner",
+    "businessinsider.com": "Business Insider",
+    "cnbc.com": "CNBC",
+    "cnet.com": "CNET",
+    "community.openai.com": "OpenAI",
+    "deepmind.google": "Google DeepMind",
+    "electrek.co": "Electrek",
+    "en.sedaily.com": "Seoul Economic Daily",
+    "engadget.com": "Engadget",
+    "fastcompany.com": "Fast Company",
+    "forbes.com": "Forbes",
+    "fortune.com": "Fortune",
+    "ft.com": "Financial Times",
+    "gizmodo.com": "Gizmodo",
+    "hackernews.com": "Hacker News",
+    "latimes.com": "Los Angeles Times",
+    "macrumors.com": "MacRumors",
+    "mashable.com": "Mashable",
+    "nypost.com": "New York Post",
+    "nytimes.com": "The New York Times",
+    "openai.com": "OpenAI",
+    "pcmag.com": "PCMag",
+    "politico.com": "Politico",
+    "reuters.com": "Reuters",
+    "semafor.com": "Semafor",
+    "techcrunch.com": "TechCrunch",
+    "the-decoder.com": "The Decoder",
+    "theatlantic.com": "The Atlantic",
+    "theguardian.com": "The Guardian",
+    "thehackernews.com": "The Hacker News",
+    "thehill.com": "The Hill",
+    "theinformation.com": "The Information",
+    "theverge.com": "The Verge",
+    "thewrap.com": "TheWrap",
+    "tomsguide.com": "Tom's Guide",
+    "usatoday.com": "USA Today",
+    "venturebeat.com": "VentureBeat",
+    "washingtonpost.com": "The Washington Post",
+    "wired.com": "Wired",
+    "wsj.com": "The Wall Street Journal",
+    "zdnet.com": "ZDNet"
+  },
+  "url_replacements": {
+    "2026-11-06": {
+      "2": "https://openai.com/index/setting-new-standard-responsible-ai-infrastructure/"
+    },
+    "2026-11-09": {
+      "8": "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/"
+    },
+    "2026-11-10": {
+      "6": "https://www.reuters.com/legal/transactional/spacex-plans-24-billion-gas-power-plant-data-center-project-texas-2026-11-09/",
+      "9": "https://the-decoder.com/ai-coding-agents-still-need-human-cleanup-on-nearly-three-out-of-four-tasks-in-a-real-world-test/"
+    }
+  }
+}
