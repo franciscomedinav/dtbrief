@@ -394,6 +394,24 @@
         .masthead-meta { text-align: left; }
         article { padding-top: 32px; }
       }
+
+      /* Learning Center extras: figures, loop diagram, comparison cards */
+      .figure { margin: 28px 0; }
+      .figure img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--rule); }
+      .figure figcaption { font-size: 13.5px; color: var(--ink-faint); margin-top: 10px; line-height: 1.5; }
+      .loop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+      .loop-step { background: var(--accent-soft); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; }
+      .loop-step .loop-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--chip-bg); color: var(--chip-ink); font-family: "IBM Plex Mono", monospace; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+      .loop-step strong { display: block; font-family: "Sora", sans-serif; font-size: 17px; margin-bottom: 4px; }
+      .loop-step span { display: block; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+      .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+      .vs-card { border: 1px solid var(--rule); border-radius: 12px; padding: 18px; background: var(--card); }
+      .vs-card.agent { border-color: var(--accent); background: var(--accent-soft); }
+      .vs-card strong { display: block; font-family: "Sora", sans-serif; font-size: 18px; margin-bottom: 6px; }
+      .vs-card span { display: block; font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+      @media (max-width: 560px) {
+        .loop-grid, .vs-grid { grid-template-columns: 1fr; }
+      }
     </style>
   </head>
   <body>
@@ -440,6 +458,11 @@
           <span>4 min read</span>
         </div>
 
+        <figure class="figure">
+          <img src="assets/ai-agents-hero.webp" alt="A small robot assistant thinking at a desk, choosing between tools — a browser, code, a calendar, a database and a search — while it works toward a goal" width="2048" height="1152" />
+          <figcaption>An agent is given a goal and picks its own tools to reach it. The model decides the next step &mdash; that is the whole difference.</figcaption>
+        </figure>
+
         <div class="keynums" role="group" aria-label="Key ideas">
           <div class="keynum">
             <div class="fig"><em>Goal, not a prompt</em></div>
@@ -466,6 +489,12 @@
           <h2 id="s2"><span class="num">2</span> How it works: the loop</h2>
           <p>Every agent, whatever it is built with, runs the same loop:</p>
           <p><strong>1. Perceive</strong> &mdash; take in the goal and the current state of things. <strong>2. Plan</strong> &mdash; decide what to do next. <strong>3. Act</strong> &mdash; use a tool: search the web, run code, read a file, call an app. <strong>4. Observe</strong> &mdash; look at what the tool returned, and update the plan. Then repeat, until the goal is met or the agent hits a limit and asks a human.</p>
+          <div class="loop-grid" role="img" aria-label="The agent loop: perceive, plan, act, observe, then repeat">
+            <div class="loop-step"><span class="loop-num">1</span><strong>Perceive</strong><span>Take in the goal and the current state</span></div>
+            <div class="loop-step"><span class="loop-num">2</span><strong>Plan</strong><span>Decide what to do next</span></div>
+            <div class="loop-step"><span class="loop-num">3</span><strong>Act</strong><span>Use a tool: search, run code, call an app</span></div>
+            <div class="loop-step"><span class="loop-num">4</span><strong>Observe</strong><span>Look at the result, update the plan &mdash; then repeat</span></div>
+          </div>
           <p>Researchers call this the ReAct pattern &mdash; reason and act, in turns &mdash; from a 2022 paper by Yao and colleagues. OpenAI researcher Lilian Weng summed the ingredients as: Agent = LLM + memory + planning + tool use. The language model is the brain; the tools are the hands; the memory is what lets it keep context across steps; the loop is what turns one reply into a finished job.</p>
           <p>A concrete example: ask an agent to fix a bug in your checkout page. It reads the code, runs the tests to see the failure, edits the code, runs the tests again, sees a new error, adjusts, and repeats &mdash; then tells you what it changed. A chatbot would have described the fix in words and stopped.</p>
         </section>
@@ -475,7 +504,53 @@
           <p>A <strong>chatbot</strong> maps one message to one reply. It does not hold a goal across steps, it does not call tools to change anything in the world, and it forgets the task when the reply ends.</p>
           <p>A <strong>workflow</strong> sits between them: it uses tools and can run many steps, but the path is written in advance by a developer. It is predictable and cheap &mdash; and it breaks the moment the task goes off-script.</p>
           <p>An <strong>agent</strong> is the third thing: it holds the goal, picks its own tools and order, and adapts when the results surprise it. That freedom is the point &mdash; and the cost. Agents are slower and more expensive than a single model call, and every step is a chance for a small error to compound into a wrong turn. Anthropic&rsquo;s own advice is to start with the simplest thing that works and add agency only when the flexibility is worth it.</p>
+          <div class="vs-grid">
+            <div class="vs-card"><strong>Chatbot</strong><span>One message &rarr; one reply. No tools, no memory of the task &mdash; it stops when the reply ends.</span></div>
+            <div class="vs-card agent"><strong>AI agent</strong><span>One goal &rarr; many steps. Picks its own tools, checks the results, keeps going until the job is done.</span></div>
+          </div>
           <div class="pull">A chatbot answers. An agent acts &mdash; and the difference is who decides the next step.</div>
+        </section>
+
+        <section aria-labelledby="s4">
+          <h2 id="s4"><span class="num">4</span> Why everyone&rsquo;s building them now</h2>
+          <p>Three stories in today&rsquo;s briefing are the same story. Apple is racing to turn Siri into a real agent: fine-grained control of its own apps in iOS 27.3, expected in December, then third-party actions like booking a restaurant or ordering food in the spring &mdash; a Siri that tracks goals and keeps going without being told every step. Anthropic&rsquo;s new Claude Fable 5.2 is built for agent work, and the company says a team of about 1,000 Fable 5.2 agents formalized Fermat&rsquo;s Last Theorem in about 30 hours. And coding agents are the first big proving ground: they are sold as autonomous workers, not assistants.</p>
+          <figure class="figure">
+            <img src="assets/ai-agent-phone-tasks.webp" alt="A phone assistant rising from a smartphone and reaching out to apps — photos, calendar, restaurant, delivery and music — to carry out tasks on its own" width="2048" height="1152" loading="lazy" />
+            <figcaption>An agent does not just answer &mdash; it reaches into your apps and does the task. That is what Apple is racing to give Siri.</figcaption>
+          </figure>
+          <p>The bet is simple. A chatbot can answer questions; an agent can do jobs. The company that ships the agent people trust with real tasks owns the next interface &mdash; the same way the search box and the app store did before it.</p>
+        </section>
+
+        <section aria-labelledby="s5">
+          <h2 id="s5"><span class="num">5</span> The honest part</h2>
+          <p>Here is the catch, from today&rsquo;s briefing too. A new real-world coding test, Co-Design Bench, built by Alibaba and university researchers from real user change requests, found the leading model fully completed only 26.4 percent of selected tasks &mdash; even though comparable models score above 99 percent on some older benchmarks. On average the top model met about 70 percent of the requirements; it just rarely delivered a complete, working result.</p>
+          <p>That gap is the whole story of agents in 2026: the demo is dazzling, the finished job is hard. Partial success is not a finished task, and the benchmark is new &mdash; independent replication is the next test of how durable the numbers are. But the direction is set: agents are the product every lab and platform is building toward, and the race now is not who can demo one, but who can ship one that finishes the job.</p>
+        </section>
+
+        <section aria-labelledby="terms">
+          <h2 id="terms">Key terms</h2>
+          <ul class="watch">
+            <li>
+              <span class="w-label">Agent</span>
+              <span>Software that pursues a goal by deciding its own steps and using tools, in a loop.</span>
+            </li>
+            <li>
+              <span class="w-label">Workflow</span>
+              <span>A fixed path of steps written in advance; the model may reason inside a step, but the path never changes.</span>
+            </li>
+            <li>
+              <span class="w-label">Tool</span>
+              <span>Anything the model can use to act: web search, code execution, a file system, an app&rsquo;s actions.</span>
+            </li>
+            <li>
+              <span class="w-label">ReAct loop</span>
+              <span>Reason, act, observe, repeat &mdash; the pattern underneath almost every agent.</span>
+            </li>
+            <li>
+              <span class="w-label">Context</span>
+              <span>Everything the model can see at one moment: the goal, the conversation, tool results, memory.</span>
+            </li>
+          </ul>
         </section>
 
         <div class="source-card">

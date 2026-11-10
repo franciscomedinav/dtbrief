@@ -394,6 +394,24 @@
         .masthead-meta { text-align: left; }
         article { padding-top: 32px; }
       }
+
+      /* Learning Center extras: figures, loop diagram, comparison cards */
+      .figure { margin: 28px 0; }
+      .figure img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--rule); }
+      .figure figcaption { font-size: 13.5px; color: var(--ink-faint); margin-top: 10px; line-height: 1.5; }
+      .loop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+      .loop-step { background: var(--accent-soft); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; }
+      .loop-step .loop-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--chip-bg); color: var(--chip-ink); font-family: "IBM Plex Mono", monospace; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+      .loop-step strong { display: block; font-family: "Sora", sans-serif; font-size: 17px; margin-bottom: 4px; }
+      .loop-step span { display: block; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+      .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+      .vs-card { border: 1px solid var(--rule); border-radius: 12px; padding: 18px; background: var(--card); }
+      .vs-card.agent { border-color: var(--accent); background: var(--accent-soft); }
+      .vs-card strong { display: block; font-family: "Sora", sans-serif; font-size: 18px; margin-bottom: 6px; }
+      .vs-card span { display: block; font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+      @media (max-width: 560px) {
+        .loop-grid, .vs-grid { grid-template-columns: 1fr; }
+      }
     </style>
   </head>
   <body>
@@ -431,6 +449,11 @@
         <h1>Learning Center</h1>
 
         <p class="deck">One technology from the Daily Tech Briefing, explained in plain English. A new lesson every day &mdash; no jargon, no hype, just what it is, how it works, and why it matters.</p>
+
+        <figure class="figure">
+          <img src="assets/ai-agents-hero.webp" alt="A small robot assistant thinking at a desk, choosing between tools — a browser, code, a calendar, a database and a search" width="2048" height="1152" />
+          <figcaption>Today&rsquo;s lesson: AI agents &mdash; what they are, how they work, and why Siri wants to be one.</figcaption>
+        </figure>
 
         <div class="byline">
           <span class="who">Daily Tech Briefing</span>
