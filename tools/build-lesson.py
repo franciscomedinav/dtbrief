@@ -167,10 +167,23 @@ def lesson_body(lesson):
     return "\n".join(parts)
 
 
+def fix_learn_nav(h):
+    """Learn pages live in learn/: the Learn link points at index.html (not
+    ../learn/), and Learn — not Top Stories — is the active nav item."""
+    h = h.replace('<a href="../learn/" data-nav="learn">Learn</a>',
+                  '<a href="index.html" data-nav="learn" class="active">Learn</a>',
+                  1)
+    h = h.replace('<a href="../index.html" data-nav="top" class="active">Top Stories</a>',
+                  '<a href="../index.html" data-nav="top">Top Stories</a>', 1)
+    assert 'data-nav="learn" class="active"' in h, "learn nav fix failed"
+    return h
+
+
 def build_lesson(lesson):
     with open(newest_post_template(), encoding="utf-8") as f:
         h = f.read()
     slug = lesson["slug"]
+    h = fix_learn_nav(h)
     h = sub_once(h, r'    </style>', EXTRA_CSS + '    </style>', "extra css")
     h = sub_once(h, r'<meta name="description" content="[^"]*" />',
                  '<meta name="description" content="%s" />'
@@ -236,6 +249,7 @@ def save_registry(lessons):
 def build_index(registry):
     with open(newest_post_template(), encoding="utf-8") as f:
         h = f.read()
+    h = fix_learn_nav(h)
     latest = registry[0]
     h = sub_once(h, r'    </style>', EXTRA_CSS + '    </style>', "idx extra css")
     h = sub_once(h, r'<meta name="description" content="[^"]*" />',

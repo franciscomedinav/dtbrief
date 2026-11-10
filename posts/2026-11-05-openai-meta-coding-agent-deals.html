@@ -394,6 +394,18 @@
         .masthead-meta { text-align: left; }
         article { padding-top: 32px; }
       }
+
+      /* ---------- Sticky section nav ---------- */
+      .topnav { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 1px solid var(--rule); }
+      .topnav-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; display: flex; gap: 2px; }
+      .topnav a { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--ink-soft); text-decoration: none; padding: 10px 12px 9px; border-bottom: 2px solid transparent; }
+      .topnav a:hover { color: var(--ink); }
+      .topnav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+      @media (max-width: 620px) {
+        .topnav-inner { overflow-x: auto; scrollbar-width: none; }
+        .topnav-inner::-webkit-scrollbar { display: none; }
+        .topnav a { flex: none; }
+      }
     </style>
   </head>
   <body>
@@ -417,11 +429,18 @@
         </a>
         <div class="masthead-meta">
           <strong>Thursday, November 5, 2026</strong><br />
-          The blog companion to the podcast<br />
-          <a href="../archive.html">Archive &rarr;</a> &middot; <a href="../learn/">Learn &rarr;</a>
+          The blog companion to the podcast
         </div>
       </div>
     </header>
+    <nav class="topnav" aria-label="Sections">
+      <div class="topnav-inner">
+        <a href="../index.html" data-nav="top" class="active">Top Stories</a>
+        <a href="../archive.html" data-nav="latest">Latest</a>
+        <a href="../learn/" data-nav="learn">Learn</a>
+        <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" data-nav="listen" target="_blank" rel="noopener">Listen</a>
+      </div>
+    </nav>
 
     <div class="wrap">
       <article>

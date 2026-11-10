@@ -395,6 +395,18 @@
         article { padding-top: 32px; }
       }
 
+      /* ---------- Sticky section nav ---------- */
+      .topnav { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 1px solid var(--rule); }
+      .topnav-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; display: flex; gap: 2px; }
+      .topnav a { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--ink-soft); text-decoration: none; padding: 10px 12px 9px; border-bottom: 2px solid transparent; }
+      .topnav a:hover { color: var(--ink); }
+      .topnav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+      @media (max-width: 620px) {
+        .topnav-inner { overflow-x: auto; scrollbar-width: none; }
+        .topnav-inner::-webkit-scrollbar { display: none; }
+        .topnav a { flex: none; }
+      }
+
       /* Learning Center extras: figures, loop diagram, comparison cards */
       .figure { margin: 28px 0; }
       .figure img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--rule); }
@@ -439,6 +451,14 @@
         </div>
       </div>
     </header>
+    <nav class="topnav" aria-label="Sections">
+      <div class="topnav-inner">
+        <a href="../index.html" data-nav="top">Top Stories</a>
+        <a href="../archive.html" data-nav="latest">Latest</a>
+        <a href="index.html" data-nav="learn" class="active">Learn</a>
+        <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" data-nav="listen" target="_blank" rel="noopener">Listen</a>
+      </div>
+    </nav>
 
     <div class="wrap">
       <article>
