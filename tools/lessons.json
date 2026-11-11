@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-11",
+    "date_long": "November 11, 2026",
+    "slug": "2026-11-11-vla-robot-brains",
+    "title": "Robot Brains, Explained: How Vision-Language-Action Models Teach Machines to Work",
+    "deck_short": "The model that lets a robot see, understand words, and move &mdash; and why it still drops things.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A humanoid robot on a car factory line, reaching into a bin of metal brackets and placing one into a tray in the right order",
+      "caption": "A vision-language-action model turns a camera image and a spoken instruction into the robot&rsquo;s next move &mdash; that is the whole job.",
+      "index_alt": "A humanoid robot on a car factory line, reaching into a bin of metal brackets",
+      "index_caption": "Today&rsquo;s lesson: robot brains &mdash; the model that lets a machine see, understand words, and move.",
+      "src": "assets/vla-robot-brains-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-10",
     "date_long": "November 10, 2026",
     "slug": "2026-11-10-ai-agents-explained",
