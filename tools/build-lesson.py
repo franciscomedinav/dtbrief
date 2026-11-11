@@ -223,6 +223,8 @@ def build_lesson(lesson):
                  '<p class="deck">%s</p>' % lesson["deck"], "deck")
     h = sub_once(h, r'<span>\d+ min read</span>',
                  '<span>%s</span>' % lesson["read_time"], "read time")
+    h = sub_once(h, r'<span>[A-Z][a-z]+ \d{1,2}, \d{4}</span>',
+                 '<span>%s</span>' % lesson["date_long"], "byline date")
     # Replace everything from the key-numbers block to </article> with the
     # lesson body (this also drops the listen bar, digest, episode note).
     start = h.index('<div class="keynums"')
