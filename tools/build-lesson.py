@@ -179,6 +179,37 @@ def fix_learn_nav(h):
     return h
 
 
+def share_row(url, title, label):
+    """Self-contained share row (inline styles; no CSS dependency).
+    Added Nov 12, 2026 (Pepe) to posts and lessons."""
+    from urllib.parse import quote
+    u = quote(url, safe="")
+    t = quote(title, safe="")
+    pill = ("display:inline-block;background:#0A0F1E;color:#F4F6F8;"
+            "border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',"
+            "monospace;font-size:13px;font-weight:600;text-decoration:none;")
+    return (
+        '        <div class="share-row" style="margin:28px 0 8px;'
+        'padding-top:18px;border-top:1px solid #D8DEE7;">\n'
+        '          <span style="font-family:\'IBM Plex Mono\',monospace;'
+        'font-size:12px;letter-spacing:.12em;text-transform:uppercase;'
+        'color:#5A6478;">%s</span>\n'
+        '          <div style="margin-top:10px;display:flex;flex-wrap:wrap;'
+        'gap:8px;">\n'
+        '            <a href="https://twitter.com/intent/tweet?url=%s&text=%s" '
+        'target="_blank" rel="noopener" style="%s">Post to X</a>\n'
+        '            <a href="https://wa.me/?text=%s%%20%s" target="_blank" '
+        'rel="noopener" style="%s">WhatsApp</a>\n'
+        '            <a href="https://www.facebook.com/sharer/sharer.php?u=%s" '
+        'target="_blank" rel="noopener" style="%s">Facebook</a>\n'
+        '            <a href="#" onclick="navigator.clipboard.writeText'
+        '(\'%s\');this.textContent=\'Link copied\';return false;" '
+        'style="%s">Copy link</a>\n'
+        '          </div>\n'
+        '        </div>'
+        % (label, u, t, pill, t, u, pill, u, pill, url, pill))
+
+
 def build_lesson(lesson):
     with open(newest_post_template(), encoding="utf-8") as f:
         h = f.read()
@@ -229,7 +260,9 @@ def build_lesson(lesson):
     # lesson body (this also drops the listen bar, digest, episode note).
     start = h.index('<div class="keynums"')
     end = h.index('      </article>')
-    h = h[:start] + lesson_body(lesson) + "\n" + h[end:]
+    h = h[:start] + lesson_body(lesson) + "\n" + share_row(
+        "https://dtbrief.com/learn/%s.html" % slug,
+        lesson["title"], "Share this lesson") + "\n" + h[end:]
     h = sub_once(h, r'<span><a href="\.\./index\.html">&larr; All posts</a> &middot; [^<]*</span>',
                  '<span><a href="index.html">&larr; Learning Center</a> &middot; %s</span>'
                  % lesson["date_long"], "footer")
