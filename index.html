@@ -232,6 +232,27 @@
         .ticker-track { animation: none; }
         .ticker-viewport { overflow-x: auto; }
       }
+
+      /* ---------- Breaking news ---------- */
+      .breaking { border: 2px solid #FF5A3C; border-radius: 14px; background: var(--card); padding: 20px 22px 18px; margin: 30px 0 6px; }
+      .breaking-head { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
+      .breaking-dot { width: 10px; height: 10px; border-radius: 50%; background: #FF5A3C; flex: none; animation: breaking-pulse 1.6s ease-in-out infinite; }
+      @keyframes breaking-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .2; } }
+      .breaking-label { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #FF5A3C; }
+      .breaking-time { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--ink-faint); margin-left: auto; text-align: right; white-space: nowrap; }
+      .breaking h2 { font-family: "Sora", sans-serif; font-weight: 700; font-size: 27px; line-height: 1.22; margin: 0 0 10px; }
+      .breaking p { font-size: 16.5px; line-height: 1.55; color: var(--ink-soft); margin: 0 0 12px; }
+      .breaking-links { display: flex; flex-wrap: wrap; gap: 6px 20px; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; font-weight: 600; }
+      .breaking-links a { text-decoration: none; }
+      .breaking-links a:hover { text-decoration: underline; }
+      @media (max-width: 620px) {
+        .breaking { padding: 16px 16px 14px; margin-top: 22px; }
+        .breaking h2 { font-size: 23px; }
+        .breaking-time { display: none; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .breaking-dot { animation: none; }
+      }
     </style>
   </head>
   <body>
@@ -267,6 +288,21 @@
     </nav>
 
     <div class="wrap">
+      <section class="breaking" aria-label="Breaking news">
+        <div class="breaking-head">
+          <span class="breaking-dot" aria-hidden="true"></span>
+          <span class="breaking-label">Breaking News</span>
+          <span class="breaking-time">Thu, Nov 12, 2026 &middot; Developing story</span>
+        </div>
+        <h2>Jensen Huang resigns as Nvidia CEO, effective immediately</h2>
+        <p>Nvidia announced Thursday that Jensen Huang &mdash; who co-founded the chipmaker 33 years ago and built it into the engine of the AI boom &mdash; has resigned as president, chief executive, and board member, effective immediately. CFO Colette Kress takes over as interim CEO while the board searches for a permanent successor, and director Harvey C. Jones becomes the board&rsquo;s first-ever chair. The exit caps a week of turmoil: the board opened an investigation on Sunday into reports that Huang was the target of a foreign intelligence operation, then met Wednesday night after a report of a second affair. Nvidia shares fell about 12% in premarket trading. Third-quarter earnings are still scheduled for Tuesday, November 17.</p>
+        <div class="breaking-links">
+          <a href="https://www.globenewswire.com/news-release/2026/11/12/3401635/0/en/nvidia-announces-ceo-transition.html" target="_blank" rel="noopener">Nvidia&rsquo;s announcement</a>
+          <a href="https://www.reuters.com/business/retail-consumer/nvidia-ceo-jensen-huang-step-down-big-blow-ai-boom-2026-11-12/" target="_blank" rel="noopener">Reuters coverage</a>
+          <a href="posts/2026-11-12-nvidia-board-oust-jensen-huang.html">Background: this morning&rsquo;s briefing</a>
+        </div>
+      </section>
+
       <div class="intro">
         <h1>Tech news, in <span class="money">plain English.</span></h1>
         <p class="deck">Every weekday, the Daily Tech Briefing picks the stories that actually matter and explains what they mean — no jargon, no hype. Read the top story here, or listen to the full briefing in about 10 minutes.</p>
