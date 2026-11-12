@@ -2,11 +2,11 @@
   "_comment": "Data for tools/build-archive.py. 'outlets' maps a URL domain (without www.) to the outlet credit shown in the archive. Only domains listed here are linked: a story whose Article URL is an aggregator or an unlisted domain is OMITTED and logged, never guessed. Add a domain here only after verifying it is the original publisher. 'url_replacements' maps date -> story number -> a verified original article URL, for stories whose briefing Article URL is an aggregator (e.g. siliconnoon.com) but whose original reporting was found elsewhere. 'headline_overrides' maps date -> story number -> the exact final headline, for the few editorial trims the number/curly-quote rules cannot reproduce.",
   "headline_overrides": {
     "2026-11-10": {
-      "2": "Nvidia spy allegations spur Congress to tighten China’s access to AI chips",
+      "2": "Nvidia spy allegations spur Congress to tighten China\u2019s access to AI chips",
       "3": "Apple is racing to make Siri a real AI agent",
       "5": "Tesla will end Cybertruck production in about eight months, Musk says",
       "6": "SpaceX wants to generate its own power and run its own supercomputer at Starbase",
-      "7": "Meta takes Instagram’s AI age checks worldwide"
+      "7": "Meta takes Instagram\u2019s AI age checks worldwide"
     }
   },
   "outlets": {
@@ -66,7 +66,10 @@
     "washingtonpost.com": "The Washington Post",
     "wired.com": "Wired",
     "wsj.com": "The Wall Street Journal",
-    "zdnet.com": "ZDNet"
+    "zdnet.com": "ZDNet",
+    "news.bloomberglaw.com": "Bloomberg Law",
+    "interestingengineering.com": "Interesting Engineering",
+    "runway.com": "Runway"
   },
   "url_replacements": {
     "2026-11-06": {

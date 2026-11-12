@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-12",
+    "date_long": "November 12, 2026",
+    "slug": "2026-11-12-alphagenome-dna",
+    "title": "How AI Reads DNA, Explained: AlphaGenome 2 and the Cell-by-Cell Map of Disease",
+    "deck_short": "The AI model that predicts which cell a DNA variant will affect &mdash; and why that finds disease.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A glowing strand of DNA unwinding above a field of different human cells &mdash; a heart muscle cell, an immune cell, a brain cell &mdash; each lit up in a different colour where the same gene is switched on",
+      "caption": "Every cell carries the same DNA. AlphaGenome 2 predicts how that DNA is read differently in each cell type &mdash; that is the whole job.",
+      "index_alt": "A glowing strand of DNA above different human cells, each lit up where the same gene is switched on",
+      "index_caption": "Today&rsquo;s lesson: the AI that reads DNA cell by cell &mdash; and finds the variants that cause disease.",
+      "src": "assets/alphagenome-dna-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-11",
     "date_long": "November 11, 2026",
     "slug": "2026-11-11-vla-robot-brains",
