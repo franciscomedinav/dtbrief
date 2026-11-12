@@ -210,6 +210,18 @@ def share_row(url, title, label):
         % (label, u, t, pill, t, u, pill, u, pill, url, pill))
 
 
+def newsletter_block():
+    """Beehiiv subscribe-form embed (form 3f37ce8c), added Nov 12, 2026.
+    Sits at the end of every lesson, before the share row."""
+    return (
+        '        <div class="newsletter-embed" style="margin:28px 0 8px;'
+        'padding:20px;border:1px solid #D8DEE7;border-radius:12px;'
+        'background:#EDF1F8;">'
+        '<script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" '
+        'data-beehiiv-form="3f37ce8c-74b7-4ab4-b0f8-c5838169d83b"></script>'
+        '</div>')
+
+
 def build_lesson(lesson):
     with open(newest_post_template(), encoding="utf-8") as f:
         h = f.read()
@@ -260,7 +272,7 @@ def build_lesson(lesson):
     # lesson body (this also drops the listen bar, digest, episode note).
     start = h.index('<div class="keynums"')
     end = h.index('      </article>')
-    h = h[:start] + lesson_body(lesson) + "\n" + share_row(
+    h = h[:start] + lesson_body(lesson) + "\n" + newsletter_block() + "\n" + share_row(
         "https://dtbrief.com/learn/%s.html" % slug,
         lesson["title"], "Share this lesson") + "\n" + h[end:]
     h = sub_once(h, r'<span><a href="\.\./index\.html">&larr; All posts</a> &middot; [^<]*</span>',
