@@ -211,14 +211,26 @@ def share_row(url, title, label):
 
 
 def newsletter_block():
-    """Beehiiv subscribe-form embed (form 3f37ce8c), added Nov 12, 2026.
-    Sits at the end of every lesson, before the share row."""
+    """Site-built newsletter band (Nov 13, 2026 — replaced the beehiiv JS
+    embed, whose live rendering ignored the builder's width settings on
+    phones). Same copy as the beehiiv form; the button links to the
+    publication's beehiiv subscribe page (which does not support email
+    prefill — verified Nov 13, 2026)."""
     return (
-        '        <div class="newsletter-embed" style="margin:28px 0 8px;'
-        'padding:20px;border:1px solid #D8DEE7;border-radius:12px;'
+        '        <div class="newsletter-band" style="margin:28px 0 8px;'
+        'padding:24px 20px;border:1px solid #D8DEE7;border-radius:12px;'
         'background:#EDF1F8;">'
-        '<script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" '
-        'data-beehiiv-form="3f37ce8c-74b7-4ab4-b0f8-c5838169d83b"></script>'
+        '<div style="font-family:\'Sora\',sans-serif;font-weight:700;'
+        'font-size:21px;line-height:1.25;color:#0A0F1E;margin:0 0 6px;">'
+        'Get the Daily Tech Briefing in your inbox</div>'
+        '<p style="font-size:15.5px;line-height:1.5;color:#2E3A52;'
+        'margin:0 0 16px;">The day&rsquo;s top tech stories in plain '
+        'English &mdash; every weekday morning. Free.</p>'
+        '<a href="https://franciscos-newsletter-df7908.beehiiv.com/subscribe" '
+        'target="_blank" rel="noopener" style="display:block;text-align:center;'
+        'background:#0A0F1E;color:#F4F6F8;border-radius:999px;'
+        'padding:13px 22px;font-family:\'IBM Plex Mono\',monospace;'
+        'font-size:15px;font-weight:600;text-decoration:none;">Subscribe</a>'
         '</div>')
 
 
