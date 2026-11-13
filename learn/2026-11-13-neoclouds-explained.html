@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Daily Tech Briefing" href="https://dtbrief.com/feed.xml" />
+    <meta name="theme-color" content="#0A0F1E" />
+    <meta name="description" content="Neoclouds explained in plain English &mdash; the GPU landlords renting AI compute to the labs, how the prepayment loop works, and why the debt behind it worries a Federal Reserve governor." />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Daily Tech Briefing" />
+    <meta property="og:title" content="Neoclouds, Explained &mdash; Daily Tech Briefing" />
+    <meta property="og:description" content="The GPU landlords renting AI compute to the labs &mdash; and the debt that pays for it." />
+    <meta property="og:url" content="https://dtbrief.com/learn/2026-11-13-neoclouds-explained.html" />
+    <meta property="og:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
+    <meta property="article:published_time" content="2026-11-13" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"Neoclouds, Explained: The GPU Landlords Renting Compute to the AI Boom","datePublished":"2026-11-13","author":{"@type":"Organization","name":"Daily Tech Briefing"},"publisher":{"@type":"Organization","name":"Daily Tech Briefing","url":"https://dtbrief.com/"},"mainEntityOfPage":"https://dtbrief.com/learn/2026-11-13-neoclouds-explained.html"}
+    </script>
+    <title>Neoclouds, Explained &mdash; Learning Center &mdash; Daily Tech Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #F4F6F8;
+        --ink: #0A0F1E;
+        --ink-soft: #2E3A52;
+        --ink-faint: #5A6478;
+        --rule: #D8DEE7;
+        --accent: #0090C8;
+        --accent-soft: rgba(0, 144, 200, 0.08);
+        --card: #ffffff;
+        --chip-bg: #0A0F1E;
+        --chip-ink: #F4F6F8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #070B16;
+          --ink: #EDF1F8;
+          --ink-soft: #C7D3E8;
+          --ink-faint: #93A0B8;
+          --rule: #22304F;
+          --accent: #00C2FF;
+          --accent-soft: rgba(0, 194, 255, 0.12);
+          --card: #0D1424;
+          --chip-bg: #EDF1F8;
+          --chip-ink: #070B16;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .sans { font-family: "IBM Plex Sans", system-ui, sans-serif; }
+
+      #progress {
+        position: fixed;
+        top: 0; left: 0;
+        height: 3px;
+        width: 0%;
+        background: #00C2FF;
+        z-index: 50;
+      }
+
+      /* ---------- Masthead ---------- */
+      .masthead {
+        border-bottom: 2px solid var(--ink);
+      }
+      .masthead-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 18px 24px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand-mark {
+        width: 40px; height: 40px;
+        flex: none;
+        display: grid;
+        place-items: center;
+      }
+      .brand-name {
+        font-family: "Sora", sans-serif;
+        font-weight: 800;
+        font-size: 21px;
+        letter-spacing: -0.01em;
+        line-height: 1.05;
+      }
+      .brand-dot { color: var(--accent); }
+      .brand-tag {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 2px;
+      }
+      .masthead-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        text-align: right;
+        line-height: 1.5;
+      }
+      .masthead-meta strong { color: var(--ink); font-weight: 600; }
+
+      /* ---------- Layout ---------- */
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      article {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 44px 0 8px;
+      }
+
+      .dateline-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      .kicker {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .sample-chip {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: var(--chip-bg);
+        color: var(--chip-ink);
+        padding: 4px 9px;
+        border-radius: 999px;
+      }
+
+      h1 {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(34px, 5.4vw, 54px);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px;
+      }
+      h1 .money { color: var(--accent); }
+      .deck {
+        font-size: clamp(19px, 2.6vw, 22px);
+        line-height: 1.45;
+        font-style: italic;
+        color: var(--ink-soft);
+        margin: 0 0 26px;
+      }
+      .byline {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        color: var(--ink-faint);
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        padding: 12px 0;
+        margin-bottom: 34px;
+      }
+      .byline .who { color: var(--ink); font-weight: 600; }
+      .byline .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+
+      /* ---------- Key numbers ---------- */
+      .keynums {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+      .keynum {
+        padding: 20px 20px 16px;
+      }
+      .keynum + .keynum { border-left: 1px solid var(--rule); }
+      .keynum .fig {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(24px, 3.4vw, 32px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .keynum .fig em { font-style: normal; color: var(--accent); }
+      .keynum .lbl {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--ink-faint);
+        margin-top: 8px;
+      }
+
+      /* ---------- Body copy ---------- */
+      section { margin-bottom: 38px; }
+      h2 {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin: 0 0 16px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      h2 .num {
+        font-family: "Sora", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0;
+        color: var(--accent);
+        line-height: 1;
+      }
+      p {
+        font-size: 19px;
+        line-height: 1.68;
+        color: var(--ink-soft);
+        margin: 0 0 18px;
+      }
+      p strong { color: var(--ink); font-weight: 700; }
+      p a, .source-card a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+      .inline-icon { width: 16px; height: 16px; vertical-align: -2px; }
+
+      .pull {
+        border-left: 3px solid var(--accent);
+        padding: 4px 0 4px 20px;
+        margin: 28px 0;
+        font-size: 22px;
+        line-height: 1.4;
+        font-weight: 500;
+        font-style: italic;
+        color: var(--ink);
+      }
+
+      ul.watch {
+        list-style: none;
+        margin: 0 0 18px;
+        padding: 0;
+      }
+      ul.watch li {
+        font-size: 19px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        padding: 12px 0 12px 0;
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 14px;
+      }
+      ul.watch li:first-child { border-top: none; padding-top: 2px; }
+      ul.watch .w-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        padding-top: 5px;
+      }
+
+      /* ---------- Source + episode ---------- */
+      .source-card {
+        background: var(--accent-soft);
+        border-radius: 14px;
+        padding: 22px 24px;
+        margin: 44px 0 18px;
+      }
+      .source-card .sc-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .source-card p { font-size: 17px; margin: 0; line-height: 1.55; }
+
+      .episode-note {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 48px;
+        background: var(--card);
+      }
+      .play-btn {
+        width: 42px; height: 42px;
+        flex: none;
+        border-radius: 50%;
+        background: #00C2FF;
+        display: grid;
+        place-items: center;
+      }
+      .episode-note p { font-size: 16.5px; margin: 0; line-height: 1.55; }
+      .episode-note .ep-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 4px;
+      }
+
+      footer {
+        border-top: 2px solid var(--ink);
+        margin-top: 8px;
+      }
+      .footer-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 20px 24px 34px;
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 620px) {
+        .keynums { grid-template-columns: 1fr; }
+        .keynum + .keynum { border-left: none; border-top: 1px solid var(--rule); }
+        ul.watch li { grid-template-columns: 1fr; gap: 2px; }
+        ul.watch .w-label { padding-top: 0; }
+        .masthead-meta { text-align: left; }
+        article { padding-top: 32px; }
+      }
+
+      /* ---------- Sticky section nav ---------- */
+      .topnav { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 1px solid var(--rule); }
+      .topnav-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; display: flex; gap: 2px; }
+      .topnav a { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--ink-soft); text-decoration: none; padding: 10px 12px 9px; border-bottom: 2px solid transparent; }
+      .topnav a:hover { color: var(--ink); }
+      .topnav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+      @media (max-width: 620px) {
+        .topnav-inner { overflow-x: auto; scrollbar-width: none; }
+        .topnav-inner::-webkit-scrollbar { display: none; }
+        .topnav a { flex: none; }
+      }
+
+      /* Learning Center extras: figures, loop diagram, comparison cards */
+      .figure { margin: 28px 0; }
+      .figure img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--rule); }
+      .figure figcaption { font-size: 13.5px; color: var(--ink-faint); margin-top: 10px; line-height: 1.5; }
+      .loop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+      .loop-step { background: var(--accent-soft); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; }
+      .loop-step .loop-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--chip-bg); color: var(--chip-ink); font-family: "IBM Plex Mono", monospace; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+      .loop-step strong { display: block; font-family: "Sora", sans-serif; font-size: 17px; margin-bottom: 4px; }
+      .loop-step span { display: block; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+      .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+      .vs-card { border: 1px solid var(--rule); border-radius: 12px; padding: 18px; background: var(--card); }
+      .vs-card.agent { border-color: var(--accent); background: var(--accent-soft); }
+      .vs-card strong { display: block; font-family: "Sora", sans-serif; font-size: 18px; margin-bottom: 6px; }
+      .vs-card span { display: block; font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+      @media (max-width: 560px) {
+        .loop-grid, .vs-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="brand" href="../index.html" aria-label="Daily Tech Briefing home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 96 96" aria-hidden="true">
+              <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+              <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+              <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+              <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+            </svg>
+          </span>
+          <span>
+            <span class="brand-name">Tech Briefing<span class="brand-dot">.</span></span>
+            <span class="brand-tag" style="display:block;">Your daily dose of tech news &mdash; signal, not noise.</span>
+          </span>
+        </a>
+        <div class="masthead-meta">
+          <strong>Learning Center</strong><br />
+          One technology, explained in plain English
+        </div>
+      </div>
+    </header>
+    <nav class="topnav" aria-label="Sections">
+      <div class="topnav-inner">
+        <a href="../index.html" data-nav="top">Top Stories</a>
+        <a href="../archive.html" data-nav="latest">Latest</a>
+        <a href="index.html" data-nav="learn" class="active">Learn</a>
+        <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" data-nav="listen" target="_blank" rel="noopener">Listen</a>
+      </div>
+    </nav>
+
+    <div class="wrap">
+      <article>
+        <div class="dateline-row">
+          <span class="kicker">Learning Center &middot; Lesson 4</span>
+        </div>
+
+        <h1>Neoclouds, Explained: The GPU Landlords Renting Compute to the AI Boom</h1>
+
+        <p class="deck">The AI boom needs more computing power than Amazon, Microsoft, and Google can sell &mdash; so a new kind of cloud company showed up to rent it out. Here is how neoclouds work, who pays for them, and why the money behind them worries a Federal Reserve governor.</p>
+
+        <div class="byline">
+          <span class="who">Daily Tech Briefing</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>November 13, 2026</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>4 min read</span>
+        </div>
+
+                <figure class="figure">
+          <img src="assets/neoclouds-hero.webp" alt="A row of glowing data-center halls at dusk, each filled with racks of graphics processors, power lines running in from a substation under a deep navy sky" width="2048" height="1152" />
+          <figcaption>A neocloud&rsquo;s whole business is the GPU cluster: power and chips go in, rented AI compute comes out &mdash; that is the whole job.</figcaption>
+        </figure>
+        <div class="keynums" role="group" aria-label="Key ideas">
+          <div class="keynum">
+            <div class="fig"><em>One product: GPU compute</em></div>
+            <div class="lbl">A neocloud rents out AI computing power and nothing else &mdash; the whole business is the GPU cluster</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">$40&ndash;45B</div>
+            <div class="lbl">Nebius&rsquo;s planned 2027 spending on AI infrastructure, funded mostly by prepayments and contract-backed loans</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">$800B+</div>
+            <div class="lbl">AI-related debt in 2026, per a Federal Reserve governor &mdash; with off-balance-sheet obligations worth more than three times that</div>
+          </div>
+        </div>
+
+        <section aria-labelledby="s1">
+          <h2 id="s1"><span class="num">1</span> What it is</h2>
+          <p>Every AI model runs on computing power, and the most powerful models need thousands of specialised chips, called GPUs, working together in one place. Amazon, Microsoft, and Google sell that kind of computing, but their clouds were built for everything: email, databases, websites, office software. GPUs are one product line among hundreds. A neocloud is a cloud company built the other way around: its entire business is renting out GPU power for AI, and nothing else.</p>
+          <p>The name is new, but the companies are not obscure anymore. CoreWeave, the purest example, went public in March 2025 and now rents GPU clusters to AI labs, hyperscalers, and big enterprises. Nebius, spun out of Yandex&rsquo;s international cloud business and relisted on the Nasdaq in 2024, does the same from data centers in Europe and North America. Others in the category include Lambda, Crusoe, and IREN, and Nvidia holds equity in the three biggest listed names.</p>
+          <p>Think of it this way. A hyperscaler is a department store: it sells a little of everything, including GPUs. A neocloud is a specialist shop that sells only one thing &mdash; AI compute &mdash; and it can move faster on the things that matter for that one thing: signing power deals, standing up data centers, and getting the newest chips racked and billing.</p>
+        </section>
+
+        <section aria-labelledby="s2">
+          <h2 id="s2"><span class="num">2</span> How it works: the loop</h2>
+          <p>A neocloud works as a loop, and the loop is the whole business:</p>
+          <p><strong>1. Secure</strong> &mdash; power and land come first, because a data center without electricity is a warehouse. A neocloud locks in gigawatts of power and sites, often years ahead of the chips. <strong>2. Buy</strong> &mdash; GPUs by the tens of thousands, bought directly from Nvidia, often before general availability. <strong>3. Contract</strong> &mdash; multi-year deals with AI labs and hyperscalers, with the customer paying up front or committing for years. <strong>4. Finance</strong> &mdash; those prepayments, plus loans backed by the contracts themselves, pay for the next round of building. The loop only works if every step holds: power arrives on time, chips arrive on time, and the customer keeps paying.</p>
+          <div class="loop-grid" role="img" aria-label="The agent loop: secure, buy, contract, finance, then repeat">
+            <div class="loop-step"><span class="loop-num">1</span><strong>Secure</strong><span>Power and land first: a neocloud locks in gigawatts of electricity and data-center sites, often years ahead</span></div>
+            <div class="loop-step"><span class="loop-num">2</span><strong>Buy</strong><span>GPUs by the tens of thousands, bought directly from Nvidia, often before general availability</span></div>
+            <div class="loop-step"><span class="loop-num">3</span><strong>Contract</strong><span>Multi-year deals with labs and hyperscalers; the customer pays up front or commits for years</span></div>
+            <div class="loop-step"><span class="loop-num">4</span><strong>Finance</strong><span>Prepayments and loans backed by those contracts pay for the next round of building</span></div>
+          </div>
+          <p>The network matters as much as the chips. Training a large model needs thousands of GPUs talking to each other at memory speed, so neocloud data centers are built around InfiniBand or high-bandwidth RoCE networking and NVLink connections between chips, not the standard Ethernet a normal cloud uses. That is why a neocloud can sell a cluster a hyperscaler would not sell you as a self-service product.</p>
+        </section>
+
+        <section aria-labelledby="s3">
+          <h2 id="s3"><span class="num">3</span> Neocloud vs hyperscaler</h2>
+          <p>A <strong>hyperscaler</strong> like Amazon Web Services, Microsoft Azure, or Google Cloud offers hundreds of services &mdash; storage, databases, security, office tools &mdash; and GPU capacity is one line in that catalogue. It has the breadth, the compliance certifications, and the enterprise sales relationships built over decades.</p>
+          <p>A <strong>neocloud</strong> has one product and moves faster on it. It negotiates directly with Nvidia for large GPU allocations, often before general availability, and it can stand up a data center for one workload without running a whole general-purpose platform alongside it.</p>
+          <p>The trade-off is the point. If you need a GPU cluster plus a mature managed database plus enterprise support in a dozen regulatory jurisdictions, a hyperscaler is the more complete answer. If you need the newest chips, fast, in bulk, a neocloud is the faster route &mdash; and that is exactly what the AI labs needed.</p>
+          <div class="vs-grid">
+            <div class="vs-card"><strong>Hyperscaler</strong><span>Hundreds of services; GPUs are one product line. Breadth, compliance, and enterprise relationships built over decades.</span></div>
+            <div class="vs-card agent"><strong>Neocloud</strong><span>One product: GPU compute for AI. Direct Nvidia allocations, InfiniBand networking, multi-year contracts &mdash; built to move fast on one bottleneck.</span></div>
+          </div>
+          <div class="pull">A hyperscaler sells a little of everything, including GPUs. A neocloud sells only GPUs &mdash; and moves faster because of it.</div>
+        </section>
+
+        <section aria-labelledby="s4">
+          <h2 id="s4"><span class="num">4</span> Why everyone&rsquo;s building it now</h2>
+          <p>The news peg is Nebius. On Thursday it told investors it plans to spend $40 to $45 billion building AI infrastructure in 2027 &mdash; far more than Wall Street expected &mdash; and said prepayments plus asset-backed financing should cover up to 85 percent of the bill. Its shares fell 17 percent anyway, because the plan is already showing cracks: its biggest customer, Microsoft, is paying for capacity at a New Jersey data center now months behind schedule under a $19.4 billion contract.</p>
+        <figure class="figure">
+          <img src="assets/neoclouds-campus.webp" alt="A data-center campus at dusk, glowing GPU racks visible inside glass walls, power lines running in from wind turbines and a substation" width="2048" height="1152" loading="lazy" />
+          <figcaption>The loop in one picture: power and chips go in, rented compute comes out &mdash; and the bill is paid with the customer&rsquo;s own prepayments.</figcaption>
+        </figure>
+          <p>CoreWeave, the category leader, is playing the same game. It reported third-quarter revenue of $3.66 billion, up 168 percent, and expects about $9 billion in customer prepayments and deposits over the next three months. Its chief executive says the company will not use the unsecured debt market at current yields, and will instead borrow against specific customer contracts. The backlog behind that borrowing is $132.5 billion.</p>
+          <p>There is also an accounting reason hyperscalers use neoclouds at all. A hyperscaler that rents capacity from a neocloud keeps the spending off its own balance sheet, while the neocloud carries the debt and the depreciation. The demand driver persists even if GPU supply loosens &mdash; and it is why Nvidia itself holds equity in the big listed neoclouds, including a 9.3 percent stake in Nebius.</p>
+        </section>
+
+        <section aria-labelledby="s5">
+          <h2 id="s5"><span class="num">5</span> The honest part</h2>
+          <p>Here is the honest part. The loop only works if everything arrives on time, and it does not always. Nebius cut its 2026 revenue forecast by $200 million because third-party sites like New Jersey are late, and only just over half of the Microsoft capacity is now due by year-end. Delays are, in its chief executive&rsquo;s words, part of the industry right now.</p>
+          <p>The debt is the bigger worry. CoreWeave carries tens of billions in recourse debt and paid $846 million in quarterly interest in the third quarter, on a $709 million net loss. A Federal Reserve governor warned this week that AI-related debt is on track to exceed $800 billion in 2026, with off-balance-sheet obligations carrying potential payments of more than three times that amount &mdash; and that complex financing, including suppliers taking equity stakes in the companies buying their products, makes counterparty risk harder to assess.</p>
+          <p>So the state of neoclouds in 2026 is: the model works while demand and prices hold, and the customers keep paying up front. If demand cools, or a big customer cancels, the companies are left holding data centers, debt, and chips that lose value fast. That is the bet the whole category is making &mdash; and the reason its shares fall hard on any sign of a crack.</p>
+        </section>
+
+        <section aria-labelledby="terms">
+          <h2 id="terms">Key terms</h2>
+          <ul class="watch">
+            <li>
+              <span class="w-label">Neocloud</span>
+              <span>A cloud provider built specifically to rent out GPU capacity for AI training and inference, rather than general-purpose computing.</span>
+            </li>
+            <li>
+              <span class="w-label">Hyperscaler</span>
+              <span>A giant general-purpose cloud &mdash; Amazon Web Services, Microsoft Azure, Google Cloud &mdash; offering hundreds of services, of which GPU capacity is one.</span>
+            </li>
+            <li>
+              <span class="w-label">GPU cluster</span>
+              <span>Thousands of graphics processors linked together so they can train one AI model as a single machine.</span>
+            </li>
+            <li>
+              <span class="w-label">Prepayment</span>
+              <span>Money a customer pays before the capacity is delivered &mdash; the cash neoclouds use to fund construction.</span>
+            </li>
+            <li>
+              <span class="w-label">Asset-backed loan</span>
+              <span>A loan secured against a specific customer contract, so the lender is repaid from that contract&rsquo;s payments.</span>
+            </li>
+            <li>
+              <span class="w-label">InfiniBand</span>
+              <span>A high-speed networking technology that lets GPUs in a cluster talk to each other far faster than standard Ethernet.</span>
+            </li>
+          </ul>
+        </section>
+
+        <div class="source-card">
+          <div class="sc-label">From today&rsquo;s briefing</div>
+          <p>This lesson comes from today&rsquo;s Daily Tech Briefing (Episode 33, November 13, 2026): Jensen Huang resigns, nonprofits sue to halt frontier AI, and Microsoft 365 goes down. Read the full briefing: <a href="../posts/2026-11-13-nvidia-huang-resigns-fallout.html">Jensen Huang Is Out &mdash; Daily Tech Briefing</a>.</p>
+        </div>
+
+        <div class="source-card">
+          <div class="sc-label">Sources</div>
+          <p>ChipSentiment, &ldquo;What are neoclouds? NBIS, CRWV and IREN explained&rdquo; (August 6, 2026); TechCrunch, &ldquo;Nebius tests the neocloud playbook with $40 billion in planned spending&rdquo; (November 12, 2026); TechCrunch, &ldquo;CoreWeave turns to customer prepayments and shorter contracts to fund AI growth&rdquo; (November 11, 2026); Bloomberg Law, &ldquo;Fed&rsquo;s Bowman warns of stock correction if AI bets don&rsquo;t pan out&rdquo; (November 2026).</p>
+        </div>
+        <div class="newsletter-embed" style="margin:28px 0 8px;padding:20px;border:1px solid #D8DEE7;border-radius:12px;background:#EDF1F8;"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="3f37ce8c-74b7-4ab4-b0f8-c5838169d83b"></script></div>
+        <div class="share-row" style="margin:28px 0 8px;padding-top:18px;border-top:1px solid #D8DEE7;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5A6478;">Share this lesson</span>
+          <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;">
+            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdtbrief.com%2Flearn%2F2026-11-13-neoclouds-explained.html&text=Neoclouds%2C%20Explained%3A%20The%20GPU%20Landlords%20Renting%20Compute%20to%20the%20AI%20Boom" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Post to X</a>
+            <a href="https://wa.me/?text=Neoclouds%2C%20Explained%3A%20The%20GPU%20Landlords%20Renting%20Compute%20to%20the%20AI%20Boom%20https%3A%2F%2Fdtbrief.com%2Flearn%2F2026-11-13-neoclouds-explained.html" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">WhatsApp</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdtbrief.com%2Flearn%2F2026-11-13-neoclouds-explained.html" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Facebook</a>
+            <a href="#" onclick="navigator.clipboard.writeText('https://dtbrief.com/learn/2026-11-13-neoclouds-explained.html');this.textContent='Link copied';return false;" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Copy link</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <span>Daily Tech Briefing &mdash; your daily dose of tech news. Signal, not noise.</span>
+        <span><a href="index.html">&larr; Learning Center</a> &middot; November 13, 2026</span>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var bar = document.getElementById('progress');
+        function onScroll() {
+          var h = document.documentElement;
+          var max = h.scrollHeight - h.clientHeight;
+          var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+          bar.style.width = pct + '%';
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+    </script>
+    <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0d3d9c0c884e4b5b827d30970f4bb08a"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

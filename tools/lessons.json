@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-13",
+    "date_long": "November 13, 2026",
+    "slug": "2026-11-13-neoclouds-explained",
+    "title": "Neoclouds, Explained: The GPU Landlords Renting Compute to the AI Boom",
+    "deck_short": "The GPU landlords renting AI compute to the labs &mdash; and the debt that pays for it.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A row of glowing data-center halls at dusk, each filled with racks of graphics processors, power lines running in from a substation under a deep navy sky",
+      "caption": "A neocloud&rsquo;s whole business is the GPU cluster: power and chips go in, rented AI compute comes out &mdash; that is the whole job.",
+      "index_alt": "Glowing data-center halls filled with graphics processors, power lines running in from a substation",
+      "index_caption": "Today&rsquo;s lesson: neoclouds &mdash; the GPU landlords renting AI compute to the labs.",
+      "src": "assets/neoclouds-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-12",
     "date_long": "November 12, 2026",
     "slug": "2026-11-12-alphagenome-dna",

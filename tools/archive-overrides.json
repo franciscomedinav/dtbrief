@@ -69,7 +69,10 @@
     "zdnet.com": "ZDNet",
     "news.bloomberglaw.com": "Bloomberg Law",
     "interestingengineering.com": "Interesting Engineering",
-    "runway.com": "Runway"
+    "runway.com": "Runway",
+    "decrypt.co": "Decrypt",
+    "searchenginejournal.com": "Search Engine Journal",
+    "coindesk.com": "CoinDesk"
   },
   "url_replacements": {
     "2026-11-06": {

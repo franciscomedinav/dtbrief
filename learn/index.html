@@ -17,7 +17,7 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
-    <meta property="article:published_time" content="2026-11-12" />
+    <meta property="article:published_time" content="2026-11-13" />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebPage","name":"Learning Center","url":"https://dtbrief.com/learn/"}
@@ -342,37 +342,6 @@
         margin-bottom: 4px;
       }
 
-      .listen-bar {
-        display: flex;
-        gap: 14px;
-        align-items: center;
-        border: 1px solid var(--rule);
-        border-radius: 14px;
-        padding: 14px 18px;
-        margin: 0 0 28px;
-        background: var(--card);
-      }
-      .listen-toggle {
-        border: none;
-        padding: 0;
-        cursor: pointer;
-      }
-      .listen-toggle .icon-pause { display: none; }
-      .listen-bar.playing .listen-toggle .icon-play { display: none; }
-      .listen-bar.playing .listen-toggle .icon-pause { display: block; }
-      .listen-label {
-        font-family: "Sora", system-ui, sans-serif;
-        font-weight: 700;
-        font-size: 17px;
-        line-height: 1.3;
-      }
-      .listen-meta {
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 12px;
-        color: var(--ink-faint);
-        margin-top: 3px;
-      }
-
       footer {
         border-top: 2px solid var(--ink);
         margin-top: 8px;
@@ -476,8 +445,8 @@
         <p class="deck">One technology from the Daily Tech Briefing, explained in plain English. A new lesson every day &mdash; no jargon, no hype, just what it is, how it works, and why it matters.</p>
 
         <figure class="figure">
-          <img src="assets/alphagenome-dna-hero.webp" alt="A glowing strand of DNA above different human cells, each lit up where the same gene is switched on" width="2048" height="1152" />
-          <figcaption>Today&rsquo;s lesson: the AI that reads DNA cell by cell &mdash; and finds the variants that cause disease.</figcaption>
+          <img src="assets/neoclouds-hero.webp" alt="Glowing data-center halls filled with graphics processors, power lines running in from a substation" width="2048" height="1152" />
+          <figcaption>Today&rsquo;s lesson: neoclouds &mdash; the GPU landlords renting AI compute to the labs.</figcaption>
         </figure>
 
         <div class="byline">
@@ -490,8 +459,8 @@
           <h2 id="lessons"><span class="num">1</span> Latest lesson</h2>
           <ul class="watch">
             <li>
-              <span class="w-label">November 12, 2026 &middot; 4 min read</span>
-              <span><a href="2026-11-12-alphagenome-dna.html"><strong>How AI Reads DNA, Explained: AlphaGenome 2 and the Cell-by-Cell Map of Disease</strong></a> &mdash; The AI model that predicts which cell a DNA variant will affect &mdash; and why that finds disease.</span>
+              <span class="w-label">November 13, 2026 &middot; 4 min read</span>
+              <span><a href="2026-11-13-neoclouds-explained.html"><strong>Neoclouds, Explained: The GPU Landlords Renting Compute to the AI Boom</strong></a> &mdash; The GPU landlords renting AI compute to the labs &mdash; and the debt that pays for it.</span>
             </li>
           </ul>
         </section>
@@ -499,6 +468,10 @@
         <section aria-labelledby="all">
           <h2 id="all"><span class="num">2</span> All lessons</h2>
           <ul class="watch">
+            <li>
+              <span class="w-label">November 12, 2026 &middot; 4 min read</span>
+              <span><a href="2026-11-12-alphagenome-dna.html"><strong>How AI Reads DNA, Explained: AlphaGenome 2 and the Cell-by-Cell Map of Disease</strong></a> &mdash; The AI model that predicts which cell a DNA variant will affect &mdash; and why that finds disease.</span>
+            </li>
             <li>
               <span class="w-label">November 11, 2026 &middot; 4 min read</span>
               <span><a href="2026-11-11-vla-robot-brains.html"><strong>Robot Brains, Explained: How Vision-Language-Action Models Teach Machines to Work</strong></a> &mdash; The model that lets a robot see, understand words, and move &mdash; and why it still drops things.</span>
@@ -526,7 +499,7 @@
     <footer>
       <div class="footer-inner">
         <span>Daily Tech Briefing &mdash; your daily dose of tech news. Signal, not noise.</span>
-        <span><a href="../index.html">&larr; Daily Tech Briefing</a> &middot; November 12, 2026</span>
+        <span><a href="../index.html">&larr; Daily Tech Briefing</a> &middot; November 13, 2026</span>
       </div>
     </footer>
 
@@ -541,24 +514,6 @@
         }
         document.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
-        /* Listen-aloud: toggle the story audio on the play button. */
-        document.querySelectorAll('.listen-bar').forEach(function (listenBar) {
-          var btn = listenBar.querySelector('.listen-toggle');
-          var audio = listenBar.querySelector('audio');
-          btn.addEventListener('click', function () {
-            if (audio.paused) { audio.play(); } else { audio.pause(); }
-          });
-          audio.addEventListener('play', function () {
-            listenBar.classList.add('playing');
-            btn.setAttribute('aria-pressed', 'true');
-          });
-          function stopped() {
-            listenBar.classList.remove('playing');
-            btn.setAttribute('aria-pressed', 'false');
-          }
-          audio.addEventListener('pause', stopped);
-          audio.addEventListener('ended', stopped);
-        });
       })();
     </script>
     <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0d3d9c0c884e4b5b827d30970f4bb08a"}'></script><!-- End Cloudflare Web Analytics -->

@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Daily Tech Briefing" href="https://dtbrief.com/feed.xml" />
+    <meta name="theme-color" content="#0A0F1E" />
+    <meta name="description" content="Jensen Huang resigned as Nvidia CEO, explained in plain English &mdash; what happened, why it matters, and what to watch next. From today&rsquo;s Daily Tech Briefing." />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Daily Tech Briefing" />
+    <meta property="og:title" content="Jensen Huang Is Out &mdash; Daily Tech Briefing" />
+    <meta property="og:description" content="Huang resigned Thursday. Congress wants him to testify, the stock fell below four trillion dollars in value, and the AI boom&rsquo;s central company has no permanent leader." />
+    <meta property="og:url" content="https://dtbrief.com/posts/2026-11-13-nvidia-huang-resigns-fallout.html" />
+    <meta property="og:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
+    <meta property="article:published_time" content="2026-11-13" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"NewsArticle","headline":"Jensen Huang Is Out: What Happened, Why It Matters, What Comes Next","datePublished":"2026-11-13","author":{"@type":"Organization","name":"Daily Tech Briefing"},"publisher":{"@type":"Organization","name":"Daily Tech Briefing","url":"https://dtbrief.com/"},"mainEntityOfPage":"https://dtbrief.com/posts/2026-11-13-nvidia-huang-resigns-fallout.html"}
+    </script>
+    <title>Jensen Huang Is Out: What Happened, Why It Matters, What Comes Next &mdash; Daily Tech Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #F4F6F8;
+        --ink: #0A0F1E;
+        --ink-soft: #2E3A52;
+        --ink-faint: #5A6478;
+        --rule: #D8DEE7;
+        --accent: #0090C8;
+        --accent-soft: rgba(0, 144, 200, 0.08);
+        --card: #ffffff;
+        --chip-bg: #0A0F1E;
+        --chip-ink: #F4F6F8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #070B16;
+          --ink: #EDF1F8;
+          --ink-soft: #C7D3E8;
+          --ink-faint: #93A0B8;
+          --rule: #22304F;
+          --accent: #00C2FF;
+          --accent-soft: rgba(0, 194, 255, 0.12);
+          --card: #0D1424;
+          --chip-bg: #EDF1F8;
+          --chip-ink: #070B16;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .sans { font-family: "IBM Plex Sans", system-ui, sans-serif; }
+
+      #progress {
+        position: fixed;
+        top: 0; left: 0;
+        height: 3px;
+        width: 0%;
+        background: #00C2FF;
+        z-index: 50;
+      }
+
+      /* ---------- Masthead ---------- */
+      .masthead {
+        border-bottom: 2px solid var(--ink);
+      }
+      .masthead-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 18px 24px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand-mark {
+        width: 40px; height: 40px;
+        flex: none;
+        display: grid;
+        place-items: center;
+      }
+      .brand-name {
+        font-family: "Sora", sans-serif;
+        font-weight: 800;
+        font-size: 21px;
+        letter-spacing: -0.01em;
+        line-height: 1.05;
+      }
+      .brand-dot { color: var(--accent); }
+      .brand-tag {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 2px;
+      }
+      .masthead-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        text-align: right;
+        line-height: 1.5;
+      }
+      .masthead-meta strong { color: var(--ink); font-weight: 600; }
+
+      /* ---------- Layout ---------- */
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      article {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 44px 0 8px;
+      }
+
+      .dateline-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      .kicker {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .sample-chip {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: var(--chip-bg);
+        color: var(--chip-ink);
+        padding: 4px 9px;
+        border-radius: 999px;
+      }
+
+      h1 {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(34px, 5.4vw, 54px);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px;
+      }
+      h1 .money { color: var(--accent); }
+      .deck {
+        font-size: clamp(19px, 2.6vw, 22px);
+        line-height: 1.45;
+        font-style: italic;
+        color: var(--ink-soft);
+        margin: 0 0 26px;
+      }
+      .byline {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        color: var(--ink-faint);
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        padding: 12px 0;
+        margin-bottom: 34px;
+      }
+      .byline .who { color: var(--ink); font-weight: 600; }
+      .byline .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+
+      /* ---------- Key numbers ---------- */
+      .keynums {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+      .keynum {
+        padding: 20px 20px 16px;
+      }
+      .keynum + .keynum { border-left: 1px solid var(--rule); }
+      .keynum .fig {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(24px, 3.4vw, 32px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .keynum .fig em { font-style: normal; color: var(--accent); }
+      .keynum .lbl {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--ink-faint);
+        margin-top: 8px;
+      }
+
+      /* ---------- Body copy ---------- */
+      section { margin-bottom: 38px; }
+      h2 {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin: 0 0 16px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      h2 .num {
+        font-family: "Sora", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0;
+        color: var(--accent);
+        line-height: 1;
+      }
+      p {
+        font-size: 19px;
+        line-height: 1.68;
+        color: var(--ink-soft);
+        margin: 0 0 18px;
+      }
+      p strong { color: var(--ink); font-weight: 700; }
+      p a, .source-card a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+      .inline-icon { width: 16px; height: 16px; vertical-align: -2px; }
+
+      .pull {
+        border-left: 3px solid var(--accent);
+        padding: 4px 0 4px 20px;
+        margin: 28px 0;
+        font-size: 22px;
+        line-height: 1.4;
+        font-weight: 500;
+        font-style: italic;
+        color: var(--ink);
+      }
+
+      ul.watch {
+        list-style: none;
+        margin: 0 0 18px;
+        padding: 0;
+      }
+      ul.watch li {
+        font-size: 19px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        padding: 12px 0 12px 0;
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 14px;
+      }
+      ul.watch li:first-child { border-top: none; padding-top: 2px; }
+      ul.watch .w-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        padding-top: 5px;
+      }
+
+      /* ---------- Source + episode ---------- */
+      .source-card {
+        background: var(--accent-soft);
+        border-radius: 14px;
+        padding: 22px 24px;
+        margin: 44px 0 18px;
+      }
+      .source-card .sc-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .source-card p { font-size: 17px; margin: 0; line-height: 1.55; }
+
+      .episode-note {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 48px;
+        background: var(--card);
+      }
+      .play-btn {
+        width: 42px; height: 42px;
+        flex: none;
+        border-radius: 50%;
+        background: #00C2FF;
+        display: grid;
+        place-items: center;
+      }
+      .episode-note p { font-size: 16.5px; margin: 0; line-height: 1.55; }
+      .episode-note .ep-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 4px;
+      }
+
+      .listen-bar {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 14px 18px;
+        margin: 0 0 28px;
+        background: var(--card);
+      }
+      .listen-toggle {
+        border: none;
+        padding: 0;
+        cursor: pointer;
+      }
+      .listen-toggle .icon-pause { display: none; }
+      .listen-bar.playing .listen-toggle .icon-play { display: none; }
+      .listen-bar.playing .listen-toggle .icon-pause { display: block; }
+      .listen-label {
+        font-family: "Sora", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 1.3;
+      }
+      .listen-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 3px;
+      }
+
+      footer {
+        border-top: 2px solid var(--ink);
+        margin-top: 8px;
+      }
+      .footer-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 20px 24px 34px;
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 620px) {
+        .keynums { grid-template-columns: 1fr; }
+        .keynum + .keynum { border-left: none; border-top: 1px solid var(--rule); }
+        ul.watch li { grid-template-columns: 1fr; gap: 2px; }
+        ul.watch .w-label { padding-top: 0; }
+        .masthead-meta { text-align: left; }
+        article { padding-top: 32px; }
+      }
+
+      /* ---------- Sticky section nav ---------- */
+      .topnav { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 1px solid var(--rule); }
+      .topnav-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; display: flex; gap: 2px; }
+      .topnav a { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--ink-soft); text-decoration: none; padding: 10px 12px 9px; border-bottom: 2px solid transparent; }
+      .topnav a:hover { color: var(--ink); }
+      .topnav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+      @media (max-width: 620px) {
+        .topnav-inner { overflow-x: auto; scrollbar-width: none; }
+        .topnav-inner::-webkit-scrollbar { display: none; }
+        .topnav a { flex: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="brand" href="../index.html" aria-label="Daily Tech Briefing home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 96 96" aria-hidden="true">
+              <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+              <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+              <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+              <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+            </svg>
+          </span>
+          <span>
+            <span class="brand-name">Tech Briefing<span class="brand-dot">.</span></span>
+            <span class="brand-tag" style="display:block;">Your daily dose of tech news &mdash; signal, not noise.</span>
+          </span>
+        </a>
+        <div class="masthead-meta">
+          <strong>Friday, November 13, 2026</strong><br />
+          The blog companion to the podcast
+        </div>
+      </div>
+    </header>
+    <nav class="topnav" aria-label="Sections">
+      <div class="topnav-inner">
+        <a href="../index.html" data-nav="top" class="active">Top Stories</a>
+        <a href="../archive.html" data-nav="latest">Latest</a>
+        <a href="../learn/" data-nav="learn">Learn</a>
+        <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" data-nav="listen" target="_blank" rel="noopener">Listen</a>
+      </div>
+    </nav>
+
+    <div class="wrap">
+      <article>
+        <div class="dateline-row">
+          <span class="kicker">Top Story</span>
+        </div>
+
+        <h1>Jensen Huang Is <span class="money">Out</span>.</h1>
+
+        <p class="deck">Nvidia&rsquo;s co-founder resigned Thursday after admitting to affairs, one with a suspected Chinese spy. Now Congress wants him to testify, the stock has slid below four trillion dollars in value, and the AI boom&rsquo;s central company has no permanent leader.</p>
+
+        <div class="byline">
+          <span class="who">Daily Tech Briefing</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>November 13, 2026</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>5 min read</span>
+        </div>
+
+        <div class="keynums" role="group" aria-label="Key numbers">
+          <div class="keynum">
+            <div class="fig"><em>7.8%</em></div>
+            <div class="lbl">Premarket fall on Thursday, putting Nvidia&rsquo;s value on course to drop below $4 trillion for the first time since July</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">~$300B</div>
+            <div class="lbl">Market value lost since the board announced its investigation on Sunday, according to Reuters</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">4.3%</div>
+            <div class="lbl">Shares closed down on Thursday, after the resignation was announced</div>
+          </div>
+        </div>
+
+        <div class="listen-bar">
+          <button class="listen-toggle play-btn" type="button" aria-label="Listen to this story" aria-pressed="false">
+            <svg class="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4.8v14.4L19 12 7 4.8z" fill="#0A0F1E"/></svg>
+            <svg class="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="#0A0F1E"/></svg>
+          </button>
+          <div>
+            <div class="listen-label">Listen to this story</div>
+            <div class="listen-meta">Melody reads the top story &middot; 5:09</div>
+          </div>
+          <audio src="../audio/2026-11-13-nvidia-huang-resigns-fallout.mp3" preload="none"></audio>
+        </div>
+
+        <section aria-labelledby="s1">
+          <h2 id="s1"><span class="num">1</span> What happened</h2>
+          <p>Nvidia announced on Thursday that Jensen Huang has resigned as president, chief executive, and director, effective immediately. Chief financial officer Colette Kress is interim chief executive, and Harvey C. Jones is the board&rsquo;s first-ever chair. The resignation came four days after the board opened an investigation into Huang&rsquo;s conduct, and hours after Reuters reported a third, previously undisclosed relationship with a Nvidia employee. Shares fell 7.8 percent in premarket trading and closed the day down 4.3 percent.</p>
+          <p>The scandal built fast. On Sunday, Huang told staff in a letter that he had been unfaithful to his wife, apologizing for violating his family&rsquo;s and his employees&rsquo; trust. The woman at the center of the espionage allegations is Alice Huang, a top executive at Singapore-based data-center company Megaspeed International, which the United States and Singapore are scrutinizing over allegations it moved billions of dollars in export-restricted Nvidia chips to China. The Justice Department is now leading multiple investigations involving her, and China has denied the spy allegations. On Wednesday, the New York Times reported a second affair, with Kimberly Powell, Nvidia&rsquo;s vice president of health care, who reports directly to him. Nvidia&rsquo;s code of conduct warns against personal relationships between a manager and a subordinate.</p>
+          <p>Washington moved in on both sides. Democrats in Congress launched an investigation into Nvidia, writing a scathing letter about Huang&rsquo;s reported scheme with President Trump. Three Republican House committee chairmen had already asked Huang to brief them on November 18 about Alice Huang and Megaspeed, and after the resignation Huang agreed to testify before Congress by Thanksgiving, behind closed doors, after senior lawmakers threatened to subpoena him. President Trump floated Apple chairman Tim Cook as a possible successor to Huang.</p>
+          <p>The resignation also puts Nvidia&rsquo;s open-source commitments in question. Huang had championed open-weight models and the company&rsquo;s Hugging Face acquisition, and the company&rsquo;s support for open source AI is now uncertain under interim leadership. Hugging Face&rsquo;s chief executive vowed to keep fighting for open source AI after Huang&rsquo;s exit. Nvidia reports third-quarter results on Tuesday, November 17 &mdash; Kress&rsquo;s first earnings call in the top job, with the leadership question hanging over every number.</p>
+        </section>
+
+        <section aria-labelledby="s2">
+          <h2 id="s2"><span class="num">2</span> Why it matters</h2>
+          <p>First, <strong>this is a leadership crisis at the company the entire AI boom runs on</strong>. Nvidia dominates AI processors, and Huang has been its face and strategist for more than three decades. The board&rsquo;s own proxy statement warns the company is highly dependent on its longstanding executive team, and Huang has said he does not believe in succession planning. Huang kept about sixty direct reports, and there is no obvious successor. The market is pricing that in: Nvidia has lost about $300 billion in market value since the board announced its investigation on Sunday.</p>
+          <p>Second, <strong>the scandal is two stories at once: governance and national security</strong>. The Powell affair is a governance problem &mdash; a chief executive involved with a direct report, against the company&rsquo;s own policy. The Alice Huang affair is a national-security problem: a CEO who lobbied the president to let Nvidia ship chips to China while involved with a business partner US officials believe is a Chinese intelligence asset. The investigation asks whether secrets were compromised; the resignation answers the governance question but leaves the security one open.</p>
+          <div class="pull">One affair is a governance problem. The other is a national-security problem. Now both are a leadership problem.</div>
+          <p>Third, <strong>the fallout reaches beyond Nvidia</strong>. The AI trade has been wobbling for weeks: a Federal Reserve governor warned this week that disappointing AI returns could trigger a large correction, OpenAI just closed a funding round at a lower valuation than it first sought, and Anthropic prices its giant IPO next week. The boom&rsquo;s central chipmaker losing its founder-CEO in a scandal is exactly the kind of shock that tests whether the market still believes.</p>
+        </section>
+
+        <section aria-labelledby="s3">
+          <h2 id="s3"><span class="num">3</span> What to watch next</h2>
+          <ul class="watch">
+            <li>
+              <span class="w-label">Nov 17 &mdash; earnings</span>
+              <span>Nvidia reports third-quarter results on Tuesday. Watch the numbers &mdash; and who speaks for the company, and whether Kress addresses the leadership question at all.</span>
+            </li>
+            <li>
+              <span class="w-label">By Thanksgiving &mdash; testimony</span>
+              <span>Huang agreed to testify before Congress by Thanksgiving, behind closed doors, with the session expected to be recorded and transcribed. Watch what he says about Alice Huang and Megaspeed, and whether Democrats&rsquo; investigation turns formal.</span>
+            </li>
+            <li>
+              <span class="w-label">The permanent search</span>
+              <span>Watch who the board picks &mdash; an insider like Kress, an outsider, or a name like Tim Cook &mdash; and how long the search takes. Nvidia&rsquo;s bylaws let a majority of its 11 directors remove a CEO with or without cause; picking the next one is the harder job.</span>
+            </li>
+            <li>
+              <span class="w-label">Nov 18&ndash;19 &mdash; Anthropic IPO</span>
+              <span>Anthropic prices November 18 and starts trading November 19 at up to a $1.4 trillion valuation. Watch whether investors still pay up for AI after a week like this &mdash; it is the first real test of the AI trade since Huang resigned.</span>
+            </li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="s4">
+          <h2 id="s4">The rest of today&rsquo;s briefing</h2>
+          <p><a href="https://www.reuters.com/business/openai-google-anthropic-hit-with-lawsuit-seeking-halt-frontier-ai-development-2026-11-12/" target="_blank" rel="noopener"><strong>Nonprofits sue OpenAI, Google, Anthropic, Meta, and SpaceX to halt frontier AI development</strong></a> &mdash; A group of nonprofits sued the five companies on Thursday, asking a San Francisco court to block further development of the most advanced AI models. The suit cites the companies&rsquo; own leaders&rsquo; warnings about AI&rsquo;s potential to cause the destruction of civilization, and accuses them of business practices that create a public nuisance. Meta declined to comment, and the Trump administration has so far declined to pursue large-scale AI regulation. &mdash; Reuters</p>
+          <p><a href="https://www.usatoday.com/story/tech/2026/11/12/microsoft-down-outlook-365-outage-reports/92744582007/" target="_blank" rel="noopener"><strong>A Microsoft 365 outage knocks out Outlook for hours and is still not fully fixed</strong></a> &mdash; A widespread Microsoft outage disrupted Outlook, Microsoft 365, Copilot, and other services for about ten hours on Thursday, with Downdetector recording a peak of about 129,000 Outlook problem reports. Microsoft traced the problem to Exchange Online, and as of Friday morning its status page still showed service degradation, with recovery partial and not sustained. Microsoft has not published a root cause and says it is not aware of any malicious activity. &mdash; USA Today</p>
+          <p><a href="https://decrypt.co/382939/anthropic-sets-ipo-price-range-at-70-to-78-valuing-company-at-up-to-1-4-trillion?amp=1" target="_blank" rel="noopener"><strong>Anthropic sets its IPO price range at $70 to $78 a share, valuing the company at up to $1.4 trillion</strong></a> &mdash; Anthropic set its IPO price range at $70 to $78 a share for 825 million Class A shares, which would raise as much as $64.35 billion and value the Claude maker at up to $1.4 trillion. The shares are expected to price on November 18 and begin trading on the Nasdaq under the ticker ANT on November 19, with seven suppliers &mdash; AMD, Broadcom, Google, Micron, Microsoft, Nvidia, and TSMC &mdash; agreeing to a $26 billion private placement. The top of the range is about 30 percent below the $2 trillion valuation investors discussed in August. &mdash; Decrypt</p>
+          <p><a href="https://techcrunch.com/2026/11/12/muse-can-now-place-calls-to-u-s-businesses-if-you-pay/" target="_blank" rel="noopener"><strong>Meta&rsquo;s Muse can now place calls to US businesses, but only if you pay</strong></a> &mdash; Meta&rsquo;s AI agent Muse can now place calls to US businesses on behalf of its users, after testing the feature since September, but only paid subscribers have access. Plans start at $20 a month, and Meta says Muse now has more than 10 million users. Reuters reported that Meta tested using human contractors to place some Muse calls when the AI kept failing at them. &mdash; TechCrunch</p>
+          <p><a href="https://www.searchenginejournal.com/google-gemini-4-hydrogen-default-ai-mode/597096/" target="_blank" rel="noopener"><strong>Google rolls out Gemini 4 Hydrogen in Search, its biggest model upgrade to Search yet</strong></a> &mdash; Google announced Gemini 4 Hydrogen on Thursday and is rolling it out globally across Google Search, calling it the biggest model upgrade to Search so far. Hydrogen is now the default model in AI Mode and is being used for the hardest questions in AI Overviews, handling multi-part questions, typos, and specific requests. Google says it completes tasks two and a half times faster than Gemini 3.8 Flash, though those are the company&rsquo;s own claims. &mdash; Search Engine Journal</p>
+          <p><a href="https://techcrunch.com/2026/11/12/cyberattack-on-fireworks-ai-allowed-hackers-to-access-notion-customers-chat-transcripts/" target="_blank" rel="noopener"><strong>A cyberattack on Fireworks AI exposed Notion customers&rsquo; chat transcripts</strong></a> &mdash; A cyberattack at Fireworks AI exposed some customer data after an attacker breached its cloud provider to reach a development system, taking billing information, datasets, and, for some accounts, secrets and incomplete model weights. Notion said the breach affected around 1 percent of its customers, including chat transcripts of Notion AI users of its Insights feature. Notion disconnected from Fireworks on November 3 and told affected customers to rotate any passwords or API keys they pasted into Notion AI. &mdash; TechCrunch</p>
+          <p><a href="https://www.reuters.com/technology/hubspot-co-founder-brian-halligan-returns-ceo-2026-11-12/" target="_blank" rel="noopener"><strong>HubSpot co-founder Brian Halligan returns as chief executive</strong></a> &mdash; HubSpot said on Thursday that co-founder Brian Halligan would return as chief executive, replacing Yamini Rangan, who steps down effective November 12 but stays through December 1. Halligan co-founded HubSpot in 2005 and served as CEO for 16 years, leading it through its IPO. Under Rangan, customers grew from 135,000 to more than 311,000, and revenue from $1.3 billion in 2021 to an expected $3.7 billion in 2026. &mdash; Reuters</p>
+          <p><a href="https://techcrunch.com/2026/11/12/nebius-tests-the-neocloud-playbook-with-40-billion-in-planned-spending/" target="_blank" rel="noopener"><strong>Nebius lays out $40 billion in planned spending for 2027, and its shares sink</strong></a> &mdash; Neocloud company Nebius laid out $40 billion in planned spending for 2027 on its earnings call Thursday, far more than Wall Street expected, and its shares fell 17 percent. It plans to fund the buildout with customer prepayments and loans backed by customer contracts, but its biggest customer, Microsoft, is paying for capacity at a New Jersey data center now months behind schedule under a $19.4 billion contract. Third-quarter revenue was $981 million, up 571 percent from a year earlier. &mdash; TechCrunch</p>
+          <p><a href="https://www.coindesk.com/markets/2026/11/13/spacex-tesla-merger-talks-put-30-000-bitcoin-back-in-focus" target="_blank" rel="noopener"><strong>SpaceX and Tesla merger talks are advancing, with a deal possible as soon as December</strong></a> &mdash; SpaceX and Tesla are advancing merger talks, and a deal could be announced as early as December, Bloomberg reported on Thursday. Combined, the two companies are worth roughly $3.5 trillion, which would make it the largest corporate deal ever, though the announcement could slip into early 2027. Bank of America expects SpaceX to buy Tesla with stock, with Elon Musk holding about 56 percent of the combined voting power. &mdash; CoinDesk</p>
+        </section>
+
+        <div class="source-card">
+          <div class="sc-label">Original reporting</div>
+          <p>This post is based on TechCrunch&rsquo;s reporting: <a href="https://techcrunch.com/2026/11/12/nvidias-jensen-huang-resigns-chipmaker-names-cfo-colette-kress-as-interim-ceo/" target="_blank" rel="noopener">&ldquo;Nvidia&rsquo;s Jensen Huang resigns, chipmaker names CFO Colette Kress as interim CEO&rdquo; &mdash; TechCrunch, November 12, 2026</a>. Also consulted: Reuters&rsquo; reporting on the market selloff and the third affair, The Verge&rsquo;s live coverage of the resignation, and TechCrunch&rsquo;s reporting that Huang agreed to testify before Congress.</p>
+        </div>
+
+        <section aria-labelledby="more-coverage">
+          <h2 id="more-coverage">More coverage</h2>
+          <p><a href="https://www.reuters.com/business/retail-consumer/global-ai-stocks-sink-nvidia-crisis-deepens-sector-selloff-2026-11-12/" target="_blank" rel="noopener"><strong>Global AI stocks sink as Nvidia crisis deepens sector selloff</strong></a> &mdash; Reuters</p>
+          <p><a href="https://techcrunch.com/2026/11/12/jensen-huang-agrees-to-testify-before-congress/" target="_blank" rel="noopener"><strong>Jensen Huang agrees to testify before Congress</strong></a> &mdash; TechCrunch</p>
+          <p><a href="https://www.reuters.com/business/take-five/global-markets-themes-graphic-2026-11-13/" target="_blank" rel="noopener"><strong>Huang&rsquo;s exit, Anthropic&rsquo;s entrance</strong></a> &mdash; Reuters</p>
+        </section>
+
+        <div class="episode-note">
+          <span class="play-btn" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 4.8v14.4L19 12 7 4.8z" fill="#0A0F1E"/>
+            </svg>
+          </span>
+          <div>
+            <div class="ep-label">Heard it in the briefing</div>
+            <p>This story led <strong>Episode 33</strong> of the Daily Tech Briefing podcast &mdash; your daily dose of tech news in about 10 minutes, read by Melody, your AI anchor. <a href="https://open.spotify.com/episode/20Fb3l8bo9OhHnDsgcpJD6" target="_blank" rel="noopener"><svg class="inline-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1DB954" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg> Listen on Spotify</a> or <a href="https://podcasts.apple.com/us/podcast/daily-tech-briefing/id6822945922" target="_blank" rel="noopener"><svg class="inline-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#9933CC" d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0zm6.525 2.568c2.336 0 4.448.902 6.056 2.587 1.224 1.272 1.912 2.619 2.264 4.392.12.59.12 2.2.007 2.864a8.506 8.506 0 01-3.24 5.296c-.608.46-2.096 1.261-2.336 1.261-.088 0-.096-.091-.056-.46.072-.592.144-.715.48-.856.536-.224 1.448-.874 2.008-1.435a7.644 7.644 0 002.008-3.536c.208-.824.184-2.656-.048-3.504-.728-2.696-2.928-4.792-5.624-5.352-.784-.16-2.208-.16-3 0-2.728.56-4.984 2.76-5.672 5.528-.184.752-.184 2.584 0 3.336.456 1.832 1.64 3.512 3.192 4.512.304.2.672.408.824.472.336.144.408.264.472.856.04.36.03.464-.056.464-.056 0-.464-.176-.896-.384l-.04-.03c-2.472-1.216-4.056-3.274-4.632-6.012-.144-.706-.168-2.392-.03-3.04.36-1.74 1.048-3.1 2.192-4.304 1.648-1.737 3.768-2.656 6.128-2.656zm.134 2.81c.409.004.803.04 1.106.106 2.784.62 4.76 3.408 4.376 6.174-.152 1.114-.536 2.03-1.216 2.88-.336.43-1.152 1.15-1.296 1.15-.023 0-.048-.272-.048-.603v-.605l.416-.496c1.568-1.878 1.456-4.502-.256-6.224-.664-.67-1.432-1.064-2.424-1.246-.64-.118-.776-.118-1.448-.008-1.02.167-1.81.562-2.512 1.256-1.72 1.704-1.832 4.342-.264 6.222l.413.496v.608c0 .336-.027.608-.06.608-.03 0-.264-.16-.512-.36l-.034-.011c-.832-.664-1.568-1.842-1.872-2.997-.184-.698-.184-2.024.008-2.72.504-1.878 1.888-3.335 3.808-4.019.41-.145 1.133-.22 1.814-.211zm-.13 2.99c.31 0 .62.06.844.178a2.17 2.17 0 011.04 1.259c.464 1.578-1.208 2.96-2.72 2.254h-.015c-.712-.331-1.096-.956-1.104-1.77 0-.733.408-1.371 1.112-1.745.224-.117.534-.176.844-.176zm-.011 4.728c.988-.004 1.706.349 1.97.97.198.464.124 1.932-.218 4.302-.232 1.656-.36 2.074-.68 2.356-.44.39-1.064.498-1.656.288h-.003c-.716-.257-.87-.605-1.164-2.644-.341-2.37-.416-3.838-.218-4.302.262-.616.974-.966 1.97-.97z"/></svg> Listen on Apple Podcasts</a>.</p>
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/20Fb3l8bo9OhHnDsgcpJD6?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Listen to Episode 33 on Spotify"></iframe>
+          </div>
+        </div>
+
+        <div class="newsletter-embed" style="margin:28px 0 8px;padding:20px;border:1px solid #D8DEE7;border-radius:12px;background:#EDF1F8;"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="3f37ce8c-74b7-4ab4-b0f8-c5838169d83b"></script></div>
+        <div class="share-row" style="margin:28px 0 8px;padding-top:18px;border-top:1px solid #D8DEE7;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5A6478;">Share this story</span>
+          <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;">
+            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdtbrief.com%2Fposts%2F2026-11-13-nvidia-huang-resigns-fallout.html&text=Jensen%20Huang%20Is%20Out%20%E2%80%94%20Daily%20Tech%20Briefing" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Post to X</a>
+            <a href="https://wa.me/?text=Jensen%20Huang%20Is%20Out%20%E2%80%94%20Daily%20Tech%20Briefing%20https%3A%2F%2Fdtbrief.com%2Fposts%2F2026-11-13-nvidia-huang-resigns-fallout.html" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">WhatsApp</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdtbrief.com%2Fposts%2F2026-11-13-nvidia-huang-resigns-fallout.html" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Facebook</a>
+            <a href="#" onclick="navigator.clipboard.writeText('https://dtbrief.com/posts/2026-11-13-nvidia-huang-resigns-fallout.html');this.textContent='Link copied';return false;" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Copy link</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <span>Daily Tech Briefing &mdash; your daily dose of tech news. Signal, not noise.</span>
+        <span><a href="../index.html">&larr; All posts</a> &middot; November 13, 2026</span>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var bar = document.getElementById('progress');
+        function onScroll() {
+          var h = document.documentElement;
+          var max = h.scrollHeight - h.clientHeight;
+          var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+          bar.style.width = pct + '%';
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+        /* Listen-aloud: toggle the story audio on the play button. */
+        document.querySelectorAll('.listen-bar').forEach(function (listenBar) {
+          var btn = listenBar.querySelector('.listen-toggle');
+          var audio = listenBar.querySelector('audio');
+          btn.addEventListener('click', function () {
+            if (audio.paused) { audio.play(); } else { audio.pause(); }
+          });
+          audio.addEventListener('play', function () {
+            listenBar.classList.add('playing');
+            btn.setAttribute('aria-pressed', 'true');
+          });
+          function stopped() {
+            listenBar.classList.remove('playing');
+            btn.setAttribute('aria-pressed', 'false');
+          }
+          audio.addEventListener('pause', stopped);
+          audio.addEventListener('ended', stopped);
+        });
+      })();
+    </script>
+    <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0d3d9c0c884e4b5b827d30970f4bb08a"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
