@@ -21,6 +21,13 @@ entries.append(("/learn/", newest, "weekly", "0.7"))
 for p in lessons:
     entries.append(("/learn/" + os.path.basename(p), date_of(p), "monthly", "0.7"))
 entries.append(("/archive.html", newest, "daily", "0.5"))
+entries.append(("/breaking/", newest, "weekly", "0.6"))
+# Professional pack (Nov 14, 2026): sections + trust pages.
+entries.append(("/sections/", newest, "weekly", "0.6"))
+for slug in ["ai", "chips", "big-tech", "business", "security"]:
+    entries.append(("/sections/%s.html" % slug, newest, "weekly", "0.6"))
+for page in ["privacy", "terms", "contact", "advertise", "standards"]:
+    entries.append(("/%s.html" % page, "2026-11-14", "monthly", "0.4"))
 
 out = ['<?xml version="1.0" encoding="UTF-8"?>',
        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']

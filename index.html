@@ -204,6 +204,29 @@
       .latest-player { margin-bottom: 40px; }
       .latest-player iframe { width: 100%; border: 0; border-radius: 12px; display: block; }
 
+      /* ---------- Masthead dateline + sections strip (Nov 14, 2026) ---------- */
+      .masthead-dateline {
+        display: flex; align-items: center; gap: 12px;
+        padding: 18px 0 12px; margin-bottom: 26px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .masthead-dateline img { width: 30px; height: 30px; display: block; flex: none; }
+      .masthead-dateline-name {
+        font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600;
+        letter-spacing: 0.14em; color: var(--ink); white-space: nowrap;
+      }
+      .masthead-dateline-date {
+        font-family: "IBM Plex Mono", monospace; font-size: 13px;
+        color: var(--ink-faint); margin-left: auto; text-align: right;
+      }
+      .sections-strip { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 34px; }
+      .section-pill {
+        font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600;
+        color: var(--ink); background: var(--card); border: 1px solid var(--rule);
+        border-radius: 999px; padding: 8px 14px; text-decoration: none;
+      }
+      .section-pill:hover { border-color: var(--accent); color: var(--accent); }
+
       /* ---------- Sticky section nav ---------- */
       .topnav { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 1px solid var(--rule); }
       .topnav-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; display: flex; gap: 2px; }
@@ -294,6 +317,12 @@
     </nav>
 
     <div class="wrap">
+      <div class="masthead-dateline">
+        <img src="favicon.svg" alt="" width="30" height="30" />
+        <span class="masthead-dateline-name">DAILY TECH BRIEFING</span>
+        <span class="masthead-dateline-date" id="dateline"></span>
+      </div>
+      <script>document.getElementById('dateline').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });</script>
       <div class="intro">
         <h1>Tech news, in <span class="money">plain English.</span></h1>
         <p class="deck">Every weekday, the Daily Tech Briefing picks the stories that actually matter and explains what they mean — no jargon, no hype. Read the top story here, or listen to the full briefing in about 10 minutes.</p>
@@ -352,6 +381,15 @@
           <button class="ticker-pause" type="button" aria-pressed="false">Pause</button>
         </div>
 
+        <h2 class="section-label">Sections</h2>
+        <div class="sections-strip">
+          <a class="section-pill" href="sections/ai.html">AI</a>
+          <a class="section-pill" href="sections/chips.html">Chips &amp; Hardware</a>
+          <a class="section-pill" href="sections/big-tech.html">Big Tech</a>
+          <a class="section-pill" href="sections/business.html">Business &amp; Markets</a>
+          <a class="section-pill" href="sections/security.html">Security &amp; Privacy</a>
+          <a class="section-pill" href="sections/">All sections</a>
+        </div>
         <h2 class="section-label">Search</h2>
         <input id="site-search" class="search-box" type="search" placeholder="Search stories &mdash; try &ldquo;Anthropic&rdquo; or &ldquo;Apple&rdquo;" autocomplete="off" aria-label="Search the briefing" />
         <p id="search-meta" class="search-meta" aria-live="polite"></p>
@@ -457,6 +495,28 @@
         </a>
         </div>
 
+        <div id="reader-favorites">
+        <h2 class="section-label">Reader favorites &mdash; start here</h2>
+        <a class="post-card" href="posts/2026-11-13-nvidia-huang-resigns-fallout.html">
+          <span class="kicker">Top Story</span>
+          <h3>Jensen Huang Is Out.</h3>
+          <p>Nvidia&rsquo;s co-founder resigned Thursday after admitting to affairs, one with a suspected Chinese spy. Now Congress wants him to testify, the stock has slid below four trillion dollars in value, and the AI boom&rsquo;s central company has no permanent leader.</p>
+          <span class="meta">November 13, 2026 &middot; 5 min read &middot; Episode 33</span>
+        </a>
+        <a class="post-card" href="posts/2026-11-11-anthropic-ipo-roadshow.html">
+          <span class="kicker">Top Story</span>
+          <h3>Anthropic&rsquo;s IPO Roadshow Opens at $70 to $78 a Share.</h3>
+          <p>Anthropic is selling 825 million shares and could raise up to $90.4 billion in total &mdash; the biggest test yet of Wall Street&rsquo;s faith in the AI boom, and the valuation is not as simple as the headline number.</p>
+          <span class="meta">November 11, 2026 &middot; 5 min read &middot; Episode 30</span>
+        </a>
+        <a class="post-card" href="learn/2026-11-10-ai-agents-explained.html">
+          <span class="kicker">Learning Center</span>
+          <h3>AI Agents, Explained: What They Are, How They Work, and Why Siri Wants to Be One</h3>
+          <p>A chatbot answers you. An agent does the job. Here is the difference, the loop that makes it work, and why every big tech company is racing to build one &mdash; including the part where they still fail.</p>
+          <span class="meta">November 10, 2026 &middot; 4 min read</span>
+        </a>
+        </div>
+
         <div id="latest-lesson">
         <h2 class="section-label">Latest lesson</h2>
         <a class="post-card" href="learn/2026-11-13-neoclouds-explained.html">
@@ -477,12 +537,72 @@
       </div>
     </div>
 
-    <footer>
-      <div class="footer-inner">
-        <span>Daily Tech Briefing — your daily dose of tech news. Signal, not noise.</span>
-        <span>dtbrief.com</span>
+    <!-- site-footer -->
+<style>
+  footer.site-footer { border-top: none; background: #0A0F1E; color: #EDF1F8; margin-top: 56px; }
+  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 42px 24px 26px; }
+  .site-footer-cols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 30px; }
+  @media (max-width: 860px) { .site-footer-cols { grid-template-columns: 1fr 1fr; } }
+  .site-footer h4 { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #93A0B8; margin: 0 0 13px; }
+  .site-footer-cols a { display: block; color: #EDF1F8; text-decoration: none; font-size: 14.5px; line-height: 1.5; margin-bottom: 9px; }
+  .site-footer-cols a:hover { color: #00C2FF; text-decoration: underline; }
+  .site-footer-brand { display: flex; gap: 13px; align-items: flex-start; }
+  .site-footer-name { font-family: "Sora", sans-serif; font-weight: 800; font-size: 19px; line-height: 1.15; }
+  .site-footer-tag { color: #93A0B8; font-size: 13.5px; line-height: 1.55; margin-top: 5px; max-width: 300px; }
+  .site-footer-bottom { border-top: 1px solid #22304F; margin-top: 34px; padding-top: 18px; display: flex; justify-content: space-between; gap: 10px 18px; flex-wrap: wrap; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: #93A0B8; }
+</style>
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div class="site-footer-cols">
+          <div>
+            <div class="site-footer-brand">
+              <span aria-hidden="true"><svg width="38" height="38" viewBox="0 0 96 96" aria-hidden="true">
+            <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+            <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+            <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+            <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+          </svg></span>
+              <div>
+                <div class="site-footer-name">Daily Tech Briefing</div>
+                <div class="site-footer-tag">Your daily dose of tech news &mdash; signal, not noise.</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4>Sections</h4>
+            <a href="sections/ai.html">AI</a>
+            <a href="sections/chips.html">Chips &amp; Hardware</a>
+            <a href="sections/big-tech.html">Big Tech</a>
+            <a href="sections/business.html">Business &amp; Markets</a>
+            <a href="sections/security.html">Security &amp; Privacy</a>
+          </div>
+          <div>
+            <h4>Site</h4>
+            <a href="archive.html">Archive</a>
+            <a href="breaking/">Breaking News archive</a>
+            <a href="learn/">Learning Center</a>
+            <a href="standards.html">How we pick stories</a>
+          </div>
+          <div>
+            <h4>Listen</h4>
+            <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" target="_blank" rel="noopener">Spotify</a>
+            <a href="https://podcasts.apple.com/us/podcast/daily-tech-briefing/id6822945922" target="_blank" rel="noopener">Apple Podcasts</a>
+          </div>
+          <div>
+            <h4>More</h4>
+            <a href="advertise.html">Advertise</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+          </div>
+        </div>
+        <div class="site-footer-bottom">
+          <span>&copy; 2026 Daily Tech Briefing &middot; dtbrief.com</span>
+          <span>AI-assisted and human-directed.</span>
+        </div>
       </div>
     </footer>
+<!-- /site-footer -->
   <script src="search.js" defer></script>
   <script>
     (function () {
