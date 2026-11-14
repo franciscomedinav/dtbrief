@@ -167,14 +167,24 @@ def lesson_body(lesson):
     return "\n".join(parts)
 
 
+def _load_topnav():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "set_topnav", os.path.join(BASE, "tools", "set-topnav.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+TOPNAV = _load_topnav()
+
+
 def fix_learn_nav(h):
-    """Learn pages live in learn/: the Learn link points at index.html (not
-    ../learn/), and Learn — not Top Stories — is the active nav item."""
-    h = h.replace('<a href="../learn/" data-nav="learn">Learn</a>',
-                  '<a href="index.html" data-nav="learn" class="active">Learn</a>',
-                  1)
-    h = h.replace('<a href="../index.html" data-nav="top" class="active">Top Stories</a>',
-                  '<a href="../index.html" data-nav="top">Top Stories</a>', 1)
+    """Learn pages live in learn/ (prefix ../) and Learn is the active nav
+    item. Since Nov 14, 2026 the header is the set-topnav.py block (the old
+    .topnav string swaps are gone): regenerate the block in place with the
+    Learn active state so rebuilt lessons keep the current header."""
+    h = TOPNAV.apply_to_html(h, "../", "learn")
     assert 'data-nav="learn" class="active"' in h, "learn nav fix failed"
     return h
 
@@ -287,9 +297,9 @@ def build_lesson(lesson):
     h = h[:start] + lesson_body(lesson) + "\n" + newsletter_block() + "\n" + share_row(
         "https://dtbrief.com/learn/%s.html" % slug,
         lesson["title"], "Share this lesson") + "\n" + h[end:]
-    h = sub_once(h, r'<span><a href="\.\./index\.html">&larr; All posts</a> &middot; [^<]*</span>',
-                 '<span><a href="index.html">&larr; Learning Center</a> &middot; %s</span>'
-                 % lesson["date_long"], "footer")
+    # Footer: the template's old "All posts" span belonged to the pre-Nov-14
+    # minimal footer; pages now inherit the shared site footer as-is (it
+    # already links the Learning Center), so there is nothing to swap.
     return h
 
 
@@ -410,9 +420,8 @@ def build_index(registry):
                 '      </article>']
     h = sub_once(h, r'      <article>.*?</article>', "\n".join(article),
                  "idx article")
-    h = sub_once(h, r'<span><a href="\.\./index\.html">&larr; All posts</a> &middot; [^<]*</span>',
-                 '<span><a href="../index.html">&larr; Daily Tech Briefing</a> &middot; %s</span>'
-                 % latest["date_long"], "idx footer")
+    # Footer: same note as build_lesson — the shared site footer is
+    # inherited from the template unchanged.
     return h
 
 

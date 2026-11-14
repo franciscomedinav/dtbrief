@@ -20,6 +20,17 @@ SECTIONS = [
     ("security", "Security & Privacy", "Breaches, security models and staying safe online."),
 ]
 
+def _load_topnav():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "set_topnav", os.path.join(HERE, "set-topnav.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+TOPNAV = _load_topnav()
+
 topics = json.load(open(os.path.join(HERE, "topics.json"), encoding="utf-8"))
 shell = open(os.path.join(ROOT, "archive.html"), encoding="utf-8").read()
 home = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
@@ -54,9 +65,9 @@ def shell_for(title, desc, url, meta_strong, meta_sub):
     p = p.replace('<a class="brand" href="index.html"', '<a class="brand" href="../index.html"')
     p = re.sub(r"<strong>Archive</strong><br />\s*Every story, newest first",
                f"<strong>{meta_strong}</strong><br />\n          {meta_sub}", p)
-    p = p.replace('<a href="index.html" data-nav="top">', '<a href="../index.html" data-nav="top">')
-    p = p.replace('<a href="archive.html" data-nav="latest" class="active">', '<a href="../archive.html" data-nav="latest">')
-    p = p.replace('<a href="learn/" data-nav="learn">', '<a href="../learn/" data-nav="learn">')
+    # Header: the set-topnav.py block is regenerated per page in
+    # write_page (prefix ../, the section's own active state) — the old
+    # .topnav string swaps are gone.
     p = p.replace('  <script src="search.js" defer></script>\n', '')
     return p
 
@@ -88,10 +99,11 @@ def card(href, kicker, headline, deck_html, meta):
             f'        </a>')
 
 
-def write_page(fname, page_shell, article_html):
+def write_page(fname, page_shell, article_html, active=None):
     p, n = re.subn(r"      <article>.*?</article>", lambda _: article_html,
                    page_shell, count=1, flags=re.S)
     assert n == 1, f"article replace failed: {fname}"
+    p = TOPNAV.apply_to_html(p, "../", active)
     out = os.path.join(ROOT, "sections", fname)
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, "w", encoding="utf-8").write(p)
@@ -121,7 +133,8 @@ for key, name, desc in SECTIONS:
                shell_for(f"{name} — Daily Tech Briefing", desc,
                          f"https://dtbrief.com/sections/{key}.html", name, "Section"),
                article("Section", html.escape(name), html.escape(desc),
-                       f"{len(infos)} {'story' if len(infos) == 1 else 'stories'}", cards))
+                       f"{len(infos)} {'story' if len(infos) == 1 else 'stories'}", cards),
+               active=key)
 
 overview = []
 for key, name, desc in SECTIONS:
