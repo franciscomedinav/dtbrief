@@ -6,8 +6,10 @@ the footer immediately before </body>. Idempotent: files already carrying
 the <!-- site-footer --> marker are skipped. Relative links get the correct
 prefix for the file's depth (root: "", one level down: "../").
 
-Run after adding a page; include changed files in the push."""
-import glob, os, re
+Run after adding a page; include changed files in the push.
+Pass --refresh to replace the footer block in pages that already carry one
+(e.g. after editing the template above)."""
+import glob, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -32,7 +34,14 @@ STYLE = """<style>
   .site-footer-name { font-family: "Sora", sans-serif; font-weight: 800; font-size: 19px; line-height: 1.15; }
   .site-footer-tag { color: #93A0B8; font-size: 13.5px; line-height: 1.55; margin-top: 5px; max-width: 300px; }
   .site-footer-bottom { border-top: 1px solid #22304F; margin-top: 34px; padding-top: 18px; display: flex; justify-content: space-between; gap: 10px 18px; flex-wrap: wrap; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: #93A0B8; }
+  .site-footer-follow { margin-top: 22px; }
+  .site-footer-social { display: flex; gap: 10px; flex-wrap: wrap; }
+  .site-footer-social a.social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid #22304F; border-radius: 999px; color: #EDF1F8; font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; margin-bottom: 0; }
+  .site-footer-social a.social-btn:hover { border-color: #00C2FF; color: #00C2FF; text-decoration: none; }
+  .site-footer-social a.social-btn svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
 </style>"""
+
+X_SVG = """<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"/></svg>"""
 
 
 def footer_html(prefix):
@@ -48,6 +57,12 @@ def footer_html(prefix):
               <div>
                 <div class="site-footer-name">Daily Tech Briefing</div>
                 <div class="site-footer-tag">Your daily dose of tech news &mdash; signal, not noise.</div>
+              </div>
+            </div>
+            <div class="site-footer-follow">
+              <h4>Follow us</h4>
+              <div class="site-footer-social">
+                <a class="social-btn" href="https://x.com/dtbrief" target="_blank" rel="noopener" aria-label="Follow Daily Tech Briefing on X (@dtbrief)">{X_SVG}<span>@dtbrief</span></a>
               </div>
             </div>
           </div>
@@ -89,6 +104,7 @@ def footer_html(prefix):
 
 
 OLD_FOOTER = re.compile(r'<footer>\s*<div class="footer-inner">.*?</div>\s*</footer>', re.S)
+BLOCK_RE = re.compile(r'<!-- site-footer -->.*?<!-- /site-footer -->', re.S)
 
 targets = []
 for pat in ["*.html", "breaking/index.html", "posts/*.html", "learn/*.html", "sections/*.html"]:
@@ -101,10 +117,18 @@ for path in targets:
     depth = len(rel.split(os.sep)) - 1
     prefix = "../" * depth
     text = open(path, encoding="utf-8").read()
-    if MARKER in text:
-        skipped.append(rel)
-        continue
     block = footer_html(prefix)
+    if MARKER in text:
+        if "--refresh" in sys.argv:
+            new_text = BLOCK_RE.sub(lambda _: block, text, count=1)
+            if new_text != text:
+                open(path, "w", encoding="utf-8").write(new_text)
+                changed.append(f"{rel} (refreshed, prefix '{prefix}')")
+            else:
+                skipped.append(rel)
+        else:
+            skipped.append(rel)
+        continue
     if OLD_FOOTER.search(text):
         text = OLD_FOOTER.sub(lambda _: block, text, count=1)
         how = "replaced"
