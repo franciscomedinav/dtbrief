@@ -366,9 +366,10 @@ def main():
 
     m = re.search(r'(<span><a href="index\.html">← All posts</a> · )[^<]+(</span>)', new)
     if not m:
-        print("ERROR: footer date not found in archive.html", file=sys.stderr)
-        return 1
-    new = new[:m.start()] + m.group(1) + footer_date + m.group(2) + new[m.end():]
+        # The shared site footer (Nov 14) carries no footer date; nothing to update.
+        print("NOTE: footer date element absent (shared footer) — skipping date update", file=sys.stderr)
+    else:
+        new = new[:m.start()] + m.group(1) + footer_date + m.group(2) + new[m.end():]
 
     if new == current:
         print(f"No changes: archive already current "

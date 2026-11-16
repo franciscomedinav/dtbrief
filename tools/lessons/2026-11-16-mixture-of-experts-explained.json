@@ -1,0 +1,151 @@
+{
+ "briefing": {
+  "episode": 35,
+  "label": "Jensen Huang Wants His Job Back &mdash; Daily Tech Briefing",
+  "summary": "Huang&rsquo;s comeback talk, Anthropic&rsquo;s $1.4T debut, and the AI supply-chain pact",
+  "url": "../posts/2026-11-16-huang-comeback-talk.html"
+ },
+ "date": "2026-11-16",
+ "date_long": "November 16, 2026",
+ "deck": "One model, hundreds of specialists, and a tiny traffic cop deciding who works on each word &mdash; the trick that lets today&rsquo;s biggest AI models stay affordable to run.",
+ "deck_short": "One model, hundreds of specialists, and a tiny traffic cop deciding who works on each word.",
+ "hero": {
+  "alt": "A single large AI model drawn as a hall of specialist workstations, each glowing a different colour, with a small traffic-control hub routing glowing tokens to just two of them while the rest wait dark",
+  "caption": "A mixture-of-experts model is a hall of specialists: the router sends each token to the two experts best suited to it, and the rest stay idle &mdash; that is the whole trick.",
+  "index_alt": "A hall of specialist workstations, with a small hub routing glowing tokens to just two of them",
+  "index_caption": "Today&rsquo;s lesson: mixture of experts &mdash; how AI models get bigger without getting slower.",
+  "src": "assets/mixture-of-experts-hero.webp"
+ },
+ "key_ideas": [
+  {
+   "fig": "2.4T vs 71B",
+   "lbl": "Qwen4-Max stores 2.4 trillion parameters but only about 71 billion work on any given token"
+  },
+  {
+   "fig": "The router",
+   "lbl": "A tiny learned layer scores every expert per token and picks the best few &mdash; the rest stay idle"
+  },
+  {
+   "fig": "13B &asymp; 70B",
+   "lbl": "Mixtral activates about 13 billion parameters per token yet matched or beat Llama 2 70B"
+  }
+ ],
+ "lesson_no": 5,
+ "meta_description": "Mixture of experts explained in plain English &mdash; what MoE is, how the router works, why it makes giant AI models affordable, and where it falls short.",
+ "og_description": "One model, hundreds of specialists, and a tiny traffic cop deciding who works on each word.",
+ "og_title": "Mixture of Experts, Explained &mdash; Daily Tech Briefing",
+ "read_time": "4 min read",
+ "sections": [
+  {
+   "num": 1,
+   "paras": [
+    "<p>A mixture of experts, or MoE, is a way to build a very large AI model that only does a small amount of work on each word. Instead of one giant network that processes every token, the model is split into many smaller specialist networks &mdash; the experts &mdash; plus a tiny traffic cop, called the router, that decides which experts handle each token.</p>",
+    "<p>The idea is older than modern AI: Jacobs, Jordan, Nowlan, and Hinton proposed it in 1991 as a way to split a problem across specialized sub-networks. The version inside today&rsquo;s models comes from a 2017 paper by Shazeer and colleagues at Google, which showed that a sparsely-gated mixture of experts could reach 137 billion parameters while activating only a small fraction of them per step &mdash; and match dense models at much lower training cost.</p>",
+    "<p>The key distinction is between two numbers that sound the same but are not. <strong>Total parameters</strong> are how much the model can know &mdash; its capacity. <strong>Active parameters</strong> are how much compute it spends on each token &mdash; its cost. MoE decouples the two: the model can store far more knowledge than it uses on any single word. Only the feed-forward layers become experts; attention, embeddings, and normalization are shared and always active, and feed-forward layers hold roughly two-thirds of a transformer&rsquo;s parameters.</p>"
+   ],
+   "title": "What it is"
+  },
+  {
+   "loop": {
+    "steps": [
+     {
+      "d": "A token arrives at a mixture-of-experts layer after attention has processed it",
+      "t": "Arrive"
+     },
+     {
+      "d": "The router, a small learned linear layer, scores every expert for this token",
+      "t": "Route"
+     },
+     {
+      "d": "Only the top few experts run &mdash; two in Mixtral, eight in DeepSeek-V3 &mdash; the rest stay idle",
+      "t": "Select"
+     },
+     {
+      "d": "The chosen experts process the token in parallel and their outputs are combined, weighted by the router&rsquo;s scores",
+      "t": "Combine"
+     }
+    ]
+   },
+   "loop_after": 1,
+   "num": 2,
+   "paras": [
+    "<p>Every mixture-of-experts layer runs the same four-step loop, once per token, once per layer:</p>",
+    "<p>Which experts a token reaches is learned during training and decided fresh every time &mdash; nothing is assigned in advance. Adjacent tokens in the same sentence can activate completely different experts, and the router itself adds almost no compute: a single small matrix multiply. DeepSeek-V3 adds a twist &mdash; 256 routed experts, eight selected per token, plus one shared expert that is always active, handling the patterns common to every input.</p>"
+   ],
+   "title": "How it works: the loop"
+  },
+  {
+   "num": 3,
+   "paras": [
+    "<p>A dense model is the straightforward design: every parameter works on every token. It is simple, predictable, and easy to serve &mdash; and its cost grows with its size. A mixture-of-experts model trades that simplicity for scale: most of its parameters sit idle for any given token, so the model can be far larger for roughly the same per-token cost.</p>",
+    "<p>The comparison that made the idea famous is Mixtral 8x7B: 46.7 billion total parameters, but only about 12.9 billion active per token &mdash; and it matched or exceeded Llama 2 70B on most benchmarks, at the inference cost of a much smaller dense model.</p>"
+   ],
+   "pull": "Total parameters are the model&rsquo;s memory. Active parameters are its electricity bill.",
+   "title": "MoE vs dense",
+   "vs": [
+    {
+     "agent": false,
+     "label": "Dense model",
+     "text": "Every parameter works on every token. Simple, predictable, easy to serve &mdash; but cost grows with size, so knowledge and compute are locked together."
+    },
+    {
+     "agent": true,
+     "label": "Mixture of experts",
+     "text": "Only a few experts run per token, so total capacity can be huge at a small per-token cost &mdash; but every expert must live in memory, and the routing plumbing is real engineering."
+    }
+   ]
+  },
+  {
+   "figure": {
+    "alt": "A bar comparison showing a dense model lighting up all of its blocks for one token, next to a mixture-of-experts model lighting up only two of its many blocks",
+    "caption": "Same token, same job: the dense model fires everything, the MoE model fires two experts. The saved compute is what pays for the extra capacity.",
+    "src": "assets/mixture-of-experts-routing.webp"
+   },
+   "num": 4,
+   "paras": [
+    "<p>Today&rsquo;s news is the clearest peg yet. Alibaba launched Qwen4-Max on Monday: a 2.4-trillion-parameter mixture-of-experts model with about 71 billion parameters activated per token, a one-million-token context window, and prices about 25 percent lower than its predecessor &mdash; $1.50 per million input tokens and $4.50 per million output tokens. Alibaba says it beats Claude Opus 5.5 on coding benchmarks.</p>",
+    "<p>The pattern is now the default at the frontier. Google&rsquo;s GLaM, a 1.2-trillion-parameter MoE with 64 experts per layer, matched GPT-3&rsquo;s quality using roughly one-third the training compute. DeepSeek-V3 runs 256 experts. Kimi K3, the latest model in the race, is built the same way. When the next step up in dense model size becomes too expensive to train and serve, adding experts is the manageable way to keep growing.</p>"
+   ],
+   "title": "Why everyone&rsquo;s building it now"
+  },
+  {
+   "num": 5,
+   "paras": [
+    "<p>First, <strong>MoE does not make a model smarter per token &mdash; it makes it more knowledgeable</strong>. A 13-billion-active MoE knows more than a 13-billion dense model, but the computation applied to each token is still roughly 13 billion parameters&rsquo; worth. Tasks that demand deep sequential reasoning over one input, rather than broad knowledge recall, see less benefit from the idle experts.</p>",
+    "<p>Second, <strong>the memory bill does not shrink</strong>. The full set of expert weights must live in memory even though each forward pass touches only a fraction of them, so MoE models are memory-bound when serving &mdash; and quantization and weight offloading matter more for them than for dense models of similar speed.</p>",
+    "<p>Third, <strong>training is fragile</strong>. Left alone, the router collapses: a few experts attract most of the traffic, get better, and attract even more, while the rest starve and never learn. Labs fight this with an auxiliary load-balancing loss, with caps on how many tokens each expert may take, and &mdash; in DeepSeek-V3 &mdash; with a dynamic bias term that nudges underused experts&rsquo; scores upward. There is also a &ldquo;routing tax&rdquo;: for the same total parameter count, a dense model edges out a sparse one, because some tokens land on a suboptimal expert. The compute savings more than compensate &mdash; but the tax is real, and for small-scale work or a single-GPU deployment, a dense model is often still the more practical choice.</p>"
+   ],
+   "title": "The honest part"
+  }
+ ],
+ "slug": "2026-11-16-mixture-of-experts-explained",
+ "sources": "Brink Data Science, &ldquo;Mixture of Experts: How Sparse Routing Scales Language Models&rdquo; (September 7, 2026); Shazeer et al., &ldquo;Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer&rdquo; (2017); Jiang et al., &ldquo;Mixtral of Experts&rdquo; (2024); DeepSeek-AI, &ldquo;DeepSeek-V3 Technical Report&rdquo; (2024); The Model Atlas, &ldquo;Qwen4-Max is out: price, benchmarks and how to try it&rdquo; (November 16, 2026).",
+ "terms": [
+  {
+   "def": "One of the specialist sub-networks inside a mixture-of-experts model &mdash; a feed-forward network that handles the tokens the router sends it.",
+   "term": "Expert"
+  },
+  {
+   "def": "The small learned network, also called the gating network, that scores every expert for each token and picks which ones run.",
+   "term": "Router"
+  },
+  {
+   "def": "Running only a small fraction of a model&rsquo;s parameters for each input, while the rest stay idle.",
+   "term": "Sparse activation"
+  },
+  {
+   "def": "The router&rsquo;s rule for picking experts: take the k highest-scoring experts per token, commonly one or two.",
+   "term": "Top-k routing"
+  },
+  {
+   "def": "The parameters that actually run for a given token &mdash; what sets the compute cost of answering, as opposed to the total stored in the model.",
+   "term": "Active parameters"
+  },
+  {
+   "def": "The training problem of keeping the router from sending every token to the same few experts, fixed with extra loss terms, token caps, or dynamic routing bias.",
+   "term": "Load balancing"
+  }
+ ],
+ "title": "Mixture of Experts, Explained: How AI Models Get Bigger Without Getting Slower",
+ "title_short": "Mixture of Experts, Explained"
+}

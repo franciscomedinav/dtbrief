@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-16",
+    "date_long": "November 16, 2026",
+    "slug": "2026-11-16-mixture-of-experts-explained",
+    "title": "Mixture of Experts, Explained: How AI Models Get Bigger Without Getting Slower",
+    "deck_short": "One model, hundreds of specialists, and a tiny traffic cop deciding who works on each word.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A single large AI model drawn as a hall of specialist workstations, each glowing a different colour, with a small traffic-control hub routing glowing tokens to just two of them while the rest wait dark",
+      "caption": "A mixture-of-experts model is a hall of specialists: the router sends each token to the two experts best suited to it, and the rest stay idle &mdash; that is the whole trick.",
+      "index_alt": "A hall of specialist workstations, with a small hub routing glowing tokens to just two of them",
+      "index_caption": "Today&rsquo;s lesson: mixture of experts &mdash; how AI models get bigger without getting slower.",
+      "src": "assets/mixture-of-experts-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-13",
     "date_long": "November 13, 2026",
     "slug": "2026-11-13-neoclouds-explained",
