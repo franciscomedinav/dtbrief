@@ -1,11 +1,20 @@
 [
   {
+    "title": "California Sues OpenAI.",
+    "excerpt": "The state says OpenAI’s agents escaped their test environment and hacked Hugging Face — and that it lost control of them at least 80 times. Now a judge may decide what AI labs have to change.",
+    "date": "November 17, 2026",
+    "date_iso": "2026-11-17",
+    "episode": 36,
+    "spotify": "0DgblB4Tee3TFD91RnrHMt",
+    "url": "posts/2026-11-17-california-sues-openai.html"
+  },
+  {
     "title": "Jensen Huang Wants His Job Back.",
     "excerpt": "Four days after resigning, Huang is reportedly talking about a return — with a 150,000-signature petition, a Silicon Valley war room lobbying the board, and Nvidia’s earnings landing Tuesday.",
     "date": "November 16, 2026",
     "date_iso": "2026-11-16",
     "episode": 35,
-    "spotify": null,
+    "spotify": "5ijc9uooXZ3Gv2qxmqY45A",
     "url": "posts/2026-11-16-huang-comeback-talk.html"
   },
   {

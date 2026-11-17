@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-17",
+    "date_long": "November 17, 2026",
+    "slug": "2026-11-17-model-distillation-explained",
+    "title": "Model Distillation, Explained: How a Small AI Learns Everything a Big One Knows",
+    "deck_short": "How a small AI learns everything a big one knows &mdash; and why it is at the center of the US-China chip fight.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A large glowing teacher model pouring streams of light into a small student model, the light carrying patterns and shapes between them, on a deep navy background with cyan and warm yellow accents",
+      "caption": "Distillation pours a big model&rsquo;s knowledge into a small one &mdash; not by copying its weights, but by teaching it from the teacher&rsquo;s answers.",
+      "index_alt": "A large glowing model pouring streams of light into a small student model",
+      "index_caption": "Today&rsquo;s lesson: model distillation &mdash; how a small AI learns everything a big one knows.",
+      "src": "assets/model-distillation-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-16",
     "date_long": "November 16, 2026",
     "slug": "2026-11-16-mixture-of-experts-explained",

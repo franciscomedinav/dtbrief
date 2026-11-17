@@ -76,7 +76,13 @@
   "sg.usembassy.gov": "U.S. State Department",
   "apple.com": "Apple",
   "blog.gitguardian.com": "GitGuardian",
-  "qwen.ai": "Qwen"
+  "qwen.ai": "Qwen",
+  "bleepingcomputer.com": "BleepingComputer",
+  "computerworld.com": "Computerworld",
+  "global.morningstar.com": "Morningstar",
+  "fool.com": "Motley Fool",
+  "siliconreport.com": "Silicon Report",
+  "gadgets360.com": "Gadgets 360"
  },
  "url_replacements": {
   "2026-11-06": {

@@ -1,8 +1,8 @@
 {
  "items": [
   {
-   "date": "2026-11-16",
-   "date_label": "Monday, November 16, 2026",
+   "date": "2026-11-17",
+   "date_label": "Tuesday, November 17, 2026",
    "headline": "Trump administration closes AI chip 'cloud loophole'",
    "links": [
     {
@@ -14,13 +14,13 @@
      "label": "Reuters coverage"
     },
     {
-     "href": "posts/2026-11-16-huang-comeback-talk.html",
+     "href": "posts/2026-11-17-california-sues-openai.html",
      "label": "Background: this morning's briefing",
      "site": true
     }
    ],
    "live": true,
-   "summary": "The Trump administration issued a rule Monday requiring licences for advanced AI chips sent to overseas data centres that supply computing power to firms in China and other restricted countries, closing a loophole that let Chinese companies rent Nvidia chips abroad. It also covers shipments to Singapore, Malaysia, Indonesia, Thailand and Brazil, days before Trump meets Xi Jinping in Shenzhen."
+   "summary": "The rule closing the AI chip cloud loophole takes effect when published in the Federal Register, scheduled for November 19. It requires licences for advanced chips sent to data centres in Singapore, Malaysia, Indonesia, Thailand and Brazil, and for remote access above roughly 750 Nvidia chips’ worth of compute. Existing data centres get 90 days to comply, days before Trump meets Xi Jinping in Shenzhen."
   },
   {
    "date": "2026-11-13",
