@@ -31,6 +31,17 @@ def _load_topnav():
 
 TOPNAV = _load_topnav()
 
+def _load_footer():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "add_footer", os.path.join(HERE, "add-footer.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+FOOTER = _load_footer()
+
 topics = json.load(open(os.path.join(HERE, "topics.json"), encoding="utf-8"))
 shell = open(os.path.join(ROOT, "archive.html"), encoding="utf-8").read()
 home = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
@@ -104,6 +115,11 @@ def write_page(fname, page_shell, article_html, active=None):
                    page_shell, count=1, flags=re.S)
     assert n == 1, f"article replace failed: {fname}"
     p = TOPNAV.apply_to_html(p, "../", active)
+    # The archive.html shell carries a root-prefixed footer; section pages
+    # live one level down, so swap in the "../" footer block (Nov 17 fix:
+    # footer links 404'd from every section page).
+    p, n = FOOTER.BLOCK_RE.subn(lambda _: FOOTER.footer_html("../"), p, count=1)
+    assert n == 1, f"footer replace failed: {fname}"
     out = os.path.join(ROOT, "sections", fname)
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, "w", encoding="utf-8").write(p)
