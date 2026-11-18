@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-18",
+    "date_long": "November 18, 2026",
+    "slug": "2026-11-18-on-device-ai-explained",
+    "title": "On-Device AI, Explained: How Your Phone Runs AI Without the Cloud",
+    "deck_short": "How your phone runs AI without the cloud &mdash; and why Microsoft, Google, and Apple are all betting on it.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A smartphone with a glowing neural chip inside it, small streams of light flowing from the chip to on-screen tasks, while a distant cloud data center sits quietly in the background, on a deep navy background with cyan and warm yellow accents",
+      "caption": "On-device AI runs the model on the chip in your hand &mdash; the cloud is the backup, not the default.",
+      "index_alt": "A smartphone running AI on its own glowing chip",
+      "index_caption": "Today&rsquo;s lesson: on-device AI &mdash; how your phone runs AI without the cloud.",
+      "src": "assets/on-device-ai-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-17",
     "date_long": "November 17, 2026",
     "slug": "2026-11-17-model-distillation-explained",
