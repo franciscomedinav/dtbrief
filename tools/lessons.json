@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-19",
+    "date_long": "November 19, 2026",
+    "slug": "2026-11-19-world-models-explained",
+    "title": "World Models, Explained: How AI Imagines a Place You Can Walk Through",
+    "deck_short": "How an AI imagines a world you can walk through &mdash; and why Google, Waymo, and robot makers all want one.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A glowing 3D world unfolding from a single line of text, with a small character walking through a landscape that is still being drawn ahead of them, on a deep navy background with cyan and warm yellow accents",
+      "caption": "A world model draws the world as you move through it &mdash; the ground ahead of you does not exist until the model imagines it.",
+      "index_alt": "A playable world unfolding from a line of text",
+      "index_caption": "Today&rsquo;s lesson: world models &mdash; how an AI imagines a place you can walk through.",
+      "src": "assets/world-models-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-18",
     "date_long": "November 18, 2026",
     "slug": "2026-11-18-on-device-ai-explained",
