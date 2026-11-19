@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Daily Tech Briefing" href="https://dtbrief.com/feed.xml" />
+    <meta name="theme-color" content="#0A0F1E" />
+    <meta name="description" content="A free 16-week plan to become a cloud consultant in agentic AI &mdash; five phases, free resources only, about 1 to 1.5 hours a day. From DTBrief&rsquo;s Learning Paths." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Daily Tech Briefing" />
+    <meta property="og:title" content="Become a Cloud Consultant in Agentic AI: The Free 16-Week Plan &mdash; Daily Tech Briefing" />
+    <meta property="og:description" content="Sixteen weeks, five phases, $0 in courses: the free learning plan for becoming a cloud consultant focused on agentic AI &mdash; from cloud foundations to a first client." />
+    <meta property="og:url" content="https://dtbrief.com/plans/agentic-ai-cloud-consultant.html" />
+    <meta property="og:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Become a Cloud Consultant in Agentic AI: The Free 16-Week Plan &mdash; Daily Tech Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #F4F6F8;
+        --ink: #0A0F1E;
+        --ink-soft: #2E3A52;
+        --ink-faint: #5A6478;
+        --rule: #D8DEE7;
+        --accent: #0090C8;
+        --accent-soft: rgba(0, 144, 200, 0.08);
+        --card: #ffffff;
+        --chip-bg: #0A0F1E;
+        --chip-ink: #F4F6F8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #070B16;
+          --ink: #EDF1F8;
+          --ink-soft: #C7D3E8;
+          --ink-faint: #93A0B8;
+          --rule: #22304F;
+          --accent: #00C2FF;
+          --accent-soft: rgba(0, 194, 255, 0.12);
+          --card: #0D1424;
+          --chip-bg: #EDF1F8;
+          --chip-ink: #070B16;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .sans { font-family: "IBM Plex Sans", system-ui, sans-serif; }
+
+      #progress {
+        position: fixed;
+        top: 0; left: 0;
+        height: 3px;
+        width: 0%;
+        background: #00C2FF;
+        z-index: 50;
+      }
+
+      /* ---------- Masthead ---------- */
+      .masthead {
+        border-bottom: 2px solid var(--ink);
+      }
+      .masthead-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 18px 24px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand-mark {
+        width: 40px; height: 40px;
+        flex: none;
+        display: grid;
+        place-items: center;
+      }
+      .brand-name {
+        font-family: "Sora", sans-serif;
+        font-weight: 800;
+        font-size: 21px;
+        letter-spacing: -0.01em;
+        line-height: 1.05;
+      }
+      .brand-dot { color: var(--accent); }
+      .brand-tag {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 2px;
+      }
+      .masthead-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        text-align: right;
+        line-height: 1.5;
+      }
+      .masthead-meta strong { color: var(--ink); font-weight: 600; }
+
+      /* ---------- Layout ---------- */
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      article {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 44px 0 8px;
+      }
+
+      .dateline-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      .kicker {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .sample-chip {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: var(--chip-bg);
+        color: var(--chip-ink);
+        padding: 4px 9px;
+        border-radius: 999px;
+      }
+
+      h1 {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(34px, 5.4vw, 54px);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px;
+      }
+      h1 .money { color: var(--accent); }
+      .deck {
+        font-size: clamp(19px, 2.6vw, 22px);
+        line-height: 1.45;
+        font-style: italic;
+        color: var(--ink-soft);
+        margin: 0 0 26px;
+      }
+      .byline {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        color: var(--ink-faint);
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        padding: 12px 0;
+        margin-bottom: 34px;
+      }
+      .byline .who { color: var(--ink); font-weight: 600; }
+      .byline .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+
+      /* ---------- Key numbers ---------- */
+      .keynums {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+      .keynum {
+        padding: 20px 20px 16px;
+      }
+      .keynum + .keynum { border-left: 1px solid var(--rule); }
+      .keynum .fig {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(24px, 3.4vw, 32px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .keynum .fig em { font-style: normal; color: var(--accent); }
+      .keynum .lbl {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--ink-faint);
+        margin-top: 8px;
+      }
+
+      /* ---------- Body copy ---------- */
+      section { margin-bottom: 38px; }
+      h2 {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin: 0 0 16px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      h2 .num {
+        font-family: "Sora", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0;
+        color: var(--accent);
+        line-height: 1;
+      }
+      p {
+        font-size: 19px;
+        line-height: 1.68;
+        color: var(--ink-soft);
+        margin: 0 0 18px;
+      }
+      p strong { color: var(--ink); font-weight: 700; }
+      p a, .source-card a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+      .inline-icon { width: 16px; height: 16px; vertical-align: -2px; }
+
+      .pull {
+        border-left: 3px solid var(--accent);
+        padding: 4px 0 4px 20px;
+        margin: 28px 0;
+        font-size: 22px;
+        line-height: 1.4;
+        font-weight: 500;
+        font-style: italic;
+        color: var(--ink);
+      }
+
+      ul.watch {
+        list-style: none;
+        margin: 0 0 18px;
+        padding: 0;
+      }
+      ul.watch li {
+        font-size: 19px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        padding: 12px 0 12px 0;
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 14px;
+      }
+      ul.watch li:first-child { border-top: none; padding-top: 2px; }
+      ul.watch .w-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        padding-top: 5px;
+      }
+
+      /* ---------- Source + episode ---------- */
+      .source-card {
+        background: var(--accent-soft);
+        border-radius: 14px;
+        padding: 22px 24px;
+        margin: 44px 0 18px;
+      }
+      .source-card .sc-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .source-card p { font-size: 17px; margin: 0; line-height: 1.55; }
+
+      .episode-note {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 48px;
+        background: var(--card);
+      }
+      .play-btn {
+        width: 42px; height: 42px;
+        flex: none;
+        border-radius: 50%;
+        background: #00C2FF;
+        display: grid;
+        place-items: center;
+      }
+      .episode-note p { font-size: 16.5px; margin: 0; line-height: 1.55; }
+      .episode-note .ep-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 4px;
+      }
+
+      .listen-bar {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 14px 18px;
+        margin: 0 0 28px;
+        background: var(--card);
+      }
+      .listen-toggle {
+        border: none;
+        padding: 0;
+        cursor: pointer;
+      }
+      .listen-toggle .icon-pause { display: none; }
+      .listen-bar.playing .listen-toggle .icon-play { display: none; }
+      .listen-bar.playing .listen-toggle .icon-pause { display: block; }
+      .listen-label {
+        font-family: "Sora", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 1.3;
+      }
+      .listen-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 3px;
+      }
+
+      footer {
+        border-top: 2px solid var(--ink);
+        margin-top: 8px;
+      }
+      .footer-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 20px 24px 34px;
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 620px) {
+        .keynums { grid-template-columns: 1fr; }
+        .keynum + .keynum { border-left: none; border-top: 1px solid var(--rule); }
+        ul.watch li { grid-template-columns: 1fr; gap: 2px; }
+        ul.watch .w-label { padding-top: 0; }
+        .masthead-meta { text-align: left; }
+        article { padding-top: 32px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="brand" href="../index.html" aria-label="Daily Tech Briefing home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 96 96" aria-hidden="true">
+              <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+              <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+              <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+              <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+            </svg>
+          </span>
+          <span>
+            <span class="brand-name">Tech Briefing<span class="brand-dot">.</span></span>
+            <span class="brand-tag" style="display:block;">Your daily dose of tech news &mdash; signal, not noise.</span>
+          </span>
+        </a>
+        <div class="masthead-meta">
+          <strong>Thursday, November 19, 2026</strong><br />
+          The blog companion to the podcast
+        </div>
+      </div>
+    </header>
+<!-- site-topnav -->
+<style>
+  .sitehdr { position: sticky; top: 0; z-index: 50; background: var(--paper, #F4F6F8); border-bottom: 1px solid var(--rule, #D8DEE7); box-shadow: 0 1px 10px rgba(10, 15, 30, 0.07); }
+  .sitehdr-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; min-height: 56px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .sitehdr-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink, #0A0F1E); flex: none; padding: 10px 0; }
+  .sitehdr-brand img { width: 28px; height: 28px; display: block; }
+  .sitehdr-word { font-family: "Sora", sans-serif; font-weight: 800; font-size: 17px; letter-spacing: 0.03em; line-height: 1; }
+  .sitehdr-nav { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
+  .sitehdr-nav > a, .sitehdr-listen-label { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--ink-soft, #2E3A52); text-decoration: none; padding: 8px 9px; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .sitehdr-nav > a:hover, .sitehdr-listen-label:hover { color: var(--ink, #0A0F1E); }
+  .sitehdr-nav > a.active { color: var(--accent, #0090C8); border-bottom-color: var(--accent, #0090C8); }
+  .sitehdr-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #FF5A3C; margin-right: 6px; vertical-align: 2px; animation: sitehdr-pulse 1.6s ease-in-out infinite; }
+  @keyframes sitehdr-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+  @media (prefers-reduced-motion: reduce) { .sitehdr-dot { animation: none; } }
+  .sitehdr-listen { position: relative; display: inline-block; }
+  .sitehdr-listen-label { cursor: pointer; display: inline-block; }
+  .sitehdr-drop { display: none; position: absolute; top: 100%; left: 0; min-width: 190px; background: var(--card, #ffffff); border: 1px solid var(--rule, #D8DEE7); border-radius: 12px; box-shadow: 0 10px 30px rgba(10, 15, 30, 0.14); padding: 8px; z-index: 60; }
+  .sitehdr-listen:hover .sitehdr-drop, .sitehdr-listen:focus-within .sitehdr-drop { display: block; }
+  .sitehdr-drop a { display: block; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 14.5px; font-weight: 600; color: var(--ink, #0A0F1E); text-decoration: none; padding: 9px 11px; border-radius: 8px; white-space: nowrap; }
+  .sitehdr-drop a:hover { background: var(--accent-soft, rgba(0, 144, 200, 0.08)); color: var(--accent, #0090C8); }
+  .sitehdr-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; flex: none; }
+  .sitehdr-iconbtn { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--rule, #D8DEE7); background: var(--card, #ffffff); color: var(--ink-soft, #2E3A52); cursor: pointer; padding: 0; }
+  .sitehdr-iconbtn:hover { color: var(--accent, #0090C8); border-color: var(--accent, #0090C8); }
+  .sitehdr-iconbtn svg { width: 18px; height: 18px; display: block; }
+  .sitehdr-sub { font-family: "IBM Plex Mono", monospace; font-size: 13.5px; font-weight: 600; color: #ffffff; background: var(--accent, #0090C8); border-radius: 999px; padding: 10px 18px; text-decoration: none; white-space: nowrap; }
+  .sitehdr-sub:hover { filter: brightness(1.1); color: #ffffff; }
+  .sitehdr-burger { display: none; }
+  .sitehdr-searchrow { border-top: 1px solid var(--rule, #D8DEE7); }
+  .sitehdr-searchinner { max-width: 1080px; margin: 0 auto; padding: 14px 24px 18px; }
+  .sitehdr-searchbox { width: 100%; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 17px; padding: 13px 16px; border: 1px solid var(--rule, #D8DEE7); border-radius: 12px; background: var(--card, #ffffff); color: var(--ink, #0A0F1E); margin: 0; }
+  .sitehdr-searchbox:focus { outline: 2px solid var(--accent, #0090C8); outline-offset: 1px; }
+  .sitehdr-searchmeta { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--ink-faint, #5A6478); margin: 10px 0 0; }
+  .sitehdr-results { display: grid; gap: 12px; margin-top: 12px; max-height: 55vh; overflow-y: auto; }
+  .sitehdr-results:empty { margin-top: 0; }
+  .sitehdr .pcard { display: block; background: var(--card, #ffffff); border: 1px solid var(--rule, #D8DEE7); border-radius: 14px; padding: 18px 20px; text-decoration: none; color: var(--ink, #0A0F1E); }
+  .sitehdr .pcard:hover { border-color: var(--accent, #0090C8); }
+  .sitehdr .pcard .pkicker { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, #0090C8); }
+  .sitehdr .pcard h3 { font-family: "Sora", sans-serif; font-size: 19px; line-height: 1.25; font-weight: 800; letter-spacing: -0.01em; margin: 8px 0 6px; }
+  .sitehdr .pcard p { font-size: 14.5px; line-height: 1.5; color: var(--ink-soft, #2E3A52); margin: 0 0 8px; }
+  .sitehdr .pcard .meta { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--ink-faint, #5A6478); }
+  @media (max-width: 760px) {
+    .sitehdr-inner { gap: 10px; padding: 0 16px; }
+    .sitehdr-burger { display: inline-flex; }
+    .sitehdr-nav { display: none; order: 5; flex-basis: 100%; flex-direction: column; align-items: stretch; gap: 0; padding: 4px 0 12px; }
+    .sitehdr.open .sitehdr-nav { display: flex; }
+    .sitehdr-nav > a, .sitehdr-listen-label { padding: 11px 6px; border-bottom: 1px solid var(--rule, #D8DEE7); font-size: 14px; }
+    .sitehdr-nav > a.active { border-bottom-color: var(--rule, #D8DEE7); box-shadow: inset 3px 0 0 var(--accent, #0090C8); }
+    .sitehdr-listen { display: block; }
+    .sitehdr-drop { display: block; position: static; border: none; box-shadow: none; background: none; padding: 0 0 4px 16px; min-width: 0; }
+    .sitehdr-drop a { padding: 9px 6px; font-family: "IBM Plex Mono", monospace; font-size: 13.5px; color: var(--ink-soft, #2E3A52); }
+    .sitehdr-searchinner { padding: 12px 16px 16px; }
+  }
+</style>
+    <header class="sitehdr">
+      <div class="sitehdr-inner">
+        <a class="sitehdr-brand" href="../index.html" aria-label="Daily Tech Briefing home">
+          <img src="../favicon.svg" alt="" width="28" height="28" />
+          <span class="sitehdr-word">DTBRIEF</span>
+        </a>
+        <nav class="sitehdr-nav" id="sitehdr-menu" aria-label="Site">
+        <a href="../archive.html" data-nav="latest">Latest</a>
+        <a href="../sections/ai.html" data-nav="ai">AI</a>
+        <a href="../sections/chips.html" data-nav="chips">Chips</a>
+        <a href="../sections/big-tech.html" data-nav="big-tech">Big Tech</a>
+        <a href="../sections/business.html" data-nav="business">Business</a>
+        <a href="../sections/security.html" data-nav="security">Security</a>
+        <a href="../learn/" data-nav="learn" class="active" aria-current="page">Learn</a>
+        <a href="../breaking/" data-nav="breaking"><span class="sitehdr-dot" aria-hidden="true"></span>Breaking</a>
+          <span class="sitehdr-listen">
+            <span class="sitehdr-listen-label" tabindex="0">Listen &#9662;</span>
+            <span class="sitehdr-drop">
+              <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" target="_blank" rel="noopener">Spotify</a>
+              <a href="https://podcasts.apple.com/us/podcast/daily-tech-briefing/id6822945922" target="_blank" rel="noopener">Apple Podcasts</a>
+            </span>
+          </span>
+        </nav>
+        <div class="sitehdr-actions">
+          <button class="sitehdr-iconbtn sitehdr-searchbtn" type="button" aria-expanded="false" aria-controls="sitehdr-searchrow" aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg></button>
+          <a class="sitehdr-sub" href="https://franciscos-newsletter-df7908.beehiiv.com/subscribe" target="_blank" rel="noopener">Subscribe</a>
+          <button class="sitehdr-iconbtn sitehdr-burger" type="button" aria-expanded="false" aria-controls="sitehdr-menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+        </div>
+      </div>
+      <div class="sitehdr-searchrow" id="sitehdr-searchrow" hidden>
+        <div class="sitehdr-searchinner">
+          <input id="hdr-search" class="sitehdr-searchbox" type="search" placeholder="Search stories &mdash; try &ldquo;Anthropic&rdquo; or &ldquo;Apple&rdquo;" autocomplete="off" aria-label="Search the briefing" />
+          <p id="hdr-search-meta" class="sitehdr-searchmeta" aria-live="polite"></p>
+          <div id="hdr-search-results" class="sitehdr-results"></div>
+        </div>
+      </div>
+    </header>
+<script>
+    (function () {
+      var hdr = document.currentScript.previousElementSibling;
+      if (!hdr) return;
+      var PREFIX = "../";
+      var burger = hdr.querySelector('.sitehdr-burger');
+      burger.addEventListener('click', function () {
+        var open = hdr.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      var row = hdr.querySelector('.sitehdr-searchrow');
+      var toggle = hdr.querySelector('.sitehdr-searchbtn');
+      var input = hdr.querySelector('#hdr-search');
+      var meta = hdr.querySelector('#hdr-search-meta');
+      var resultsBox = hdr.querySelector('#hdr-search-results');
+      var index = null, loaded = false, loading = false;
+      function esc(s) {
+        return String(s == null ? '' : s).replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+      function words(q) {
+        return q.toLowerCase().split(/\s+/).filter(function (w) { return w.length > 0; });
+      }
+      function matches(item, ws) {
+        var hay = (item.title + ' ' + item.excerpt + ' ' + item.date).toLowerCase();
+        return ws.every(function (w) { return hay.indexOf(w) !== -1; });
+      }
+      function render() {
+        var query = (input.value || '').trim();
+        if (!query) { resultsBox.innerHTML = ''; meta.textContent = ''; return; }
+        if (!loaded) { meta.textContent = 'Search is still loading\u2026'; return; }
+        var list = index.filter(function (item) { return matches(item, words(query)); });
+        meta.textContent = list.length + (list.length === 1 ? ' result' : ' results') +
+          ' for \u201c' + query + '\u201d';
+        var html = '';
+        list.forEach(function (item) {
+          html += '<a class="pcard" href="' + esc(PREFIX + item.url) + '">' +
+            '<span class="pkicker">Top Story</span>' +
+            '<h3>' + esc(item.title) + '</h3>' +
+            '<p>' + esc(item.excerpt) + '</p>' +
+            '<span class="meta">' + esc(item.date) + ' &middot; Episode ' + esc(item.episode) + '</span></a>';
+        });
+        resultsBox.innerHTML = html;
+      }
+      function loadIndex() {
+        if (loaded || loading) return;
+        loading = true;
+        fetch(PREFIX + 'search-index.json')
+          .then(function (r) { if (!r.ok) throw new Error('index HTTP ' + r.status); return r.json(); })
+          .then(function (data) { index = data; loaded = true; loading = false; render(); })
+          .catch(function () { loading = false; meta.textContent = 'Search is unavailable right now.'; });
+      }
+      toggle.addEventListener('click', function () {
+        var show = row.hidden;
+        row.hidden = !show;
+        toggle.setAttribute('aria-expanded', show ? 'true' : 'false');
+        if (show) { loadIndex(); input.focus(); }
+      });
+      input.addEventListener('input', function () { loadIndex(); render(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !row.hidden) {
+          row.hidden = true;
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+    </script>
+<!-- /site-topnav -->
+
+    <div class="wrap">
+      <article>
+        <div class="dateline-row">
+          <span class="kicker">Learning Paths</span>
+        </div>
+
+        <h1>Become a Cloud Consultant in Agentic AI &mdash; The Free 16-Week Plan</h1>
+
+        <p class="deck">A complete learning path into cloud consulting focused on agentic AI &mdash; built entirely from free resources, at about 1 to 1.5 hours a day alongside a job. Sixteen weeks, five phases, a real project built every week, and $0 spent on courses.</p>
+
+        <div class="byline">
+          <span class="who">Daily Tech Briefing</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>November 19, 2026</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>Learning Paths &middot; Episode 1</span>
+        </div>
+
+        <div class="keynums" role="group" aria-label="Why this path">
+          <div class="keynum">
+            <div class="fig">$7.8B &rarr; $52B+</div>
+            <div class="lbl">Agentic AI market, 2025 to 2030 &mdash; roughly 42&ndash;46% compound annual growth across major analyst forecasts</div>
+          </div>
+          <div class="keynum">
+            <div class="fig"><em>33%</em></div>
+            <div class="lbl">Of enterprise software applications will include agentic AI by 2028, up from under 1% in 2024 &mdash; Gartner</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">40%+</div>
+            <div class="lbl">Of agentic AI projects will be cancelled by the end of 2027 if value, cost and risk are not handled well &mdash; Gartner. That failure rate is the consultant&rsquo;s opportunity</div>
+          </div>
+        </div>
+
+        <section aria-labelledby="s1">
+          <h2 id="s1"><span class="num">1</span> Why this path</h2>
+          <p>Companies do not mainly lack AI demos. They lack people who can pick the right use case, connect an agent safely to real data and tools, control what it costs, prove it works, and explain the return. Those are consulting skills &mdash; and they transfer when frameworks change.</p>
+          <p>The honest warning, straight from the plan: this path is <strong>not</strong> future-proof if you only learn prompts or one vendor&rsquo;s button clicks. It becomes durable when you combine cloud architecture, agent principles, security and evaluation, and the ability to tie a build to a business result. That combination is exactly what the plan teaches &mdash; one cloud deeply, not five clouds shallowly.</p>
+        </section>
+
+        <section aria-labelledby="s2">
+          <h2 id="s2"><span class="num">2</span> The five phases</h2>
+          <p><strong>Phase 1 &mdash; Cloud foundations (Weeks 1&ndash;4).</strong> Learn compute, storage, networking, identity and access management (IAM), and billing on one cloud &mdash; the plan recommends AWS first, and the same route works on Azure. It ends with a mini-project live in a free-tier account, with a billing alert set on day one.</p>
+          <p><strong>Phase 2 &mdash; Generative AI fundamentals (Weeks 5&ndash;7).</strong> How large language models actually work, explained in plain English: tokens, context windows, embeddings, retrieval-augmented generation (RAG), and why models hallucinate. You make your first API calls, build a tiny RAG notebook over your own documents, and write a one-page explainer a small-business owner could understand.</p>
+          <p><strong>Phase 3 &mdash; Agentic AI, the core (Weeks 8&ndash;12).</strong> Build agents, not just prompts &mdash; an agent plans, calls tools, observes results, and loops until a task is done. The phase runs on free material (the Hugging Face AI Agents Course, Microsoft&rsquo;s AI Agents for Beginners, LangGraph Academy, and the Model Context Protocol docs) and is built around four projects: a tool-using agent, a RAG agent, a multi-agent workflow, and the same agent rebuilt in a second framework.</p>
+          <p><strong>Phase 4 &mdash; Production &amp; consulting-grade skills (Weeks 13&ndash;14).</strong> The things clients actually pay consultants for: security, using the OWASP Top 10 for LLM applications; evaluation and observability, so you can prove an agent works; deployment patterns on the big three agent platforms (Amazon Bedrock Agents, Azure AI Foundry, Google Vertex AI Agent Builder); and cost and latency control, written up as a one-page cost note.</p>
+          <p><strong>Phase 5 &mdash; Become a consultant (Weeks 15&ndash;16).</strong> Turn skills into a credible first offer: a GitHub portfolio of your projects, two demos aimed at one starter niche &mdash; small-business automation is the plan&rsquo;s suggestion &mdash; and a one-page scoped pilot offer built on discovery, scoping and ROI basics. The plan&rsquo;s only paid item lives here: one optional associate-level certification exam (about $150&ndash;$300, paid to the vendor). It is clearly marked, and it is not required to start.</p>
+          <div class="pull">One cloud first. Build every week. Do not collect courses.</div>
+          <p>Three rules run through all sixteen weeks: pick one cloud and stay with it; end every week with something you made &mdash; a deployed resource, an agent, a diagram, a short write-up; and use free tiers carefully, with a billing alert from day one. Free means free to learn: every course, doc set and course platform in the plan costs $0.</p>
+        </section>
+
+        <section aria-labelledby="s3">
+          <h2 id="s3"><span class="num">3</span> Get the plan</h2>
+          <p>The full plan is an 8-page PDF: every resource named with its link, week by week, the four Phase 3 projects spelled out, the Phase 4 deliverables, and the closing checklist &mdash; &ldquo;ready to take a first client.&rdquo;</p>
+          <p style="margin:22px 0 6px;"><a href="agentic-ai-cloud-consultant.pdf" style="display:block;text-align:center;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:16px 24px;font-family:'Sora',sans-serif;font-size:18px;font-weight:700;text-decoration:none;">Download the free plan (PDF)</a></p>
+          <p style="font-size:14px;color:#5A6478;">Free &mdash; no email required, no account, no card. The PDF is the complete plan, not a teaser.</p>
+        </section>
+
+        <div class="source-card">
+          <div class="sc-label">Learning Paths &middot; Episode 1</div>
+          <p>This plan is Episode 1 of <strong>Learning Paths</strong>, a DTBrief Learning Center series that takes one IT career path per episode: what the job actually is, whether it is future-proof, and a free plan to get there. Episode 1 is the path above &mdash; cloud consultant, focused on agentic AI.</p>
+        </div>
+
+        <div class="newsletter-band" style="margin:28px 0 8px;padding:24px 20px;border:1px solid #D8DEE7;border-radius:12px;background:#EDF1F8;"><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:21px;line-height:1.25;color:#0A0F1E;margin:0 0 6px;">Get the next learning path by email</div><p style="font-size:15.5px;line-height:1.5;color:#2E3A52;margin:0 0 16px;">One email when the next Learning Paths plan drops &mdash; plus the Daily Tech Briefing, the day&rsquo;s top tech stories in plain English, every weekday morning. Free.</p><a href="https://franciscos-newsletter-df7908.beehiiv.com/subscribe" target="_blank" rel="noopener" style="display:block;text-align:center;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:13px 22px;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;text-decoration:none;">Subscribe</a></div>
+
+        <div class="share-row" style="margin:28px 0 8px;padding-top:18px;border-top:1px solid #D8DEE7;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5A6478;">Share this plan</span>
+          <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;">
+            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdtbrief.com%2Fplans%2Fagentic-ai-cloud-consultant.html&text=Become%20a%20Cloud%20Consultant%20in%20Agentic%20AI%20%E2%80%94%20The%20Free%2016-Week%20Plan" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Post to X</a>
+            <a href="https://wa.me/?text=Become%20a%20Cloud%20Consultant%20in%20Agentic%20AI%20%E2%80%94%20The%20Free%2016-Week%20Plan%20https%3A%2F%2Fdtbrief.com%2Fplans%2Fagentic-ai-cloud-consultant.html" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">WhatsApp</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdtbrief.com%2Fplans%2Fagentic-ai-cloud-consultant.html" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Facebook</a>
+            <a href="#" onclick="navigator.clipboard.writeText('https://dtbrief.com/plans/agentic-ai-cloud-consultant.html');this.textContent='Link copied';return false;" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Copy link</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- site-footer -->
+<style>
+  footer.site-footer { border-top: none; background: #0A0F1E; color: #EDF1F8; margin-top: 56px; }
+  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 42px 24px 26px; }
+  .site-footer-cols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 30px; }
+  @media (max-width: 860px) { .site-footer-cols { grid-template-columns: 1fr 1fr; } }
+  .site-footer h4 { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #93A0B8; margin: 0 0 13px; }
+  .site-footer-cols a { display: block; color: #EDF1F8; text-decoration: none; font-size: 14.5px; line-height: 1.5; margin-bottom: 9px; }
+  .site-footer-cols a:hover { color: #00C2FF; text-decoration: underline; }
+  .site-footer-brand { display: flex; gap: 13px; align-items: flex-start; }
+  .site-footer-name { font-family: "Sora", sans-serif; font-weight: 800; font-size: 19px; line-height: 1.15; }
+  .site-footer-tag { color: #93A0B8; font-size: 13.5px; line-height: 1.55; margin-top: 5px; max-width: 300px; }
+  .site-footer-bottom { border-top: 1px solid #22304F; margin-top: 34px; padding-top: 18px; display: flex; justify-content: space-between; gap: 10px 18px; flex-wrap: wrap; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: #93A0B8; }
+  .site-footer-follow { margin-top: 22px; }
+  .site-footer-social { display: flex; gap: 10px; flex-wrap: wrap; }
+  .site-footer-social a.social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid #22304F; border-radius: 999px; color: #EDF1F8; font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; margin-bottom: 0; }
+  .site-footer-social a.social-btn:hover { border-color: #00C2FF; color: #00C2FF; text-decoration: none; }
+  .site-footer-social a.social-btn svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+</style>
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div class="site-footer-cols">
+          <div>
+            <div class="site-footer-brand">
+              <span aria-hidden="true"><svg width="38" height="38" viewBox="0 0 96 96" aria-hidden="true">
+            <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+            <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+            <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+            <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+          </svg></span>
+              <div>
+                <div class="site-footer-name">Daily Tech Briefing</div>
+                <div class="site-footer-tag">Your daily dose of tech news &mdash; signal, not noise.</div>
+              </div>
+            </div>
+            <div class="site-footer-follow">
+              <h4>Follow us</h4>
+              <div class="site-footer-social">
+                <a class="social-btn" href="https://x.com/dtbrief" target="_blank" rel="noopener" aria-label="Follow Daily Tech Briefing on X (@dtbrief)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"/></svg><span>@dtbrief</span></a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4>Sections</h4>
+            <a href="../sections/ai.html">AI</a>
+            <a href="../sections/chips.html">Chips &amp; Hardware</a>
+            <a href="../sections/big-tech.html">Big Tech</a>
+            <a href="../sections/business.html">Business &amp; Markets</a>
+            <a href="../sections/security.html">Security &amp; Privacy</a>
+          </div>
+          <div>
+            <h4>Site</h4>
+            <a href="../archive.html">Archive</a>
+            <a href="../breaking/">Breaking News archive</a>
+            <a href="../learn/">Learning Center</a>
+            <a href="../standards.html">How we pick stories</a>
+          </div>
+          <div>
+            <h4>Listen</h4>
+            <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" target="_blank" rel="noopener">Spotify</a>
+            <a href="https://podcasts.apple.com/us/podcast/daily-tech-briefing/id6822945922" target="_blank" rel="noopener">Apple Podcasts</a>
+          </div>
+          <div>
+            <h4>More</h4>
+            <a href="../advertise.html">Advertise</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../privacy.html">Privacy Policy</a>
+            <a href="../terms.html">Terms of Use</a>
+          </div>
+        </div>
+        <div class="site-footer-bottom">
+          <span>&copy; 2026 Daily Tech Briefing &middot; dtbrief.com</span>
+          <span>AI-assisted and human-directed.</span>
+        </div>
+      </div>
+    </footer>
+<!-- /site-footer -->
+
+    <script>
+      (function () {
+        var bar = document.getElementById('progress');
+        function onScroll() {
+          var h = document.documentElement;
+          var max = h.scrollHeight - h.clientHeight;
+          var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+          bar.style.width = pct + '%';
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+        /* Listen-aloud: toggle the story audio on the play button. */
+        document.querySelectorAll('.listen-bar').forEach(function (listenBar) {
+          var btn = listenBar.querySelector('.listen-toggle');
+          var audio = listenBar.querySelector('audio');
+          btn.addEventListener('click', function () {
+            if (audio.paused) { audio.play(); } else { audio.pause(); }
+          });
+          audio.addEventListener('play', function () {
+            listenBar.classList.add('playing');
+            btn.setAttribute('aria-pressed', 'true');
+          });
+          function stopped() {
+            listenBar.classList.remove('playing');
+            btn.setAttribute('aria-pressed', 'false');
+          }
+          audio.addEventListener('pause', stopped);
+          audio.addEventListener('ended', stopped);
+        });
+      })();
+    </script>
+    <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0d3d9c0c884e4b5b827d30970f4bb08a"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
