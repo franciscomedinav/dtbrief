@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-20",
+    "date_long": "November 20, 2026",
+    "slug": "2026-11-20-diffusion-language-models-explained",
+    "title": "Diffusion Language Models, Explained: How AI Writes a Whole Sentence at Once",
+    "deck_short": "How an AI writes a whole sentence at once &mdash; and why Nvidia wants to buy the company that does it best.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A language model refining a row of blank tiles into words, the tiles filling in from left and right at once as a beam of light passes over them, on a deep navy background with cyan and warm yellow accents",
+      "caption": "A diffusion model does not write left to right. It starts with a row of blanks and fills them all in at once, then revises the weak guesses.",
+      "index_alt": "A row of blank tiles turning into words all at once",
+      "index_caption": "Today&rsquo;s lesson: diffusion language models &mdash; how an AI writes a whole sentence at once.",
+      "src": "assets/diffusion-language-models-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-19",
     "date_long": "November 19, 2026",
     "slug": "2026-11-19-world-models-explained",

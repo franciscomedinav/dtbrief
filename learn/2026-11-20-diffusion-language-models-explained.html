@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Daily Tech Briefing" href="https://dtbrief.com/feed.xml" />
+    <meta name="theme-color" content="#0A0F1E" />
+    <meta name="description" content="Diffusion language models explained in plain English &mdash; how they write a whole sentence at once, why they are so fast, and what they still can&rsquo;t do." />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Daily Tech Briefing" />
+    <meta property="og:title" content="Diffusion Language Models, Explained &mdash; Daily Tech Briefing" />
+    <meta property="og:description" content="How an AI writes a whole sentence at once &mdash; and why Nvidia wants to buy the company that does it best." />
+    <meta property="og:url" content="https://dtbrief.com/learn/2026-11-20-diffusion-language-models-explained.html" />
+    <meta property="og:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
+    <meta property="article:published_time" content="2026-11-20" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"Diffusion Language Models, Explained: How AI Writes a Whole Sentence at Once","datePublished":"2026-11-20","author":{"@type":"Organization","name":"Daily Tech Briefing"},"publisher":{"@type":"Organization","name":"Daily Tech Briefing","url":"https://dtbrief.com/"},"mainEntityOfPage":"https://dtbrief.com/learn/2026-11-20-diffusion-language-models-explained.html"}
+    </script>
+    <title>Diffusion Language Models, Explained &mdash; Learning Center &mdash; Daily Tech Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #F4F6F8;
+        --ink: #0A0F1E;
+        --ink-soft: #2E3A52;
+        --ink-faint: #5A6478;
+        --rule: #D8DEE7;
+        --accent: #0090C8;
+        --accent-soft: rgba(0, 144, 200, 0.08);
+        --card: #ffffff;
+        --chip-bg: #0A0F1E;
+        --chip-ink: #F4F6F8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #070B16;
+          --ink: #EDF1F8;
+          --ink-soft: #C7D3E8;
+          --ink-faint: #93A0B8;
+          --rule: #22304F;
+          --accent: #00C2FF;
+          --accent-soft: rgba(0, 194, 255, 0.12);
+          --card: #0D1424;
+          --chip-bg: #EDF1F8;
+          --chip-ink: #070B16;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .sans { font-family: "IBM Plex Sans", system-ui, sans-serif; }
+
+      #progress {
+        position: fixed;
+        top: 0; left: 0;
+        height: 3px;
+        width: 0%;
+        background: #00C2FF;
+        z-index: 50;
+      }
+
+      /* ---------- Masthead ---------- */
+      .masthead {
+        border-bottom: 2px solid var(--ink);
+      }
+      .masthead-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 18px 24px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand-mark {
+        width: 40px; height: 40px;
+        flex: none;
+        display: grid;
+        place-items: center;
+      }
+      .brand-name {
+        font-family: "Sora", sans-serif;
+        font-weight: 800;
+        font-size: 21px;
+        letter-spacing: -0.01em;
+        line-height: 1.05;
+      }
+      .brand-dot { color: var(--accent); }
+      .brand-tag {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 2px;
+      }
+      .masthead-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        text-align: right;
+        line-height: 1.5;
+      }
+      .masthead-meta strong { color: var(--ink); font-weight: 600; }
+
+      /* ---------- Layout ---------- */
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      article {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 44px 0 8px;
+      }
+
+      .dateline-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      .kicker {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .sample-chip {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: var(--chip-bg);
+        color: var(--chip-ink);
+        padding: 4px 9px;
+        border-radius: 999px;
+      }
+
+      h1 {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(34px, 5.4vw, 54px);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px;
+      }
+      h1 .money { color: var(--accent); }
+      .deck {
+        font-size: clamp(19px, 2.6vw, 22px);
+        line-height: 1.45;
+        font-style: italic;
+        color: var(--ink-soft);
+        margin: 0 0 26px;
+      }
+      .byline {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        color: var(--ink-faint);
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        padding: 12px 0;
+        margin-bottom: 34px;
+      }
+      .byline .who { color: var(--ink); font-weight: 600; }
+      .byline .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+
+      /* ---------- Key numbers ---------- */
+      .keynums {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+      .keynum {
+        padding: 20px 20px 16px;
+      }
+      .keynum + .keynum { border-left: 1px solid var(--rule); }
+      .keynum .fig {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(24px, 3.4vw, 32px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .keynum .fig em { font-style: normal; color: var(--accent); }
+      .keynum .lbl {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--ink-faint);
+        margin-top: 8px;
+      }
+
+      /* ---------- Body copy ---------- */
+      section { margin-bottom: 38px; }
+      h2 {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin: 0 0 16px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      h2 .num {
+        font-family: "Sora", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0;
+        color: var(--accent);
+        line-height: 1;
+      }
+      p {
+        font-size: 19px;
+        line-height: 1.68;
+        color: var(--ink-soft);
+        margin: 0 0 18px;
+      }
+      p strong { color: var(--ink); font-weight: 700; }
+      p a, .source-card a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+      .inline-icon { width: 16px; height: 16px; vertical-align: -2px; }
+
+      .pull {
+        border-left: 3px solid var(--accent);
+        padding: 4px 0 4px 20px;
+        margin: 28px 0;
+        font-size: 22px;
+        line-height: 1.4;
+        font-weight: 500;
+        font-style: italic;
+        color: var(--ink);
+      }
+
+      ul.watch {
+        list-style: none;
+        margin: 0 0 18px;
+        padding: 0;
+      }
+      ul.watch li {
+        font-size: 19px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        padding: 12px 0 12px 0;
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 14px;
+      }
+      ul.watch li:first-child { border-top: none; padding-top: 2px; }
+      ul.watch .w-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        padding-top: 5px;
+      }
+
+      /* ---------- Source + episode ---------- */
+      .source-card {
+        background: var(--accent-soft);
+        border-radius: 14px;
+        padding: 22px 24px;
+        margin: 44px 0 18px;
+      }
+      .source-card .sc-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .source-card p { font-size: 17px; margin: 0; line-height: 1.55; }
+
+      .episode-note {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 48px;
+        background: var(--card);
+      }
+      .play-btn {
+        width: 42px; height: 42px;
+        flex: none;
+        border-radius: 50%;
+        background: #00C2FF;
+        display: grid;
+        place-items: center;
+      }
+      .episode-note p { font-size: 16.5px; margin: 0; line-height: 1.55; }
+      .episode-note .ep-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 4px;
+      }
+
+      .listen-bar {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 14px 18px;
+        margin: 0 0 28px;
+        background: var(--card);
+      }
+      .listen-toggle {
+        border: none;
+        padding: 0;
+        cursor: pointer;
+      }
+      .listen-toggle .icon-pause { display: none; }
+      .listen-bar.playing .listen-toggle .icon-play { display: none; }
+      .listen-bar.playing .listen-toggle .icon-pause { display: block; }
+      .listen-label {
+        font-family: "Sora", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 1.3;
+      }
+      .listen-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 3px;
+      }
+
+      footer {
+        border-top: 2px solid var(--ink);
+        margin-top: 8px;
+      }
+      .footer-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 20px 24px 34px;
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 620px) {
+        .keynums { grid-template-columns: 1fr; }
+        .keynum + .keynum { border-left: none; border-top: 1px solid var(--rule); }
+        ul.watch li { grid-template-columns: 1fr; gap: 2px; }
+        ul.watch .w-label { padding-top: 0; }
+        .masthead-meta { text-align: left; }
+        article { padding-top: 32px; }
+      }
+
+      /* Learning Center extras: figures, loop diagram, comparison cards */
+      .figure { margin: 28px 0; }
+      .figure img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--rule); }
+      .figure figcaption { font-size: 13.5px; color: var(--ink-faint); margin-top: 10px; line-height: 1.5; }
+      .loop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+      .loop-step { background: var(--accent-soft); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; }
+      .loop-step .loop-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--chip-bg); color: var(--chip-ink); font-family: "IBM Plex Mono", monospace; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+      .loop-step strong { display: block; font-family: "Sora", sans-serif; font-size: 17px; margin-bottom: 4px; }
+      .loop-step span { display: block; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+      .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+      .vs-card { border: 1px solid var(--rule); border-radius: 12px; padding: 18px; background: var(--card); }
+      .vs-card.agent { border-color: var(--accent); background: var(--accent-soft); }
+      .vs-card strong { display: block; font-family: "Sora", sans-serif; font-size: 18px; margin-bottom: 6px; }
+      .vs-card span { display: block; font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+      @media (max-width: 560px) {
+        .loop-grid, .vs-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="brand" href="../index.html" aria-label="Daily Tech Briefing home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 96 96" aria-hidden="true">
+              <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+              <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+              <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+              <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+            </svg>
+          </span>
+          <span>
+            <span class="brand-name">Tech Briefing<span class="brand-dot">.</span></span>
+            <span class="brand-tag" style="display:block;">Your daily dose of tech news &mdash; signal, not noise.</span>
+          </span>
+        </a>
+        <div class="masthead-meta">
+          <strong>Learning Center</strong><br />
+          One technology, explained in plain English
+        </div>
+      </div>
+    </header>
+<!-- site-topnav -->
+<style>
+  .sitehdr { position: sticky; top: 0; z-index: 50; background: var(--paper, #F4F6F8); border-bottom: 1px solid var(--rule, #D8DEE7); box-shadow: 0 1px 10px rgba(10, 15, 30, 0.07); }
+  .sitehdr-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; min-height: 56px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .sitehdr-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink, #0A0F1E); flex: none; padding: 10px 0; }
+  .sitehdr-brand img { width: 28px; height: 28px; display: block; }
+  .sitehdr-word { font-family: "Sora", sans-serif; font-weight: 800; font-size: 17px; letter-spacing: 0.03em; line-height: 1; }
+  .sitehdr-nav { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
+  .sitehdr-nav > a, .sitehdr-listen-label { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--ink-soft, #2E3A52); text-decoration: none; padding: 8px 9px; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .sitehdr-nav > a:hover, .sitehdr-listen-label:hover { color: var(--ink, #0A0F1E); }
+  .sitehdr-nav > a.active { color: var(--accent, #0090C8); border-bottom-color: var(--accent, #0090C8); }
+  .sitehdr-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #FF5A3C; margin-right: 6px; vertical-align: 2px; animation: sitehdr-pulse 1.6s ease-in-out infinite; }
+  @keyframes sitehdr-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+  @media (prefers-reduced-motion: reduce) { .sitehdr-dot { animation: none; } }
+  .sitehdr-listen { position: relative; display: inline-block; }
+  .sitehdr-listen-label { cursor: pointer; display: inline-block; }
+  .sitehdr-drop { display: none; position: absolute; top: 100%; left: 0; min-width: 190px; background: var(--card, #ffffff); border: 1px solid var(--rule, #D8DEE7); border-radius: 12px; box-shadow: 0 10px 30px rgba(10, 15, 30, 0.14); padding: 8px; z-index: 60; }
+  .sitehdr-listen:hover .sitehdr-drop, .sitehdr-listen:focus-within .sitehdr-drop { display: block; }
+  .sitehdr-drop a { display: block; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 14.5px; font-weight: 600; color: var(--ink, #0A0F1E); text-decoration: none; padding: 9px 11px; border-radius: 8px; white-space: nowrap; }
+  .sitehdr-drop a:hover { background: var(--accent-soft, rgba(0, 144, 200, 0.08)); color: var(--accent, #0090C8); }
+  .sitehdr-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; flex: none; }
+  .sitehdr-iconbtn { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--rule, #D8DEE7); background: var(--card, #ffffff); color: var(--ink-soft, #2E3A52); cursor: pointer; padding: 0; }
+  .sitehdr-iconbtn:hover { color: var(--accent, #0090C8); border-color: var(--accent, #0090C8); }
+  .sitehdr-iconbtn svg { width: 18px; height: 18px; display: block; }
+  .sitehdr-sub { font-family: "IBM Plex Mono", monospace; font-size: 13.5px; font-weight: 600; color: #ffffff; background: var(--accent, #0090C8); border-radius: 999px; padding: 10px 18px; text-decoration: none; white-space: nowrap; }
+  .sitehdr-sub:hover { filter: brightness(1.1); color: #ffffff; }
+  .sitehdr-burger { display: none; }
+  .sitehdr-searchrow { border-top: 1px solid var(--rule, #D8DEE7); }
+  .sitehdr-searchinner { max-width: 1080px; margin: 0 auto; padding: 14px 24px 18px; }
+  .sitehdr-searchbox { width: 100%; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 17px; padding: 13px 16px; border: 1px solid var(--rule, #D8DEE7); border-radius: 12px; background: var(--card, #ffffff); color: var(--ink, #0A0F1E); margin: 0; }
+  .sitehdr-searchbox:focus { outline: 2px solid var(--accent, #0090C8); outline-offset: 1px; }
+  .sitehdr-searchmeta { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--ink-faint, #5A6478); margin: 10px 0 0; }
+  .sitehdr-results { display: grid; gap: 12px; margin-top: 12px; max-height: 55vh; overflow-y: auto; }
+  .sitehdr-results:empty { margin-top: 0; }
+  .sitehdr .pcard { display: block; background: var(--card, #ffffff); border: 1px solid var(--rule, #D8DEE7); border-radius: 14px; padding: 18px 20px; text-decoration: none; color: var(--ink, #0A0F1E); }
+  .sitehdr .pcard:hover { border-color: var(--accent, #0090C8); }
+  .sitehdr .pcard .pkicker { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, #0090C8); }
+  .sitehdr .pcard h3 { font-family: "Sora", sans-serif; font-size: 19px; line-height: 1.25; font-weight: 800; letter-spacing: -0.01em; margin: 8px 0 6px; }
+  .sitehdr .pcard p { font-size: 14.5px; line-height: 1.5; color: var(--ink-soft, #2E3A52); margin: 0 0 8px; }
+  .sitehdr .pcard .meta { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--ink-faint, #5A6478); }
+  @media (max-width: 760px) {
+    .sitehdr-inner { gap: 10px; padding: 0 16px; }
+    .sitehdr-burger { display: inline-flex; }
+    .sitehdr-nav { display: none; order: 5; flex-basis: 100%; flex-direction: column; align-items: stretch; gap: 0; padding: 4px 0 12px; }
+    .sitehdr.open .sitehdr-nav { display: flex; }
+    .sitehdr-nav > a, .sitehdr-listen-label { padding: 11px 6px; border-bottom: 1px solid var(--rule, #D8DEE7); font-size: 14px; }
+    .sitehdr-nav > a.active { border-bottom-color: var(--rule, #D8DEE7); box-shadow: inset 3px 0 0 var(--accent, #0090C8); }
+    .sitehdr-listen { display: block; }
+    .sitehdr-drop { display: block; position: static; border: none; box-shadow: none; background: none; padding: 0 0 4px 16px; min-width: 0; }
+    .sitehdr-drop a { padding: 9px 6px; font-family: "IBM Plex Mono", monospace; font-size: 13.5px; color: var(--ink-soft, #2E3A52); }
+    .sitehdr-searchinner { padding: 12px 16px 16px; }
+  }
+</style>
+    <header class="sitehdr">
+      <div class="sitehdr-inner">
+        <a class="sitehdr-brand" href="../index.html" aria-label="Daily Tech Briefing home">
+          <img src="../favicon.svg" alt="" width="28" height="28" />
+          <span class="sitehdr-word">DTBRIEF</span>
+        </a>
+        <nav class="sitehdr-nav" id="sitehdr-menu" aria-label="Site">
+        <a href="../archive.html" data-nav="latest">Latest</a>
+        <a href="../sections/ai.html" data-nav="ai">AI</a>
+        <a href="../sections/chips.html" data-nav="chips">Chips</a>
+        <a href="../sections/big-tech.html" data-nav="big-tech">Big Tech</a>
+        <a href="../sections/business.html" data-nav="business">Business</a>
+        <a href="../sections/security.html" data-nav="security">Security</a>
+        <a href="../learn/" data-nav="learn" class="active" aria-current="page">Learn</a>
+        <a href="../breaking/" data-nav="breaking"><span class="sitehdr-dot" aria-hidden="true"></span>Breaking</a>
+          <span class="sitehdr-listen">
+            <span class="sitehdr-listen-label" tabindex="0">Listen &#9662;</span>
+            <span class="sitehdr-drop">
+              <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" target="_blank" rel="noopener">Spotify</a>
+              <a href="https://podcasts.apple.com/us/podcast/daily-tech-briefing/id6822945922" target="_blank" rel="noopener">Apple Podcasts</a>
+            </span>
+          </span>
+        </nav>
+        <div class="sitehdr-actions">
+          <button class="sitehdr-iconbtn sitehdr-searchbtn" type="button" aria-expanded="false" aria-controls="sitehdr-searchrow" aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg></button>
+          <a class="sitehdr-sub" href="https://franciscos-newsletter-df7908.beehiiv.com/subscribe" target="_blank" rel="noopener">Subscribe</a>
+          <button class="sitehdr-iconbtn sitehdr-burger" type="button" aria-expanded="false" aria-controls="sitehdr-menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+        </div>
+      </div>
+      <div class="sitehdr-searchrow" id="sitehdr-searchrow" hidden>
+        <div class="sitehdr-searchinner">
+          <input id="hdr-search" class="sitehdr-searchbox" type="search" placeholder="Search stories &mdash; try &ldquo;Anthropic&rdquo; or &ldquo;Apple&rdquo;" autocomplete="off" aria-label="Search the briefing" />
+          <p id="hdr-search-meta" class="sitehdr-searchmeta" aria-live="polite"></p>
+          <div id="hdr-search-results" class="sitehdr-results"></div>
+        </div>
+      </div>
+    </header>
+<script>
+    (function () {
+      var hdr = document.currentScript.previousElementSibling;
+      if (!hdr) return;
+      var PREFIX = "../";
+      var burger = hdr.querySelector('.sitehdr-burger');
+      burger.addEventListener('click', function () {
+        var open = hdr.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      var row = hdr.querySelector('.sitehdr-searchrow');
+      var toggle = hdr.querySelector('.sitehdr-searchbtn');
+      var input = hdr.querySelector('#hdr-search');
+      var meta = hdr.querySelector('#hdr-search-meta');
+      var resultsBox = hdr.querySelector('#hdr-search-results');
+      var index = null, loaded = false, loading = false;
+      function esc(s) {
+        return String(s == null ? '' : s).replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+      function words(q) {
+        return q.toLowerCase().split(/\s+/).filter(function (w) { return w.length > 0; });
+      }
+      function matches(item, ws) {
+        var hay = (item.title + ' ' + item.excerpt + ' ' + item.date).toLowerCase();
+        return ws.every(function (w) { return hay.indexOf(w) !== -1; });
+      }
+      function render() {
+        var query = (input.value || '').trim();
+        if (!query) { resultsBox.innerHTML = ''; meta.textContent = ''; return; }
+        if (!loaded) { meta.textContent = 'Search is still loading\u2026'; return; }
+        var list = index.filter(function (item) { return matches(item, words(query)); });
+        meta.textContent = list.length + (list.length === 1 ? ' result' : ' results') +
+          ' for \u201c' + query + '\u201d';
+        var html = '';
+        list.forEach(function (item) {
+          html += '<a class="pcard" href="' + esc(PREFIX + item.url) + '">' +
+            '<span class="pkicker">Top Story</span>' +
+            '<h3>' + esc(item.title) + '</h3>' +
+            '<p>' + esc(item.excerpt) + '</p>' +
+            '<span class="meta">' + esc(item.date) + ' &middot; Episode ' + esc(item.episode) + '</span></a>';
+        });
+        resultsBox.innerHTML = html;
+      }
+      function loadIndex() {
+        if (loaded || loading) return;
+        loading = true;
+        fetch(PREFIX + 'search-index.json')
+          .then(function (r) { if (!r.ok) throw new Error('index HTTP ' + r.status); return r.json(); })
+          .then(function (data) { index = data; loaded = true; loading = false; render(); })
+          .catch(function () { loading = false; meta.textContent = 'Search is unavailable right now.'; });
+      }
+      toggle.addEventListener('click', function () {
+        var show = row.hidden;
+        row.hidden = !show;
+        toggle.setAttribute('aria-expanded', show ? 'true' : 'false');
+        if (show) { loadIndex(); input.focus(); }
+      });
+      input.addEventListener('input', function () { loadIndex(); render(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !row.hidden) {
+          row.hidden = true;
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+    </script>
+<!-- /site-topnav -->
+
+    <div class="wrap">
+      <article>
+        <div class="dateline-row">
+          <span class="kicker">Learning Center &middot; Lesson 9</span>
+        </div>
+
+        <h1>Diffusion Language Models, Explained: How AI Writes a Whole Sentence at Once</h1>
+
+        <p class="deck">Every chatbot you have used writes one word at a time, left to right. A diffusion language model writes the whole sentence at once, then fixes its mistakes. Here is how it works, why it is so fast, and where it still falls short.</p>
+
+        <div class="byline">
+          <span class="who">Daily Tech Briefing</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>November 20, 2026</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>4 min read</span>
+        </div>
+
+                <figure class="figure">
+          <img src="assets/diffusion-language-models-hero.webp" alt="A language model refining a row of blank tiles into words, the tiles filling in from left and right at once as a beam of light passes over them, on a deep navy background with cyan and warm yellow accents" width="2048" height="1152" />
+          <figcaption>A diffusion model does not write left to right. It starts with a row of blanks and fills them all in at once, then revises the weak guesses.</figcaption>
+        </figure>
+        <div class="keynums" role="group" aria-label="Key ideas">
+          <div class="keynum">
+            <div class="fig">1,000+ tokens/sec</div>
+            <div class="lbl">The speed Inception reports for its Mercury models &mdash; roughly five to ten times faster than a typical frontier model</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">10x</div>
+            <div class="lbl">How much faster and cheaper Inception claims its diffusion models run than traditional models</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">2024</div>
+            <div class="lbl">The year diffusion models became competitive with autoregressive models on quality &mdash; the turning point for the field</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">1 step</div>
+            <div class="lbl">How many passes a diffusion model needs to draft a whole sentence &mdash; then it spends the rest of its time refining it</div>
+          </div>
+        </div>
+
+        <section aria-labelledby="s1">
+          <h2 id="s1"><span class="num">1</span> What it is</h2>
+          <p>A diffusion language model is a language model that writes the way an image generator paints: it starts with a rough draft full of blanks, then refines the whole thing at once. Every chatbot you have used works the opposite way &mdash; it writes one word at a time, left to right, and can never go back and change a word it already chose.</p>
+          <p>The idea is borrowed from image generation, where diffusion powers Stable Diffusion, Midjourney, and DALL-E. Those models start from pure noise and remove a little of it at every step until a coherent picture emerges. A diffusion language model does the same thing with words: it starts with a sequence of placeholders, predicts every blank at once, keeps the predictions it is most confident about, and throws the rest away to try again. The model underneath is almost the same kind of transformer that powers ChatGPT and Claude &mdash; what changes is how it is trained and how it generates.</p>
+          <p>The first commercial diffusion language model was Mercury Coder, from Inception Labs, which claimed speeds above 1,000 tokens per second &mdash; five to ten times faster than the models it competes with. The field reached its turning point in 2024, when diffusion models first became competitive with traditional models on quality, and by 2026 the big labs had joined in: Google shipped Gemma Diffusion, Nvidia shipped Nemotron Diffusion, and Inception&rsquo;s Mercury 2.5 reports 1,107 tokens per second with a 260,000-token context window.</p>
+        </section>
+
+        <section aria-labelledby="s2">
+          <h2 id="s2"><span class="num">2</span> How it works: the refine loop</h2>
+          <p>Every diffusion language model runs the same four-step loop. Say you ask it to write a function that checks whether a number is even:</p>
+          <p><strong>1. Mask</strong> &mdash; the model sees your prompt followed by a row of blanks, one for each word it will write. <strong>2. Predict</strong> &mdash; it guesses a word for every blank at the same time, and scores how confident it is in each guess. <strong>3. Keep the best</strong> &mdash; the confident guesses stay; the weak ones are thrown away and re-masked. <strong>4. Repeat</strong> &mdash; the model runs the loop again on the remaining blanks, now with the good guesses as context, until nothing is blank any more.</p>
+          <div class="loop-grid" role="img" aria-label="The agent loop: mask, predict, keep the best, repeat, then repeat">
+            <div class="loop-step"><span class="loop-num">1</span><strong>Mask</strong><span>Start with the prompt followed by a row of blank mask tokens</span></div>
+            <div class="loop-step"><span class="loop-num">2</span><strong>Predict</strong><span>Predict a word for every blank at once, each with a confidence score</span></div>
+            <div class="loop-step"><span class="loop-num">3</span><strong>Keep the best</strong><span>Keep the best guesses, throw the weak ones back to blank</span></div>
+            <div class="loop-step"><span class="loop-num">4</span><strong>Repeat</strong><span>Repeat until no blanks are left &mdash; the sentence is done</span></div>
+          </div>
+          <p>The clever part is the trade-off the loop gives you. Keep everything from the first prediction and you are done in one step &mdash; very fast, but lower quality. Keep only the single best word each time and you take as many steps as there are words &mdash; slow, but careful. In practice the model commits a handful of its best guesses per step, which is why it is so much faster than writing one word at a time. And because every step can see the whole sentence &mdash; past and future &mdash; the model can fix a bad word in the middle after seeing what came after it. A traditional model can never do that: once a word is written, it is locked in.</p>
+          <p>Underneath, the mechanism is called masked diffusion, and the reference model is LLaDA, published in February 2025 by Nie and colleagues. It trains a plain transformer to reconstruct a whole sentence from a corrupted, masked version of it, and at generation time it denoises from fully masked to fully written. No new architecture was needed &mdash; just a different way of training and sampling the same kind of model.</p>
+        </section>
+
+        <section aria-labelledby="s3">
+          <h2 id="s3"><span class="num">3</span> Diffusion vs autoregressive</h2>
+          <p><strong>An autoregressive model</strong> &mdash; every mainstream chatbot today &mdash; generates text one token at a time, left to right. Each token needs a full pass through billions of parameters, and the attention mechanism only looks backward, at the words already written. It is like typing with no backspace: fast enough for a chat, but every word costs a full run of the model, and a mistake early in the sentence can quietly poison everything after it.</p>
+          <p><strong>A diffusion language model</strong> predicts the whole sequence at once and refines it over a few rounds, rewriting every position in parallel. It can trade speed for quality on the fly &mdash; fewer steps when you want a quick draft, more steps when you want it careful &mdash; and it can revise any word at any time, because every step attends to the full sentence in both directions.</p>
+          <div class="vs-grid">
+            <div class="vs-card"><strong>Autoregressive</strong><span>One token per pass, left to right. Proven at the highest quality, but slow for long outputs &mdash; and a word, once written, can never be revised.</span></div>
+            <div class="vs-card agent"><strong>Diffusion</strong><span>The whole sentence at once, refined over a few rounds. Much faster, and any word can be fixed &mdash; but the quality gap at the very top is still real.</span></div>
+          </div>
+          <div class="pull">An autoregressive model writes one word at a time and can never look back. A diffusion model drafts the whole sentence, then fixes its mistakes.</div>
+        </section>
+
+        <section aria-labelledby="s4">
+          <h2 id="s4"><span class="num">4</span> Why everyone&rsquo;s building them now</h2>
+          <p>Two stories in today&rsquo;s briefing are the same story. Nvidia is in advanced talks to buy Inception for more than $500 million, plus performance-based earnouts, with all three co-founders expected to join &mdash; a deal that would bring the Mercury diffusion models into Nvidia&rsquo;s Nemotron open-source line and its robotics work. And Apple is building an AI agent that can run your Mac, a job that needs a model fast enough to feel instant while it works across your apps.</p>
+        <figure class="figure">
+          <img src="assets/diffusion-language-models-speed.webp" alt="A single glowing AI core sending many parallel streams of small glowing word-blocks to phones, laptops, and chat bubbles all around it at the same time, on a deep navy background with cyan and warm yellow accents" width="2048" height="1152" loading="lazy" />
+          <figcaption>Speed is the product: one fast model can answer many people at once, and the cost of each answer falls with it.</figcaption>
+        </figure>
+          <p>The bet is simple. The most expensive part of running a chatbot is the waiting: every word costs a full pass through the model, and millions of users are waiting at once. A model that answers five to ten times faster, at a tenth of the cost, changes the economics of everything built on top of it &mdash; agents that act instead of chat, voice assistants that reply before you finish speaking, coding tools that rewrite whole files in a blink. Speed is not a nice-to-have here; it is the product.</p>
+          <p>That is also why the race is suddenly crowded. Google, Nvidia, and Inception all shipped diffusion models in 2026, and the research behind them is public &mdash; LLaDA showed the recipe works, and every lab can now cook from it. The company that ships the fastest good-enough model owns the layer underneath every agent, and Nvidia&rsquo;s bid for Inception is a bet that the layer is about to change hands.</p>
+        </section>
+
+        <section aria-labelledby="s5">
+          <h2 id="s5"><span class="num">5</span> The honest part</h2>
+          <p>First, <strong>the quality gap at the top is still real</strong>. Diffusion models are competitive on many tasks, but the best autoregressive models still lead on hard multi-step reasoning &mdash; the kind of thinking where each step depends on the last one being exactly right. Committing many tokens per step is faster, but it can produce locally incoherent output, so the best quality comes from unmasking fewer tokens per step, which gives back some of the speed. The trade-off is intrinsic, not a bug to be fixed away.</p>
+          <p>Second, <strong>the business is unsettled</strong>. Inception is shutting down its Mercury API on December 28, 2026, according to its own wind-down notice &mdash; the same week Nvidia is reported to be buying the company. Whether the deal closes or not, the message is that diffusion models are still a technology looking for their durable home: inside a chip company, inside a platform, or as a standalone product.</p>
+          <p>The honest summary: diffusion is the first serious challenger to the way every chatbot writes, and its speed advantage is real and measured. But the model that writes a sentence in one pass still has to prove it can think as carefully as the model that writes one word at a time &mdash; and the next year of benchmarks, not the next press release, will settle it.</p>
+        </section>
+
+        <section aria-labelledby="terms">
+          <h2 id="terms">Key terms</h2>
+          <ul class="watch">
+            <li>
+              <span class="w-label">Diffusion language model</span>
+              <span>A language model that starts from a row of blank placeholders and refines the whole sequence in parallel, over a few rounds, instead of writing one word at a time.</span>
+            </li>
+            <li>
+              <span class="w-label">Autoregressive</span>
+              <span>The standard way today&rsquo;s chatbots write: one token at a time, left to right, each predicted only from the words before it.</span>
+            </li>
+            <li>
+              <span class="w-label">Mask / remasking</span>
+              <span>A placeholder token that stands for a word not yet written. The model fills masks in, and can re-mask a weak guess to try again.</span>
+            </li>
+            <li>
+              <span class="w-label">Unmasking schedule</span>
+              <span>The rule that decides how many of the model&rsquo;s best guesses to keep at each step &mdash; more kept means faster, fewer kept means more careful.</span>
+            </li>
+            <li>
+              <span class="w-label">Token</span>
+              <span>The smallest unit a model writes &mdash; roughly a word or part of a word. Speed is measured in tokens per second.</span>
+            </li>
+            <li>
+              <span class="w-label">Bidirectional attention</span>
+              <span>Attention that lets every position see the whole sentence, past and future, so a word can be revised after seeing what follows it.</span>
+            </li>
+          </ul>
+        </section>
+
+        <div class="source-card">
+          <div class="sc-label">From today&rsquo;s briefing</div>
+          <p>This lesson comes from today&rsquo;s Daily Tech Briefing (Episode 39, November 20, 2026): Anthropic&rsquo;s $107B debut, the AI sell-off &amp; Nvidia&rsquo;s subpoena. Read the full briefing: <a href="../posts/2026-11-20-anthropic-ipo-debut-first-day.html">Anthropic&rsquo;s $97 Debut &mdash; Daily Tech Briefing</a>.</p>
+        </div>
+
+        <div class="source-card">
+          <div class="sc-label">Sources</div>
+          <p>Kuleshov Group, &ldquo;How to Build a Diffusion Language Model&rdquo; (2026) &mdash; masked diffusion, the refine loop, Mercury 2, Gemma Diffusion, Nemotron Diffusion, and the 2024 turning point; Codecentric, &ldquo;Diffusion Language Models: Beyond Left-to-Right Generation&rdquo; &mdash; remasking, the speed-quality trade-off, and bidirectional attention; HackerNoon, &ldquo;What Is a Diffusion LLM and Why Does It Matter?&rdquo; &mdash; Mercury Coder launch, 1,000+ tokens per second, LLaDA (Nie et al., February 2025); The Information via Dealroom, &ldquo;Nvidia is in advanced talks to buy diffusion-model startup Inception for at least $500M&rdquo; (November 19, 2026) &mdash; the acquisition talks, the $500 million floor, and the co-founders joining Nvidia; The Neuron, &ldquo;Nvidia&rsquo;s Potential Inception Deal: Why Diffusion AI Matters&rdquo; &mdash; the Mercury API wind-down on December 28, 2026.</p>
+        </div>
+        <div class="newsletter-band" style="margin:28px 0 8px;padding:24px 20px;border:1px solid #D8DEE7;border-radius:12px;background:#EDF1F8;"><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:21px;line-height:1.25;color:#0A0F1E;margin:0 0 6px;">Get the Daily Tech Briefing in your inbox</div><p style="font-size:15.5px;line-height:1.5;color:#2E3A52;margin:0 0 16px;">The day&rsquo;s top tech stories in plain English &mdash; every weekday morning. Free.</p><a href="https://franciscos-newsletter-df7908.beehiiv.com/subscribe" target="_blank" rel="noopener" style="display:block;text-align:center;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:13px 22px;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;text-decoration:none;">Subscribe</a></div>
+        <div class="share-row" style="margin:28px 0 8px;padding-top:18px;border-top:1px solid #D8DEE7;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5A6478;">Share this lesson</span>
+          <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;">
+            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdtbrief.com%2Flearn%2F2026-11-20-diffusion-language-models-explained.html&text=Diffusion%20Language%20Models%2C%20Explained%3A%20How%20AI%20Writes%20a%20Whole%20Sentence%20at%20Once" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Post to X</a>
+            <a href="https://wa.me/?text=Diffusion%20Language%20Models%2C%20Explained%3A%20How%20AI%20Writes%20a%20Whole%20Sentence%20at%20Once%20https%3A%2F%2Fdtbrief.com%2Flearn%2F2026-11-20-diffusion-language-models-explained.html" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">WhatsApp</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdtbrief.com%2Flearn%2F2026-11-20-diffusion-language-models-explained.html" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Facebook</a>
+            <a href="#" onclick="navigator.clipboard.writeText('https://dtbrief.com/learn/2026-11-20-diffusion-language-models-explained.html');this.textContent='Link copied';return false;" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Copy link</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- site-footer -->
+<style>
+  footer.site-footer { border-top: none; background: #0A0F1E; color: #EDF1F8; margin-top: 56px; }
+  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 42px 24px 26px; }
+  .site-footer-cols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 30px; }
+  @media (max-width: 860px) { .site-footer-cols { grid-template-columns: 1fr 1fr; } }
+  .site-footer h4 { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #93A0B8; margin: 0 0 13px; }
+  .site-footer-cols a { display: block; color: #EDF1F8; text-decoration: none; font-size: 14.5px; line-height: 1.5; margin-bottom: 9px; }
+  .site-footer-cols a:hover { color: #00C2FF; text-decoration: underline; }
+  .site-footer-brand { display: flex; gap: 13px; align-items: flex-start; }
+  .site-footer-name { font-family: "Sora", sans-serif; font-weight: 800; font-size: 19px; line-height: 1.15; }
+  .site-footer-tag { color: #93A0B8; font-size: 13.5px; line-height: 1.55; margin-top: 5px; max-width: 300px; }
+  .site-footer-bottom { border-top: 1px solid #22304F; margin-top: 34px; padding-top: 18px; display: flex; justify-content: space-between; gap: 10px 18px; flex-wrap: wrap; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: #93A0B8; }
+  .site-footer-follow { margin-top: 22px; }
+  .site-footer-social { display: flex; gap: 10px; flex-wrap: wrap; }
+  .site-footer-social a.social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid #22304F; border-radius: 999px; color: #EDF1F8; font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; margin-bottom: 0; }
+  .site-footer-social a.social-btn:hover { border-color: #00C2FF; color: #00C2FF; text-decoration: none; }
+  .site-footer-social a.social-btn svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+</style>
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div class="site-footer-cols">
+          <div>
+            <div class="site-footer-brand">
+              <span aria-hidden="true"><svg width="38" height="38" viewBox="0 0 96 96" aria-hidden="true">
+            <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+            <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+            <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+            <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+          </svg></span>
+              <div>
+                <div class="site-footer-name">Daily Tech Briefing</div>
+                <div class="site-footer-tag">Your daily dose of tech news &mdash; signal, not noise.</div>
+              </div>
+            </div>
+            <div class="site-footer-follow">
+              <h4>Follow us</h4>
+              <div class="site-footer-social">
+                <a class="social-btn" href="https://x.com/dtbrief" target="_blank" rel="noopener" aria-label="Follow Daily Tech Briefing on X (@dtbrief)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"/></svg><span>@dtbrief</span></a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4>Sections</h4>
+            <a href="../sections/ai.html">AI</a>
+            <a href="../sections/chips.html">Chips &amp; Hardware</a>
+            <a href="../sections/big-tech.html">Big Tech</a>
+            <a href="../sections/business.html">Business &amp; Markets</a>
+            <a href="../sections/security.html">Security &amp; Privacy</a>
+          </div>
+          <div>
+            <h4>Site</h4>
+            <a href="../archive.html">Archive</a>
+            <a href="../breaking/">Breaking News archive</a>
+            <a href="../learn/">Learning Center</a>
+            <a href="../standards.html">How we pick stories</a>
+          </div>
+          <div>
+            <h4>Listen</h4>
+            <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" target="_blank" rel="noopener">Spotify</a>
+            <a href="https://podcasts.apple.com/us/podcast/daily-tech-briefing/id6822945922" target="_blank" rel="noopener">Apple Podcasts</a>
+          </div>
+          <div>
+            <h4>More</h4>
+            <a href="../advertise.html">Advertise</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../privacy.html">Privacy Policy</a>
+            <a href="../terms.html">Terms of Use</a>
+          </div>
+        </div>
+        <div class="site-footer-bottom">
+          <span>&copy; 2026 Daily Tech Briefing &middot; dtbrief.com</span>
+          <span>AI-assisted and human-directed.</span>
+        </div>
+      </div>
+    </footer>
+<!-- /site-footer -->
+
+    <script>
+      (function () {
+        var bar = document.getElementById('progress');
+        function onScroll() {
+          var h = document.documentElement;
+          var max = h.scrollHeight - h.clientHeight;
+          var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+          bar.style.width = pct + '%';
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+        /* Listen-aloud: toggle the story audio on the play button. */
+        document.querySelectorAll('.listen-bar').forEach(function (listenBar) {
+          var btn = listenBar.querySelector('.listen-toggle');
+          var audio = listenBar.querySelector('audio');
+          btn.addEventListener('click', function () {
+            if (audio.paused) { audio.play(); } else { audio.pause(); }
+          });
+          audio.addEventListener('play', function () {
+            listenBar.classList.add('playing');
+            btn.setAttribute('aria-pressed', 'true');
+          });
+          function stopped() {
+            listenBar.classList.remove('playing');
+            btn.setAttribute('aria-pressed', 'false');
+          }
+          audio.addEventListener('pause', stopped);
+          audio.addEventListener('ended', stopped);
+        });
+      })();
+    </script>
+    <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0d3d9c0c884e4b5b827d30970f4bb08a"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
