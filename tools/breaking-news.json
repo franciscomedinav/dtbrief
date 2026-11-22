@@ -5,7 +5,7 @@
    "date_label": "Saturday, November 21, 2026",
    "headline": "FBI probes breach of its nationwide crime database",
    "summary": "The FBI is investigating an apparent breach of its National Crime Information Center, the database police nationwide use to check warrants and run background checks, CNN first reported Friday. President Trump called the news “not good” on Saturday. The FBI has not confirmed the breach or said what was taken.",
-   "live": true,
+   "live": false,
    "links": [
     {
      "href": "https://www.cnn.com/2026/11/20/politics/fbi-hacked-again-target-crime-database",
