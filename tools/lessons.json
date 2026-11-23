@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-23",
+    "date_long": "November 23, 2026",
+    "slug": "2026-11-23-vision-encoders-explained",
+    "title": "Vision Encoders, Explained: How a Self-Driving Car Sees the Road",
+    "deck_short": "How a self-driving car sees the road &mdash; and what Tesla just changed about the eyes that do it.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A self-driving car with glowing cyan beams fanning out from its cameras, mapping the road ahead into a bird's-eye-view grid of lane lines, pedestrians and other cars outlined in yellow, on a deep navy background with cyan and warm yellow accents",
+      "caption": "A vision encoder turns raw camera video into a map the car can drive from &mdash; lanes, cars, and people, all as numbers.",
+      "index_alt": "A self-driving car mapping the road ahead with glowing sensor beams",
+      "index_caption": "Today&rsquo;s lesson: vision encoders &mdash; how a self-driving car sees the road.",
+      "src": "assets/vision-encoders-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-20",
     "date_long": "November 20, 2026",
     "slug": "2026-11-20-diffusion-language-models-explained",
