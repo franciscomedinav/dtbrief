@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-24",
+    "date_long": "November 24, 2026",
+    "slug": "2026-11-24-formal-verification-explained",
+    "title": "Formal Verification, Explained: How Machines Check Proofs Humans Can&rsquo;t Read",
+    "deck_short": "How a machine checks a proof no human can read &mdash; and why AI&rsquo;s two biggest wins this week both needed it.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A vast wall of glowing mathematical symbols fading into darkness, with a single bright beam of cyan light passing through it and a small green checkmark glowing where the beam exits, on a deep navy background with cyan and warm yellow accents",
+      "caption": "A formal proof is a wall of logic too long for any human to read &mdash; and a tiny checker that reads every line of it.",
+      "index_alt": "A wall of mathematical symbols with a beam of light passing through it",
+      "index_caption": "Today&rsquo;s lesson: formal verification &mdash; how a machine checks a proof no human can read.",
+      "src": "assets/formal-verification-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-23",
     "date_long": "November 23, 2026",
     "slug": "2026-11-23-vision-encoders-explained",

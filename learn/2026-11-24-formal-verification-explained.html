@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Daily Tech Briefing" href="https://dtbrief.com/feed.xml" />
+    <meta name="theme-color" content="#0A0F1E" />
+    <meta name="description" content="Formal verification explained in plain English &mdash; how a machine checks a proof no human can read, and why the Riemann proof and DeepMind&rsquo;s quantum circuits both depended on it." />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Daily Tech Briefing" />
+    <meta property="og:title" content="Formal Verification, Explained &mdash; Daily Tech Briefing" />
+    <meta property="og:description" content="How a machine checks a proof no human can read &mdash; and why AI&rsquo;s two biggest wins this week both needed it." />
+    <meta property="og:url" content="https://dtbrief.com/learn/2026-11-24-formal-verification-explained.html" />
+    <meta property="og:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
+    <meta property="article:published_time" content="2026-11-24" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"Formal Verification, Explained: How Machines Check Proofs Humans Can&rsquo;t Read","datePublished":"2026-11-24","author":{"@type":"Organization","name":"Daily Tech Briefing"},"publisher":{"@type":"Organization","name":"Daily Tech Briefing","url":"https://dtbrief.com/"},"mainEntityOfPage":"https://dtbrief.com/learn/2026-11-24-formal-verification-explained.html"}
+    </script>
+    <title>Formal Verification, Explained &mdash; Learning Center &mdash; Daily Tech Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #F4F6F8;
+        --ink: #0A0F1E;
+        --ink-soft: #2E3A52;
+        --ink-faint: #5A6478;
+        --rule: #D8DEE7;
+        --accent: #0090C8;
+        --accent-soft: rgba(0, 144, 200, 0.08);
+        --card: #ffffff;
+        --chip-bg: #0A0F1E;
+        --chip-ink: #F4F6F8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #070B16;
+          --ink: #EDF1F8;
+          --ink-soft: #C7D3E8;
+          --ink-faint: #93A0B8;
+          --rule: #22304F;
+          --accent: #00C2FF;
+          --accent-soft: rgba(0, 194, 255, 0.12);
+          --card: #0D1424;
+          --chip-bg: #EDF1F8;
+          --chip-ink: #070B16;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .sans { font-family: "IBM Plex Sans", system-ui, sans-serif; }
+
+      #progress {
+        position: fixed;
+        top: 0; left: 0;
+        height: 3px;
+        width: 0%;
+        background: #00C2FF;
+        z-index: 50;
+      }
+
+      /* ---------- Masthead ---------- */
+      .masthead {
+        border-bottom: 2px solid var(--ink);
+      }
+      .masthead-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 18px 24px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand-mark {
+        width: 40px; height: 40px;
+        flex: none;
+        display: grid;
+        place-items: center;
+      }
+      .brand-name {
+        font-family: "Sora", sans-serif;
+        font-weight: 800;
+        font-size: 21px;
+        letter-spacing: -0.01em;
+        line-height: 1.05;
+      }
+      .brand-dot { color: var(--accent); }
+      .brand-tag {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 2px;
+      }
+      .masthead-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        text-align: right;
+        line-height: 1.5;
+      }
+      .masthead-meta strong { color: var(--ink); font-weight: 600; }
+
+      /* ---------- Layout ---------- */
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      article {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 44px 0 8px;
+      }
+
+      .dateline-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      .kicker {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .sample-chip {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: var(--chip-bg);
+        color: var(--chip-ink);
+        padding: 4px 9px;
+        border-radius: 999px;
+      }
+
+      h1 {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(34px, 5.4vw, 54px);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px;
+      }
+      h1 .money { color: var(--accent); }
+      .deck {
+        font-size: clamp(19px, 2.6vw, 22px);
+        line-height: 1.45;
+        font-style: italic;
+        color: var(--ink-soft);
+        margin: 0 0 26px;
+      }
+      .byline {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        color: var(--ink-faint);
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        padding: 12px 0;
+        margin-bottom: 34px;
+      }
+      .byline .who { color: var(--ink); font-weight: 600; }
+      .byline .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+
+      /* ---------- Key numbers ---------- */
+      .keynums {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+      .keynum {
+        padding: 20px 20px 16px;
+      }
+      .keynum + .keynum { border-left: 1px solid var(--rule); }
+      .keynum .fig {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(24px, 3.4vw, 32px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .keynum .fig em { font-style: normal; color: var(--accent); }
+      .keynum .lbl {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--ink-faint);
+        margin-top: 8px;
+      }
+
+      /* ---------- Body copy ---------- */
+      section { margin-bottom: 38px; }
+      h2 {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin: 0 0 16px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      h2 .num {
+        font-family: "Sora", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0;
+        color: var(--accent);
+        line-height: 1;
+      }
+      p {
+        font-size: 19px;
+        line-height: 1.68;
+        color: var(--ink-soft);
+        margin: 0 0 18px;
+      }
+      p strong { color: var(--ink); font-weight: 700; }
+      p a, .source-card a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+      .inline-icon { width: 16px; height: 16px; vertical-align: -2px; }
+
+      .pull {
+        border-left: 3px solid var(--accent);
+        padding: 4px 0 4px 20px;
+        margin: 28px 0;
+        font-size: 22px;
+        line-height: 1.4;
+        font-weight: 500;
+        font-style: italic;
+        color: var(--ink);
+      }
+
+      ul.watch {
+        list-style: none;
+        margin: 0 0 18px;
+        padding: 0;
+      }
+      ul.watch li {
+        font-size: 19px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        padding: 12px 0 12px 0;
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 14px;
+      }
+      ul.watch li:first-child { border-top: none; padding-top: 2px; }
+      ul.watch .w-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        padding-top: 5px;
+      }
+
+      /* ---------- Source + episode ---------- */
+      .source-card {
+        background: var(--accent-soft);
+        border-radius: 14px;
+        padding: 22px 24px;
+        margin: 44px 0 18px;
+      }
+      .source-card .sc-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .source-card p { font-size: 17px; margin: 0; line-height: 1.55; }
+
+      .episode-note {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 48px;
+        background: var(--card);
+      }
+      .play-btn {
+        width: 42px; height: 42px;
+        flex: none;
+        border-radius: 50%;
+        background: #00C2FF;
+        display: grid;
+        place-items: center;
+      }
+      .episode-note p { font-size: 16.5px; margin: 0; line-height: 1.55; }
+      .episode-note .ep-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 4px;
+      }
+
+      .listen-bar {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 14px 18px;
+        margin: 0 0 28px;
+        background: var(--card);
+      }
+      .listen-toggle {
+        border: none;
+        padding: 0;
+        cursor: pointer;
+      }
+      .listen-toggle .icon-pause { display: none; }
+      .listen-bar.playing .listen-toggle .icon-play { display: none; }
+      .listen-bar.playing .listen-toggle .icon-pause { display: block; }
+      .listen-label {
+        font-family: "Sora", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 1.3;
+      }
+      .listen-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 3px;
+      }
+
+      footer {
+        border-top: 2px solid var(--ink);
+        margin-top: 8px;
+      }
+      .footer-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 20px 24px 34px;
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 620px) {
+        .keynums { grid-template-columns: 1fr; }
+        .keynum + .keynum { border-left: none; border-top: 1px solid var(--rule); }
+        ul.watch li { grid-template-columns: 1fr; gap: 2px; }
+        ul.watch .w-label { padding-top: 0; }
+        .masthead-meta { text-align: left; }
+        article { padding-top: 32px; }
+      }
+
+      /* Learning Center extras: figures, loop diagram, comparison cards */
+      .figure { margin: 28px 0; }
+      .figure img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--rule); }
+      .figure figcaption { font-size: 13.5px; color: var(--ink-faint); margin-top: 10px; line-height: 1.5; }
+      .loop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+      .loop-step { background: var(--accent-soft); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; }
+      .loop-step .loop-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--chip-bg); color: var(--chip-ink); font-family: "IBM Plex Mono", monospace; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+      .loop-step strong { display: block; font-family: "Sora", sans-serif; font-size: 17px; margin-bottom: 4px; }
+      .loop-step span { display: block; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+      .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+      .vs-card { border: 1px solid var(--rule); border-radius: 12px; padding: 18px; background: var(--card); }
+      .vs-card.agent { border-color: var(--accent); background: var(--accent-soft); }
+      .vs-card strong { display: block; font-family: "Sora", sans-serif; font-size: 18px; margin-bottom: 6px; }
+      .vs-card span { display: block; font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+      @media (max-width: 560px) {
+        .loop-grid, .vs-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="brand" href="../index.html" aria-label="Daily Tech Briefing home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 96 96" aria-hidden="true">
+              <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+              <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+              <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+              <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+            </svg>
+          </span>
+          <span>
+            <span class="brand-name">Tech Briefing<span class="brand-dot">.</span></span>
+            <span class="brand-tag" style="display:block;">Your daily dose of tech news &mdash; signal, not noise.</span>
+          </span>
+        </a>
+        <div class="masthead-meta">
+          <strong>Learning Center</strong><br />
+          One technology, explained in plain English
+        </div>
+      </div>
+    </header>
+<!-- site-topnav -->
+<style>
+  .sitehdr { position: sticky; top: 0; z-index: 50; background: var(--paper, #F4F6F8); border-bottom: 1px solid var(--rule, #D8DEE7); box-shadow: 0 1px 10px rgba(10, 15, 30, 0.07); }
+  .sitehdr-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; min-height: 56px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .sitehdr-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink, #0A0F1E); flex: none; padding: 10px 0; }
+  .sitehdr-brand img { width: 28px; height: 28px; display: block; }
+  .sitehdr-word { font-family: "Sora", sans-serif; font-weight: 800; font-size: 17px; letter-spacing: 0.03em; line-height: 1; }
+  .sitehdr-nav { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
+  .sitehdr-nav > a, .sitehdr-listen-label { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--ink-soft, #2E3A52); text-decoration: none; padding: 8px 9px; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .sitehdr-nav > a:hover, .sitehdr-listen-label:hover { color: var(--ink, #0A0F1E); }
+  .sitehdr-nav > a.active { color: var(--accent, #0090C8); border-bottom-color: var(--accent, #0090C8); }
+  .sitehdr-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #FF5A3C; margin-right: 6px; vertical-align: 2px; animation: sitehdr-pulse 1.6s ease-in-out infinite; }
+  @keyframes sitehdr-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+  @media (prefers-reduced-motion: reduce) { .sitehdr-dot { animation: none; } }
+  .sitehdr-listen { position: relative; display: inline-block; }
+  .sitehdr-listen-label { cursor: pointer; display: inline-block; }
+  .sitehdr-drop { display: none; position: absolute; top: 100%; left: 0; min-width: 190px; background: var(--card, #ffffff); border: 1px solid var(--rule, #D8DEE7); border-radius: 12px; box-shadow: 0 10px 30px rgba(10, 15, 30, 0.14); padding: 8px; z-index: 60; }
+  .sitehdr-listen:hover .sitehdr-drop, .sitehdr-listen:focus-within .sitehdr-drop { display: block; }
+  .sitehdr-drop a { display: block; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 14.5px; font-weight: 600; color: var(--ink, #0A0F1E); text-decoration: none; padding: 9px 11px; border-radius: 8px; white-space: nowrap; }
+  .sitehdr-drop a:hover { background: var(--accent-soft, rgba(0, 144, 200, 0.08)); color: var(--accent, #0090C8); }
+  .sitehdr-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; flex: none; }
+  .sitehdr-iconbtn { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--rule, #D8DEE7); background: var(--card, #ffffff); color: var(--ink-soft, #2E3A52); cursor: pointer; padding: 0; }
+  .sitehdr-iconbtn:hover { color: var(--accent, #0090C8); border-color: var(--accent, #0090C8); }
+  .sitehdr-iconbtn svg { width: 18px; height: 18px; display: block; }
+  .sitehdr-sub { font-family: "IBM Plex Mono", monospace; font-size: 13.5px; font-weight: 600; color: #ffffff; background: var(--accent, #0090C8); border-radius: 999px; padding: 10px 18px; text-decoration: none; white-space: nowrap; }
+  .sitehdr-sub:hover { filter: brightness(1.1); color: #ffffff; }
+  .sitehdr-burger { display: none; }
+  .sitehdr-searchrow { border-top: 1px solid var(--rule, #D8DEE7); }
+  .sitehdr-searchinner { max-width: 1080px; margin: 0 auto; padding: 14px 24px 18px; }
+  .sitehdr-searchbox { width: 100%; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 17px; padding: 13px 16px; border: 1px solid var(--rule, #D8DEE7); border-radius: 12px; background: var(--card, #ffffff); color: var(--ink, #0A0F1E); margin: 0; }
+  .sitehdr-searchbox:focus { outline: 2px solid var(--accent, #0090C8); outline-offset: 1px; }
+  .sitehdr-searchmeta { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--ink-faint, #5A6478); margin: 10px 0 0; }
+  .sitehdr-results { display: grid; gap: 12px; margin-top: 12px; max-height: 55vh; overflow-y: auto; }
+  .sitehdr-results:empty { margin-top: 0; }
+  .sitehdr .pcard { display: block; background: var(--card, #ffffff); border: 1px solid var(--rule, #D8DEE7); border-radius: 14px; padding: 18px 20px; text-decoration: none; color: var(--ink, #0A0F1E); }
+  .sitehdr .pcard:hover { border-color: var(--accent, #0090C8); }
+  .sitehdr .pcard .pkicker { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, #0090C8); }
+  .sitehdr .pcard h3 { font-family: "Sora", sans-serif; font-size: 19px; line-height: 1.25; font-weight: 800; letter-spacing: -0.01em; margin: 8px 0 6px; }
+  .sitehdr .pcard p { font-size: 14.5px; line-height: 1.5; color: var(--ink-soft, #2E3A52); margin: 0 0 8px; }
+  .sitehdr .pcard .meta { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--ink-faint, #5A6478); }
+  @media (max-width: 760px) {
+    .sitehdr-inner { gap: 10px; padding: 0 16px; }
+    .sitehdr-burger { display: inline-flex; }
+    .sitehdr-nav { display: none; order: 5; flex-basis: 100%; flex-direction: column; align-items: stretch; gap: 0; padding: 4px 0 12px; }
+    .sitehdr.open .sitehdr-nav { display: flex; }
+    .sitehdr-nav > a, .sitehdr-listen-label { padding: 11px 6px; border-bottom: 1px solid var(--rule, #D8DEE7); font-size: 14px; }
+    .sitehdr-nav > a.active { border-bottom-color: var(--rule, #D8DEE7); box-shadow: inset 3px 0 0 var(--accent, #0090C8); }
+    .sitehdr-listen { display: block; }
+    .sitehdr-drop { display: block; position: static; border: none; box-shadow: none; background: none; padding: 0 0 4px 16px; min-width: 0; }
+    .sitehdr-drop a { padding: 9px 6px; font-family: "IBM Plex Mono", monospace; font-size: 13.5px; color: var(--ink-soft, #2E3A52); }
+    .sitehdr-searchinner { padding: 12px 16px 16px; }
+  }
+</style>
+    <header class="sitehdr">
+      <div class="sitehdr-inner">
+        <a class="sitehdr-brand" href="../index.html" aria-label="Daily Tech Briefing home">
+          <img src="../favicon.svg" alt="" width="28" height="28" />
+          <span class="sitehdr-word">DTBRIEF</span>
+        </a>
+        <nav class="sitehdr-nav" id="sitehdr-menu" aria-label="Site">
+        <a href="../archive.html" data-nav="latest">Latest</a>
+        <a href="../sections/ai.html" data-nav="ai">AI</a>
+        <a href="../sections/chips.html" data-nav="chips">Chips</a>
+        <a href="../sections/big-tech.html" data-nav="big-tech">Big Tech</a>
+        <a href="../sections/business.html" data-nav="business">Business</a>
+        <a href="../sections/security.html" data-nav="security">Security</a>
+        <a href="../learn/" data-nav="learn" class="active" aria-current="page">Learn</a>
+        <a href="../breaking/" data-nav="breaking"><span class="sitehdr-dot" aria-hidden="true"></span>Breaking</a>
+          <span class="sitehdr-listen">
+            <span class="sitehdr-listen-label" tabindex="0">Listen &#9662;</span>
+            <span class="sitehdr-drop">
+              <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" target="_blank" rel="noopener">Spotify</a>
+              <a href="https://podcasts.apple.com/us/podcast/daily-tech-briefing/id6822945922" target="_blank" rel="noopener">Apple Podcasts</a>
+            </span>
+          </span>
+        </nav>
+        <div class="sitehdr-actions">
+          <button class="sitehdr-iconbtn sitehdr-searchbtn" type="button" aria-expanded="false" aria-controls="sitehdr-searchrow" aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg></button>
+          <a class="sitehdr-sub" href="https://franciscos-newsletter-df7908.beehiiv.com/subscribe" target="_blank" rel="noopener">Subscribe</a>
+          <button class="sitehdr-iconbtn sitehdr-burger" type="button" aria-expanded="false" aria-controls="sitehdr-menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+        </div>
+      </div>
+      <div class="sitehdr-searchrow" id="sitehdr-searchrow" hidden>
+        <div class="sitehdr-searchinner">
+          <input id="hdr-search" class="sitehdr-searchbox" type="search" placeholder="Search stories &mdash; try &ldquo;Anthropic&rdquo; or &ldquo;Apple&rdquo;" autocomplete="off" aria-label="Search the briefing" />
+          <p id="hdr-search-meta" class="sitehdr-searchmeta" aria-live="polite"></p>
+          <div id="hdr-search-results" class="sitehdr-results"></div>
+        </div>
+      </div>
+    </header>
+<script>
+    (function () {
+      var hdr = document.currentScript.previousElementSibling;
+      if (!hdr) return;
+      var PREFIX = "../";
+      var burger = hdr.querySelector('.sitehdr-burger');
+      burger.addEventListener('click', function () {
+        var open = hdr.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      var row = hdr.querySelector('.sitehdr-searchrow');
+      var toggle = hdr.querySelector('.sitehdr-searchbtn');
+      var input = hdr.querySelector('#hdr-search');
+      var meta = hdr.querySelector('#hdr-search-meta');
+      var resultsBox = hdr.querySelector('#hdr-search-results');
+      var index = null, loaded = false, loading = false;
+      function esc(s) {
+        return String(s == null ? '' : s).replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+      function words(q) {
+        return q.toLowerCase().split(/\s+/).filter(function (w) { return w.length > 0; });
+      }
+      function matches(item, ws) {
+        var hay = (item.title + ' ' + item.excerpt + ' ' + item.date).toLowerCase();
+        return ws.every(function (w) { return hay.indexOf(w) !== -1; });
+      }
+      function render() {
+        var query = (input.value || '').trim();
+        if (!query) { resultsBox.innerHTML = ''; meta.textContent = ''; return; }
+        if (!loaded) { meta.textContent = 'Search is still loading\u2026'; return; }
+        var list = index.filter(function (item) { return matches(item, words(query)); });
+        meta.textContent = list.length + (list.length === 1 ? ' result' : ' results') +
+          ' for \u201c' + query + '\u201d';
+        var html = '';
+        list.forEach(function (item) {
+          html += '<a class="pcard" href="' + esc(PREFIX + item.url) + '">' +
+            '<span class="pkicker">Top Story</span>' +
+            '<h3>' + esc(item.title) + '</h3>' +
+            '<p>' + esc(item.excerpt) + '</p>' +
+            '<span class="meta">' + esc(item.date) + ' &middot; Episode ' + esc(item.episode) + '</span></a>';
+        });
+        resultsBox.innerHTML = html;
+      }
+      function loadIndex() {
+        if (loaded || loading) return;
+        loading = true;
+        fetch(PREFIX + 'search-index.json')
+          .then(function (r) { if (!r.ok) throw new Error('index HTTP ' + r.status); return r.json(); })
+          .then(function (data) { index = data; loaded = true; loading = false; render(); })
+          .catch(function () { loading = false; meta.textContent = 'Search is unavailable right now.'; });
+      }
+      toggle.addEventListener('click', function () {
+        var show = row.hidden;
+        row.hidden = !show;
+        toggle.setAttribute('aria-expanded', show ? 'true' : 'false');
+        if (show) { loadIndex(); input.focus(); }
+      });
+      input.addEventListener('input', function () { loadIndex(); render(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !row.hidden) {
+          row.hidden = true;
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+    </script>
+<!-- /site-topnav -->
+
+    <div class="wrap">
+      <article>
+        <div class="dateline-row">
+          <span class="kicker">Learning Center &middot; Lesson 11</span>
+        </div>
+
+        <h1>Formal Verification, Explained: How Machines Check Proofs Humans Can&rsquo;t Read</h1>
+
+        <p class="deck">A proof your computer can check, line by line, even when no human can read it &mdash; and why the two biggest AI wins this week both depended on it.</p>
+
+        <div class="byline">
+          <span class="who">Daily Tech Briefing</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>November 24, 2026</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>4 min read</span>
+        </div>
+
+                <figure class="figure">
+          <img src="assets/formal-verification-hero.webp" alt="A vast wall of glowing mathematical symbols fading into darkness, with a single bright beam of cyan light passing through it and a small green checkmark glowing where the beam exits, on a deep navy background with cyan and warm yellow accents" width="2048" height="1152" />
+          <figcaption>A formal proof is a wall of logic too long for any human to read &mdash; and a tiny checker that reads every line of it.</figcaption>
+        </figure>
+        <div class="keynums" role="group" aria-label="Key ideas">
+          <div class="keynum">
+            <div class="fig">17M</div>
+            <div class="lbl">Lines of Lean code in Levent Alpoge&rsquo;s Riemann hypothesis proof &mdash; checked by the kernel, not read by a human</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">11.8&times;</div>
+            <div class="lbl">How much cheaper DeepMind&rsquo;s AI agents made a fusion simulation &mdash; every gain proved correct in Lean before it counted</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">2009</div>
+            <div class="lbl">The year seL4 became the first operating-system kernel ever proved correct &mdash; no correctness defects found in the verified code since</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">1</div>
+            <div class="lbl">The tiny trusted kernel that has to be right. Everything else in the system &mdash; including AI-written proofs &mdash; is checked by it</div>
+          </div>
+        </div>
+
+        <section aria-labelledby="s1">
+          <h2 id="s1"><span class="num">1</span> What it is</h2>
+          <p>Formal verification is the strictest way we have to check that something is correct. Instead of testing a program or a mathematical argument on a handful of examples, you write down exactly what it must do &mdash; as a precise statement called a specification &mdash; and then you prove, step by step, that it does that for every possible input. A program called a proof assistant checks every step. If one step is wrong, the check fails. If the check passes, the rule holds for every input the system can ever receive, within the stated assumptions.</p>
+          <p>The difference from testing is the difference between sampling and covering. A test runs a program on inputs someone chose and watches what comes out. A proof covers every input at once. A calculator can confirm that seven plus zero equals seven. A proof assistant can check a proof that <em>n</em> plus zero equals <em>n</em> for every natural number <em>n</em> &mdash; not for a list of tested values, but for all of them, forever.</p>
+          <p>The tool at the center of this week&rsquo;s news is Lean, an open-source programming language and proof assistant started in 2013 by Leonardo de Moura at Microsoft Research. The current version, Lean 4, is developed by the nonprofit Lean Focused Research Organization, and its community library, Mathlib, holds thousands of definitions and already-proved theorems that new proofs can build on. Lean is not an AI system, though AI tools can write Lean. It is not a calculator, because it proves general statements. And it is not like LaTeX, which only displays mathematics &mdash; Lean checks it.</p>
+        </section>
+
+        <section aria-labelledby="s2">
+          <h2 id="s2"><span class="num">2</span> How it works: the specify-prove-check loop</h2>
+          <p>Every formally verified result runs the same four-step loop:</p>
+          <p><strong>1. Specify</strong> &mdash; you translate the claim into Lean&rsquo;s formal language. That means choosing types, definitions, variables and assumptions explicitly enough for a checker to process them. This is the step where human judgment lives: the specification says what &ldquo;correct&rdquo; means, and a mistaken specification can produce a proved implementation of the wrong requirement.</p>
+          <div class="loop-grid" role="img" aria-label="The agent loop: specify, prove, check, reuse, then repeat">
+            <div class="loop-step"><span class="loop-num">1</span><strong>Specify</strong><span>Write the rule precisely in Lean&rsquo;s formal language, next to a plain-language version people can review</span></div>
+            <div class="loop-step"><span class="loop-num">2</span><strong>Prove</strong><span>Build the proof step by step &mdash; by hand, with tactics that automate the routine parts, or with an AI writing the Lean code</span></div>
+            <div class="loop-step"><span class="loop-num">3</span><strong>Check</strong><span>The kernel, a tiny trusted checker, reads every step of the finished proof and accepts or rejects it</span></div>
+            <div class="loop-step"><span class="loop-num">4</span><strong>Reuse</strong><span>Anyone with the same environment can re-run the check and get the same answer &mdash; the proof is a machine-checkable artifact</span></div>
+          </div>
+          <p><strong>2. Prove</strong> &mdash; you construct the proof. In Lean, a proposition behaves like a type, and a proof is a value that inhabits that type &mdash; the idea known as the Curry&ndash;Howard correspondence. Proofs are usually built with tactics, commands that transform the current goal, apply a rule, or invoke a theorem already proved in Mathlib. The tactic&rsquo;s output is not trusted just because the tactic ran: it has to be turned into a proof term the kernel can check.</p>
+          <p><strong>3. Check</strong> &mdash; the kernel reads the finished proof term and verifies that it is well formed and that its type is exactly the theorem statement. It checks every application, substitution, definition, and logical rule. If a premise is missing or a type does not match, the kernel rejects the declaration. As the mathematician Thomas Hales put it, &ldquo;Lean proofs should never be believed until they have been checked by the kernel.&rdquo;</p>
+          <p><strong>4. Reuse</strong> &mdash; once a proof is checked, it joins the library. Later proofs can cite it the way a paper cites a theorem, and anyone can re-check it independently. That is why the two big results this week were credible within a day: the checkers did not have to trust the authors, they could run the kernel themselves.</p>
+        </section>
+
+        <section aria-labelledby="s3">
+          <h2 id="s3"><span class="num">3</span> Testing vs proving</h2>
+          <p><strong>Testing</strong> is how most software is checked. You run it on many inputs &mdash; the ones you thought of, the ones a fuzzer generated, the ones your users hit in production &mdash; and you watch whether the outputs are right. It is fast, cheap, and catches most bugs. But it can only ever say &ldquo;correct on the inputs we tried.&rdquo; The input you did not try is exactly where the next bug lives, and for safety-critical code &mdash; an operating system, a compiler, a pacemaker &mdash; &ldquo;probably fine&rdquo; is not good enough.</p>
+          <p><strong>Formal verification</strong> is the opposite bargain. You pay much more up front: writing a specification and a machine-checked proof is slow, expert work, and it can take years for a large system. In exchange you get a guarantee that covers every input the specification describes. The seL4 microkernel, proved functionally correct in 2009, is the famous example: in more than fifteen years of use since the proof, no functional correctness defects have been found in the verified code. The CompCert C compiler, proved correct in the Coq proof assistant, guarantees the compiled program behaves exactly as the source program does.</p>
+          <div class="vs-grid">
+            <div class="vs-card"><strong>Testing</strong><span>Run the code on inputs you choose and check the outputs. Fast and cheap, catches most bugs &mdash; but it can only vouch for the inputs you tried, and the one you missed is where the next bug lives.</span></div>
+            <div class="vs-card agent"><strong>Formal verification</strong><span>Write the rule as a specification, then prove the code meets it for every input, with a kernel checking each step. Slow and expensive &mdash; but the guarantee covers all inputs, and anyone can re-run the check.</span></div>
+          </div>
+          <div class="pull">Testing says &ldquo;correct on the inputs we tried.&rdquo; A proof says &ldquo;correct on every input, forever.&rdquo;</div>
+        </section>
+
+        <section aria-labelledby="s4">
+          <h2 id="s4"><span class="num">4</span> Why everyone&rsquo;s building with it now</h2>
+          <p>Two stories in today&rsquo;s briefing are the same story. On November 20, Anthropic mathematician Levent Alpoge posted a proof of the Riemann hypothesis &mdash; the 167-year-old puzzle about prime numbers &mdash; built with Claude over six weeks and formalized in about 17 million lines of Lean code. By the next day, the Lean and Mathlib teams said they had full confidence it was correct. Not because they had read it. No human has read 17 million lines. Because they ran the kernel, and the kernel said yes.</p>
+        <figure class="figure">
+          <img src="assets/formal-verification-kernel.webp" alt="A small glowing core labeled with a checkmark at the center of concentric rings, with long ribbons of code flowing inward from the edges and being stamped as they pass through the core, on a deep navy background with cyan and warm yellow accents" width="2048" height="1152" loading="lazy" />
+          <figcaption>The kernel is deliberately tiny: it is the one part of the system that has to be right, so that everything else can be wrong and still get caught.</figcaption>
+        </figure>
+          <p>Three days later, Google DeepMind and Google Quantum AI reported that teams of Gemini 4 agents had designed faster quantum algorithms &mdash; cutting the cost of simulating fusion by 11.8 times &mdash; with every result proved correct in Lean. The circuits act on thousands of logical qubits, far beyond what any classical computer can simulate and no quantum computer can yet run. The Lean proof is the only thing that has ever tested them. The team built a quantum programming library on Mathlib, with a formal logic for proving what a quantum program does, and the agents used Lean&rsquo;s error messages to revise their work until the kernel accepted it.</p>
+          <p>The pattern is new, and it is why verification is having a moment. AI can now write proofs at a scale no human team could &mdash; millions of lines, in weeks &mdash; and the kernel is the part that makes that scale trustworthy. The human writes the specification, the machine writes the proof, and the tiny checker in the middle decides whether it counts. That division of labor is also spreading beyond mathematics: Amazon&rsquo;s AWS teams use Lean to verify production systems, and the same idea is moving into compilers, cryptography, and chip design.</p>
+        </section>
+
+        <section aria-labelledby="s5">
+          <h2 id="s5"><span class="num">5</span> The honest part</h2>
+          <p>First, <strong>a proof checks the formal statement, not what you meant</strong>. The kernel confirms that the proof follows from the definitions and assumptions you wrote down. It cannot confirm that those definitions say what you think they say. In the Riemann case, the check that mattered most was not the kernel accepting the proof &mdash; it was independent mathematicians confirming that the theorem in the code is actually the Riemann hypothesis as mathematics defines it. A proof of the wrong statement is still a proof.</p>
+          <p>Second, <strong>nobody understands these proofs, including their authors</strong>. Alpoge has said he does not yet understand all of the mathematics in his own proof and is trying to digest it alongside everyone else. That is strange and new: a proof that is verified but not understood. The honest summary is that machine checking answers &ldquo;is every step valid?&rdquo; and leaves &ldquo;why is it true?&rdquo; to humans, who may need years to catch up.</p>
+          <p>Third, <strong>verification is still slow and expensive</strong>. Writing a specification and a machine-checked proof takes expert time that most projects cannot afford, which is why it is used for operating-system kernels and compilers and not for your to-do app. AI is changing the cost of writing proofs, but not the cost of writing good specifications &mdash; and a bad specification, proved perfectly, is still a bad specification. Formal verification is the strongest assurance we have. It is not a substitute for deciding what is worth assuring.</p>
+        </section>
+
+        <section aria-labelledby="terms">
+          <h2 id="terms">Key terms</h2>
+          <ul class="watch">
+            <li>
+              <span class="w-label">Formal verification</span>
+              <span>Mathematically proving that a program or argument meets a written specification for every possible input, with a computer checking every step of the proof.</span>
+            </li>
+            <li>
+              <span class="w-label">Proof assistant</span>
+              <span>Software that lets you state a claim in a precise formal language, construct a proof, and have a small trusted checker verify it. Lean, Coq and Isabelle are the best known.</span>
+            </li>
+            <li>
+              <span class="w-label">Kernel</span>
+              <span>The tiny core of a proof assistant that checks the finished proof, step by step. It is the one part that has to be trusted &mdash; everything else is verified by it.</span>
+            </li>
+            <li>
+              <span class="w-label">Specification</span>
+              <span>The precise written statement of what a program or theorem must do. A proof shows the code matches the specification; it cannot show the specification is what you actually wanted.</span>
+            </li>
+            <li>
+              <span class="w-label">Tactic</span>
+              <span>A command in a proof assistant that transforms the current goal &mdash; applying a rule, splitting it into smaller obligations, or invoking a theorem already proved.</span>
+            </li>
+            <li>
+              <span class="w-label">Mathlib</span>
+              <span>Lean&rsquo;s community library of mathematical definitions and already-proved theorems, written and reviewed by hundreds of contributors, that new proofs build on.</span>
+            </li>
+          </ul>
+        </section>
+
+        <div class="source-card">
+          <div class="sc-label">From today&rsquo;s briefing</div>
+          <p>This lesson comes from today&rsquo;s Daily Tech Briefing (Episode 43, November 24, 2026): Huang&rsquo;s back, Nvidia&rsquo;s 31.5% surge &amp; the Riemann proof. Read the full briefing: <a href="../posts/2026-11-24-nvidia-reinstates-huang.html">Huang Is Back &mdash; Daily Tech Briefing</a>.</p>
+        </div>
+
+        <div class="source-card">
+          <div class="sc-label">Sources</div>
+          <p>Effortless Math, &ldquo;Lean Theorem Prover: Lean 4 and Mathlib Explained&rdquo; &mdash; Lean&rsquo;s history, the kernel, tactics, Mathlib, and the 2026 headline proofs; Medium, &ldquo;Lean: When Mathematical Proofs Become Executable&rdquo; &mdash; propositions as types, the Curry&ndash;Howard correspondence, and what the kernel does and does not check; arXiv, &ldquo;From Pen-and-Paper to Machine-Checked Proofs: Lean for System Identification&rdquo; &mdash; the kernel as a small trusted checker, and the 2026 AI-written proofs; Primitive, &ldquo;Machine-checked proofs: what they establish and what they don&rsquo;t&rdquo; &mdash; seL4&rsquo;s 2009 proof and fifteen years without a correctness defect, CompCert, and the specification-can-be-wrong limit; EternaX, &ldquo;What Is Formal Verification?&rdquo; &mdash; the four-step workflow and Thomas Hales&rsquo;s line on trusting only kernel-checked proofs; Science News, &ldquo;Math&rsquo;s holy grail, the Riemann hypothesis, appears solved with AI&rsquo;s help&rdquo; (November 2026) &mdash; the Alpoge proof, the 17 million lines of Lean, and the independent verification; Google DeepMind, &ldquo;Finding faster quantum algorithms with agents and formal verification&rdquo; (November 23, 2026) &mdash; the 11.8&times; fusion gain, the Lean library, and proofs as the only test for un-runnable circuits.</p>
+        </div>
+        <div class="newsletter-band" style="margin:28px 0 8px;padding:24px 20px;border:1px solid #D8DEE7;border-radius:12px;background:#EDF1F8;"><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:21px;line-height:1.25;color:#0A0F1E;margin:0 0 6px;">Get the Daily Tech Briefing in your inbox</div><p style="font-size:15.5px;line-height:1.5;color:#2E3A52;margin:0 0 16px;">The day&rsquo;s top tech stories in plain English &mdash; every weekday morning. Free.</p><a href="https://franciscos-newsletter-df7908.beehiiv.com/subscribe" target="_blank" rel="noopener" style="display:block;text-align:center;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:13px 22px;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;text-decoration:none;">Subscribe</a></div>
+        <div class="share-row" style="margin:28px 0 8px;padding-top:18px;border-top:1px solid #D8DEE7;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5A6478;">Share this lesson</span>
+          <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;">
+            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdtbrief.com%2Flearn%2F2026-11-24-formal-verification-explained.html&text=Formal%20Verification%2C%20Explained%3A%20How%20Machines%20Check%20Proofs%20Humans%20Can%26rsquo%3Bt%20Read" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Post to X</a>
+            <a href="https://wa.me/?text=Formal%20Verification%2C%20Explained%3A%20How%20Machines%20Check%20Proofs%20Humans%20Can%26rsquo%3Bt%20Read%20https%3A%2F%2Fdtbrief.com%2Flearn%2F2026-11-24-formal-verification-explained.html" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">WhatsApp</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdtbrief.com%2Flearn%2F2026-11-24-formal-verification-explained.html" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Facebook</a>
+            <a href="#" onclick="navigator.clipboard.writeText('https://dtbrief.com/learn/2026-11-24-formal-verification-explained.html');this.textContent='Link copied';return false;" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Copy link</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- site-footer -->
+<style>
+  footer.site-footer { border-top: none; background: #0A0F1E; color: #EDF1F8; margin-top: 56px; }
+  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 42px 24px 26px; }
+  .site-footer-cols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 30px; }
+  @media (max-width: 860px) { .site-footer-cols { grid-template-columns: 1fr 1fr; } }
+  .site-footer h4 { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #93A0B8; margin: 0 0 13px; }
+  .site-footer-cols a { display: block; color: #EDF1F8; text-decoration: none; font-size: 14.5px; line-height: 1.5; margin-bottom: 9px; }
+  .site-footer-cols a:hover { color: #00C2FF; text-decoration: underline; }
+  .site-footer-brand { display: flex; gap: 13px; align-items: flex-start; }
+  .site-footer-name { font-family: "Sora", sans-serif; font-weight: 800; font-size: 19px; line-height: 1.15; }
+  .site-footer-tag { color: #93A0B8; font-size: 13.5px; line-height: 1.55; margin-top: 5px; max-width: 300px; }
+  .site-footer-bottom { border-top: 1px solid #22304F; margin-top: 34px; padding-top: 18px; display: flex; justify-content: space-between; gap: 10px 18px; flex-wrap: wrap; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: #93A0B8; }
+  .site-footer-follow { margin-top: 22px; }
+  .site-footer-social { display: flex; gap: 10px; flex-wrap: wrap; }
+  .site-footer-social a.social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid #22304F; border-radius: 999px; color: #EDF1F8; font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; margin-bottom: 0; }
+  .site-footer-social a.social-btn:hover { border-color: #00C2FF; color: #00C2FF; text-decoration: none; }
+  .site-footer-social a.social-btn svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+</style>
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div class="site-footer-cols">
+          <div>
+            <div class="site-footer-brand">
+              <span aria-hidden="true"><svg width="38" height="38" viewBox="0 0 96 96" aria-hidden="true">
+            <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+            <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+            <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+            <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+          </svg></span>
+              <div>
+                <div class="site-footer-name">Daily Tech Briefing</div>
+                <div class="site-footer-tag">Your daily dose of tech news &mdash; signal, not noise.</div>
+              </div>
+            </div>
+            <div class="site-footer-follow">
+              <h4>Follow us</h4>
+              <div class="site-footer-social">
+                <a class="social-btn" href="https://x.com/dtbrief" target="_blank" rel="noopener" aria-label="Follow Daily Tech Briefing on X (@dtbrief)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"/></svg><span>@dtbrief</span></a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4>Sections</h4>
+            <a href="../sections/ai.html">AI</a>
+            <a href="../sections/chips.html">Chips &amp; Hardware</a>
+            <a href="../sections/big-tech.html">Big Tech</a>
+            <a href="../sections/business.html">Business &amp; Markets</a>
+            <a href="../sections/security.html">Security &amp; Privacy</a>
+          </div>
+          <div>
+            <h4>Site</h4>
+            <a href="../archive.html">Archive</a>
+            <a href="../breaking/">Breaking News archive</a>
+            <a href="../learn/">Learning Center</a>
+            <a href="../standards.html">How we pick stories</a>
+          </div>
+          <div>
+            <h4>Listen</h4>
+            <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" target="_blank" rel="noopener">Spotify</a>
+            <a href="https://podcasts.apple.com/us/podcast/daily-tech-briefing/id6822945922" target="_blank" rel="noopener">Apple Podcasts</a>
+          </div>
+          <div>
+            <h4>More</h4>
+            <a href="../advertise.html">Advertise</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../privacy.html">Privacy Policy</a>
+            <a href="../terms.html">Terms of Use</a>
+          </div>
+        </div>
+        <div class="site-footer-bottom">
+          <span>&copy; 2026 Daily Tech Briefing &middot; dtbrief.com</span>
+          <span>AI-assisted and human-directed.</span>
+        </div>
+      </div>
+    </footer>
+<!-- /site-footer -->
+
+    <script>
+      (function () {
+        var bar = document.getElementById('progress');
+        function onScroll() {
+          var h = document.documentElement;
+          var max = h.scrollHeight - h.clientHeight;
+          var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+          bar.style.width = pct + '%';
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+        /* Listen-aloud: toggle the story audio on the play button. */
+        document.querySelectorAll('.listen-bar').forEach(function (listenBar) {
+          var btn = listenBar.querySelector('.listen-toggle');
+          var audio = listenBar.querySelector('audio');
+          btn.addEventListener('click', function () {
+            if (audio.paused) { audio.play(); } else { audio.pause(); }
+          });
+          audio.addEventListener('play', function () {
+            listenBar.classList.add('playing');
+            btn.setAttribute('aria-pressed', 'true');
+          });
+          function stopped() {
+            listenBar.classList.remove('playing');
+            btn.setAttribute('aria-pressed', 'false');
+          }
+          audio.addEventListener('pause', stopped);
+          audio.addEventListener('ended', stopped);
+        });
+      })();
+    </script>
+    <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0d3d9c0c884e4b5b827d30970f4bb08a"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://dtbrief.com/</loc><lastmod>2026-11-23</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://dtbrief.com/</loc><lastmod>2026-11-24</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://dtbrief.com/posts/2026-11-24-nvidia-reinstates-huang.html</loc><lastmod>2026-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dtbrief.com/posts/2026-11-23-ai-sell-off-deepens.html</loc><lastmod>2026-11-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dtbrief.com/posts/2026-11-20-anthropic-ipo-debut-first-day.html</loc><lastmod>2026-11-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dtbrief.com/posts/2026-11-19-anthropic-ipo-83-record-debut.html</loc><lastmod>2026-11-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -23,7 +24,8 @@
   <url><loc>https://dtbrief.com/posts/2026-10-27-anthropic-ipo-trillion-dollar-listing.html</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dtbrief.com/posts/2026-10-26-spacex-40b-gpu-debt.html</loc><lastmod>2026-10-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dtbrief.com/posts/2026-10-23-openai-trillion-dollar-round.html</loc><lastmod>2026-10-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://dtbrief.com/learn/</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dtbrief.com/learn/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dtbrief.com/learn/2026-11-24-formal-verification-explained.html</loc><lastmod>2026-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dtbrief.com/learn/2026-11-23-vision-encoders-explained.html</loc><lastmod>2026-11-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dtbrief.com/learn/2026-11-20-diffusion-language-models-explained.html</loc><lastmod>2026-11-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dtbrief.com/learn/2026-11-19-world-models-explained.html</loc><lastmod>2026-11-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -34,14 +36,14 @@
   <url><loc>https://dtbrief.com/learn/2026-11-12-alphagenome-dna.html</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dtbrief.com/learn/2026-11-11-vla-robot-brains.html</loc><lastmod>2026-11-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dtbrief.com/learn/2026-11-10-ai-agents-explained.html</loc><lastmod>2026-11-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://dtbrief.com/archive.html</loc><lastmod>2026-11-23</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url>
-  <url><loc>https://dtbrief.com/breaking/</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://dtbrief.com/sections/</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://dtbrief.com/sections/ai.html</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://dtbrief.com/sections/chips.html</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://dtbrief.com/sections/big-tech.html</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://dtbrief.com/sections/business.html</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://dtbrief.com/sections/security.html</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://dtbrief.com/archive.html</loc><lastmod>2026-11-24</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url>
+  <url><loc>https://dtbrief.com/breaking/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://dtbrief.com/sections/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://dtbrief.com/sections/ai.html</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://dtbrief.com/sections/chips.html</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://dtbrief.com/sections/big-tech.html</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://dtbrief.com/sections/business.html</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://dtbrief.com/sections/security.html</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://dtbrief.com/privacy.html</loc><lastmod>2026-11-14</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>
   <url><loc>https://dtbrief.com/terms.html</loc><lastmod>2026-11-14</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>
   <url><loc>https://dtbrief.com/contact.html</loc><lastmod>2026-11-14</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>
