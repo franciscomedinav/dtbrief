@@ -1,0 +1,1075 @@
+{
+ "generated_at": "2026-11-25T10:01:46-05:00",
+ "latest_run": "2026-11-25-daily",
+ "today": {
+  "date": "2026-11-25",
+  "ep": 44,
+  "kind": "daily",
+  "title": "Huawei's guilty verdict, Nvidia's fading rally & Dell's record quarter",
+  "duration": "10:39",
+  "qc_dev": 5.2,
+  "spotify": "https://open.spotify.com/episode/4PMwXRbNQ00s2A7UpLE56T",
+  "post": "https://dtbrief.com/posts/2026-11-25-huawei-guilty-verdict.html",
+  "lesson": {
+   "title": "Quantum Computing, Explained: A Computer That Tries Every Path at Once",
+   "url": "https://dtbrief.com/learn/2026-11-25-quantum-computing-explained.html"
+  }
+ },
+ "floor": [
+  {
+   "agent": "Scout",
+   "state": "done",
+   "last": "Scanned overnight major outlets \u2014 10 stories found",
+   "ts": "2026-11-25T05:01:00-05:00"
+  },
+  {
+   "agent": "Editor",
+   "state": "done",
+   "last": "Picked the top 10 \u2014 Huawei guilty verdict is the top story",
+   "ts": "2026-11-25T05:03:00-05:00"
+  },
+  {
+   "agent": "Writer",
+   "state": "done",
+   "last": "Script written \u2014 1,772 words, spoken form",
+   "ts": "2026-11-25T05:05:00-05:00"
+  },
+  {
+   "agent": "Anchor",
+   "state": "done",
+   "last": "Melody recorded the narration \u2014 10:39",
+   "ts": "2026-11-25T05:06:00-05:00"
+  },
+  {
+   "agent": "QC",
+   "state": "done",
+   "last": "Duration check +5.2% (limit \u00b115%) \u2014 transcript aligned, PASS",
+   "ts": "2026-11-25T05:07:00-05:00"
+  },
+  {
+   "agent": "Mixer",
+   "state": "done",
+   "last": "Music bed ducked, mastered to -16 LUFS",
+   "ts": "2026-11-25T05:07:30-05:00"
+  },
+  {
+   "agent": "Publisher",
+   "state": "done",
+   "last": "Ep. 44 live on Spotify at 5:08 AM \u2014 blog post published",
+   "ts": "2026-11-25T05:08:00-05:00"
+  },
+  {
+   "agent": "Teacher",
+   "state": "done",
+   "last": "Lesson 12 published \u2014 Quantum Computing, Explained",
+   "ts": "2026-11-25T05:09:00-05:00"
+  }
+ ],
+ "stream": [
+  {
+   "ts": "2026-11-25T05:09:00-05:00",
+   "run": "2026-11-25-daily",
+   "agent": "Teacher",
+   "event": "done",
+   "summary": "Lesson 12 published \u2014 Quantum Computing, Explained",
+   "links": {
+    "lesson": "https://dtbrief.com/learn/2026-11-25-quantum-computing-explained.html"
+   }
+  },
+  {
+   "ts": "2026-11-25T05:08:00-05:00",
+   "run": "2026-11-25-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 44 live on Spotify at 5:08 AM \u2014 blog post published",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/4PMwXRbNQ00s2A7UpLE56T",
+    "post": "https://dtbrief.com/posts/2026-11-25-huawei-guilty-verdict.html"
+   }
+  },
+  {
+   "ts": "2026-11-25T05:07:30-05:00",
+   "run": "2026-11-25-daily",
+   "agent": "Mixer",
+   "event": "done",
+   "summary": "Music bed ducked, mastered to -16 LUFS"
+  },
+  {
+   "ts": "2026-11-25T05:07:00-05:00",
+   "run": "2026-11-25-daily",
+   "agent": "QC",
+   "event": "done",
+   "summary": "Duration check +5.2% (limit \u00b115%) \u2014 transcript aligned, PASS",
+   "links": {
+    "qc_dev": 5.2
+   }
+  },
+  {
+   "ts": "2026-11-25T05:06:00-05:00",
+   "run": "2026-11-25-daily",
+   "agent": "Anchor",
+   "event": "done",
+   "summary": "Melody recorded the narration \u2014 10:39",
+   "links": {
+    "duration_s": 639.2
+   }
+  },
+  {
+   "ts": "2026-11-25T05:05:00-05:00",
+   "run": "2026-11-25-daily",
+   "agent": "Writer",
+   "event": "done",
+   "summary": "Script written \u2014 1,772 words, spoken form",
+   "links": {
+    "words": 1772
+   }
+  },
+  {
+   "ts": "2026-11-25T05:03:00-05:00",
+   "run": "2026-11-25-daily",
+   "agent": "Editor",
+   "event": "done",
+   "summary": "Picked the top 10 \u2014 Huawei guilty verdict is the top story"
+  },
+  {
+   "ts": "2026-11-25T05:01:00-05:00",
+   "run": "2026-11-25-daily",
+   "agent": "Scout",
+   "event": "done",
+   "summary": "Scanned overnight major outlets \u2014 10 stories found"
+  },
+  {
+   "ts": "2026-11-25T07:00:00-05:00",
+   "run": "2026-11-25-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 44 published \u2014 Huawei's guilty verdict, Nvidia's fading rally & Dell's record quarter",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/4PMwXRbNQ00s2A7UpLE56T"
+   }
+  },
+  {
+   "ts": "2026-11-24T07:00:00-05:00",
+   "run": "2026-11-24-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 43 published \u2014 Huang's back and Nvidia soars, Claude proves Riemann & CrowdStrike's $44B buy",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/6OUXMEKKlLoaodOZXDM5L9"
+   }
+  },
+  {
+   "ts": "2026-11-23T07:00:00-05:00",
+   "run": "2026-11-23-special",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 42 published \u2014 Special: Jensen Huang Is Back at Nvidia",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/3CK73d4HiWr7dtFVedURFC"
+   }
+  },
+  {
+   "ts": "2026-11-23T07:00:00-05:00",
+   "run": "2026-11-23-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 41 published \u2014 The AI sell-off deepens, Nvidia's SEC probe & Tesla's FSD v15",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/3CK73d4HiWr7dtFVedURFC"
+   }
+  },
+  {
+   "ts": "2026-11-21T07:00:00-05:00",
+   "run": "2026-11-21-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 40 published \u2014 Weekly Recap: Nvidia's founder falls, Anthropic's debut & GTA 6"
+  },
+  {
+   "ts": "2026-11-20T07:00:00-05:00",
+   "run": "2026-11-20-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 39 published \u2014 Anthropic's $107B debut, the AI sell-off & Nvidia's subpoena",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/58HUTPnyxpuxZnJgKtn5HD"
+   }
+  },
+  {
+   "ts": "2026-11-19T07:00:00-05:00",
+   "run": "2026-11-19-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 38 published \u2014 Anthropic's record IPO, Nvidia's slide & GTA 6's 99",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/3ME1fhM6G2j4GSHTaTokIL"
+   }
+  },
+  {
+   "ts": "2026-11-18T07:00:00-05:00",
+   "run": "2026-11-18-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 37 published \u2014 Nvidia's $115B blowout, Anthropic's record IPO & the Java flaw found by AI",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/5la1EGkr2WmGPraNeFk8IB"
+   }
+  },
+  {
+   "ts": "2026-11-17T07:00:00-05:00",
+   "run": "2026-11-17-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 36 published \u2014 California sues OpenAI, the chip cloud loophole closes & Nvidia's big test",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/0DgblB4Tee3TFD91RnrHMt"
+   }
+  },
+  {
+   "ts": "2026-11-16T07:00:00-05:00",
+   "run": "2026-11-16-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 35 published \u2014 Huang's comeback talk, Anthropic's $1.4T debut & the AI supply-chain pact",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/5ijc9uooXZ3Gv2qxmqY45A"
+   }
+  },
+  {
+   "ts": "2026-11-14T07:00:00-05:00",
+   "run": "2026-11-14-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 34 published \u2014 Weekly Recap: Huang resigns, Anthropic's $1.4T IPO & the AI bubble question"
+  },
+  {
+   "ts": "2026-11-13T07:00:00-05:00",
+   "run": "2026-11-13-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 33 published \u2014 Huang resigns, the AI-halt lawsuit & Outlook goes dark",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/20Fb3l8bo9OhHnDsgcpJD6"
+   }
+  },
+  {
+   "ts": "2026-11-12T07:00:00-05:00",
+   "run": "2026-11-12-special",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 32 published \u2014 Breaking News: Jensen Huang resigns as Nvidia CEO",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/3GdnGyNAP7PtGdrSezqMIK"
+   }
+  },
+  {
+   "ts": "2026-11-12T07:00:00-05:00",
+   "run": "2026-11-12-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 31 published \u2014 Nvidia board moves to oust Huang, Fed warns of AI correction & OpenAI's $10B quarter",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/3GdnGyNAP7PtGdrSezqMIK"
+   }
+  },
+  {
+   "ts": "2026-11-11T07:00:00-05:00",
+   "run": "2026-11-11-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 30 published \u2014 Anthropic's $1.4T IPO roadshow, Microsoft's China-parts fight & humanoids at Mercedes",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/4ddoYVcjdLGGotTeyP65qr"
+   }
+  },
+  {
+   "ts": "2026-11-10T07:00:00-05:00",
+   "run": "2026-11-10-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 29 published \u2014 Anthropic's Fable 5.2 debut, Congress moves on Nvidia & Siri turns agent",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/2MkFK08HSLvZfFcC9gtHFh"
+   }
+  },
+  {
+   "ts": "2026-11-09T07:00:00-05:00",
+   "run": "2026-11-09-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 28 published \u2014 Nvidia's board probes Huang, Anthropic's IPO discount & OpenAI's $11B raise",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/6RJJ1M4PQsJfdrhHGlWCYl"
+   }
+  },
+  {
+   "ts": "2026-11-07T07:00:00-05:00",
+   "run": "2026-11-07-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 27 published \u2014 Weekly Recap: The AI trade implodes, voters vs. data centers & Binance's $6.3B heist"
+  },
+  {
+   "ts": "2026-11-06T07:00:00-05:00",
+   "run": "2026-11-06-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 26 published \u2014 The AI trade implodes, GPT-6 Cyber goes Critical & OpenAI drops data-center NDAs",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/1hSNGBTHB5l6pZfJjE1GWC"
+   }
+  },
+  {
+   "ts": "2026-11-05T07:00:00-05:00",
+   "run": "2026-11-05-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 25 published \u2014 OpenAI and Meta's coding-agent deals, Uber's four AI rides & ChatGPT's GIFs",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/5Cmn4t9sMHoHQHtIbLcBjM"
+   }
+  },
+  {
+   "ts": "2026-11-04T07:00:00-05:00",
+   "run": "2026-11-04-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 24 published \u2014 AMD's record quarter, Meta's $15B bet & CrowdStrike's $500M security spree",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/3lbg6ab3ciDAQyGrj7xX3t"
+   }
+  },
+  {
+   "ts": "2026-11-03T07:00:00-05:00",
+   "run": "2026-11-03-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 23 published \u2014 Apple's record quarter, Marvell's $115B bet & North Korea's Binance denial",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/2nR3qiQU4ww029kJuBh1eh"
+   }
+  },
+  {
+   "ts": "2026-11-02T07:00:00-05:00",
+   "run": "2026-11-02-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 22 published \u2014 OpenAI's $11B shortfall, Google's orbital AI & Apple's earnings test",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/2aKD5BzkPcYQkJivDLP9JF"
+   }
+  },
+  {
+   "ts": "2026-10-31T07:00:00-05:00",
+   "run": "2026-10-31-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 21 published \u2014 Weekly Recap: Anthropic's Trillion-Dollar IPO, DoorDash's $17B Deal & Binance Heist"
+  },
+  {
+   "ts": "2026-10-30T07:00:00-05:00",
+   "run": "2026-10-30-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 20 published \u2014 DoorDash's $17B Instacart deal, Binance's $6.3B heist & Mistral's trillion-parameter model",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/45MfqBGI0z4Ud4fBJtWVLy"
+   }
+  },
+  {
+   "ts": "2026-10-29T07:00:00-05:00",
+   "run": "2026-10-29-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 19 published \u2014 Gemini 4 Carbon's limited launch, Apple's touchscreen MacBook & Azure's $33B quarter",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/0UUc7F5i95lmh6lj2qId0m"
+   }
+  },
+  {
+   "ts": "2026-10-28T07:00:00-05:00",
+   "run": "2026-10-28-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 18 published \u2014 Genie 4's living worlds, Apple's M6 Macs & Anthropic's $63B debt deal",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/4e4orIxtbVRXGIIbEXsj0p"
+   }
+  },
+  {
+   "ts": "2026-10-27T07:00:00-05:00",
+   "run": "2026-10-27-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 17 published \u2014 Anthropic's trillion-dollar IPO, GPT-6.1 Terra & a math breakthrough",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/5CB9m56UJpE73j2h2mhADF"
+   }
+  },
+  {
+   "ts": "2026-10-26T07:00:00-05:00",
+   "run": "2026-10-26-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 16 published \u2014 SpaceX's $40B GPU debt, iPhone Duo's verdict & AWS sold out into 2028"
+  },
+  {
+   "ts": "2026-10-24T07:00:00-05:00",
+   "run": "2026-10-24-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 15 published \u2014 Weekly Recap: OpenAI's Trillion-Dollar Week, Meta's $25B Penalty & Apple's Foldable First"
+  },
+  {
+   "ts": "2026-10-23T07:00:00-05:00",
+   "run": "2026-10-23-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 13 published \u2014 OpenAI's trillion-dollar round, Apple's $1,999 foldable & DeepSeek's $15B raise",
+   "links": {
+    "spotify": "https://open.spotify.com/episode/6t5tDAf8YNZbBeyoJbHQEi"
+   }
+  },
+  {
+   "ts": "2026-10-22T07:00:00-05:00",
+   "run": "2026-10-22-daily",
+   "agent": "Publisher",
+   "event": "done",
+   "summary": "Ep. 12 published \u2014 Claude Duet launches, Meta's $25B ruling & Salesforce buys Braze"
+  }
+ ],
+ "runs": [
+  {
+   "date": "2026-11-25",
+   "ep": 44,
+   "kind": "daily",
+   "title": "Huawei's guilty verdict, Nvidia's fading rally & Dell's record quarter",
+   "duration": "10:39",
+   "qc_dev": 5.2,
+   "spotify": "https://open.spotify.com/episode/4PMwXRbNQ00s2A7UpLE56T",
+   "post": "https://dtbrief.com/posts/2026-11-25-huawei-guilty-verdict.html",
+   "lesson": {
+    "title": "Quantum Computing, Explained: A Computer That Tries Every Path at Once",
+    "url": "https://dtbrief.com/learn/2026-11-25-quantum-computing-explained.html"
+   }
+  },
+  {
+   "date": "2026-11-24",
+   "ep": 43,
+   "kind": "daily",
+   "title": "Huang's back and Nvidia soars, Claude proves Riemann & CrowdStrike's $44B buy",
+   "duration": "10:28",
+   "qc_dev": 5.0,
+   "spotify": "https://open.spotify.com/episode/6OUXMEKKlLoaodOZXDM5L9",
+   "post": "https://dtbrief.com/posts/2026-11-24-nvidia-reinstates-huang.html",
+   "lesson": {
+    "title": "Formal Verification, Explained: How Machines Check Proofs Humans Can&rsquo;t Read",
+    "url": "https://dtbrief.com/learn/2026-11-24-formal-verification-explained.html"
+   }
+  },
+  {
+   "date": "2026-11-23",
+   "ep": 42,
+   "kind": "special",
+   "title": "Special: Jensen Huang Is Back at Nvidia",
+   "duration": "6:59",
+   "qc_dev": -1.6,
+   "spotify": "https://open.spotify.com/episode/3CK73d4HiWr7dtFVedURFC",
+   "post": "https://dtbrief.com/posts/2026-11-23-ai-sell-off-deepens.html",
+   "lesson": {
+    "title": "Vision Encoders, Explained: How a Self-Driving Car Sees the Road",
+    "url": "https://dtbrief.com/learn/2026-11-23-vision-encoders-explained.html"
+   }
+  },
+  {
+   "date": "2026-11-23",
+   "ep": 41,
+   "kind": "daily",
+   "title": "The AI sell-off deepens, Nvidia's SEC probe & Tesla's FSD v15",
+   "duration": "9:56",
+   "qc_dev": 2.1,
+   "spotify": "https://open.spotify.com/episode/3CK73d4HiWr7dtFVedURFC",
+   "post": "https://dtbrief.com/posts/2026-11-23-ai-sell-off-deepens.html",
+   "lesson": {
+    "title": "Vision Encoders, Explained: How a Self-Driving Car Sees the Road",
+    "url": "https://dtbrief.com/learn/2026-11-23-vision-encoders-explained.html"
+   }
+  },
+  {
+   "date": "2026-11-21",
+   "ep": 40,
+   "kind": "daily",
+   "title": "Weekly Recap: Nvidia's founder falls, Anthropic's debut & GTA 6",
+   "duration": "10:35",
+   "qc_dev": null,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-11-20",
+   "ep": 39,
+   "kind": "daily",
+   "title": "Anthropic's $107B debut, the AI sell-off & Nvidia's subpoena",
+   "duration": "10:48",
+   "qc_dev": 8.5,
+   "spotify": "https://open.spotify.com/episode/58HUTPnyxpuxZnJgKtn5HD",
+   "post": "https://dtbrief.com/posts/2026-11-20-anthropic-ipo-debut-first-day.html",
+   "lesson": {
+    "title": "Diffusion Language Models, Explained: How AI Writes a Whole Sentence at Once",
+    "url": "https://dtbrief.com/learn/2026-11-20-diffusion-language-models-explained.html"
+   }
+  },
+  {
+   "date": "2026-11-19",
+   "ep": 38,
+   "kind": "daily",
+   "title": "Anthropic's record IPO, Nvidia's slide & GTA 6's 99",
+   "duration": "9:33",
+   "qc_dev": 0.2,
+   "spotify": "https://open.spotify.com/episode/3ME1fhM6G2j4GSHTaTokIL",
+   "post": "https://dtbrief.com/posts/2026-11-19-anthropic-ipo-83-record-debut.html",
+   "lesson": {
+    "title": "World Models, Explained: How AI Imagines a Place You Can Walk Through",
+    "url": "https://dtbrief.com/learn/2026-11-19-world-models-explained.html"
+   }
+  },
+  {
+   "date": "2026-11-18",
+   "ep": 37,
+   "kind": "daily",
+   "title": "Nvidia's $115B blowout, Anthropic's record IPO & the Java flaw found by AI",
+   "duration": "10:31",
+   "qc_dev": 8.1,
+   "spotify": "https://open.spotify.com/episode/5la1EGkr2WmGPraNeFk8IB",
+   "post": "https://dtbrief.com/posts/2026-11-18-nvidia-earnings-blowout.html",
+   "lesson": {
+    "title": "On-Device AI, Explained: How Your Phone Runs AI Without the Cloud",
+    "url": "https://dtbrief.com/learn/2026-11-18-on-device-ai-explained.html"
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "ep": 36,
+   "kind": "daily",
+   "title": "California sues OpenAI, the chip cloud loophole closes & Nvidia's big test",
+   "duration": "10:25",
+   "qc_dev": 4.5,
+   "spotify": "https://open.spotify.com/episode/0DgblB4Tee3TFD91RnrHMt",
+   "post": "https://dtbrief.com/posts/2026-11-17-california-sues-openai.html",
+   "lesson": {
+    "title": "Model Distillation, Explained: How a Small AI Learns Everything a Big One Knows",
+    "url": "https://dtbrief.com/learn/2026-11-17-model-distillation-explained.html"
+   }
+  },
+  {
+   "date": "2026-11-16",
+   "ep": 35,
+   "kind": "daily",
+   "title": "Huang's comeback talk, Anthropic's $1.4T debut & the AI supply-chain pact",
+   "duration": "10:32",
+   "qc_dev": 8.5,
+   "spotify": "https://open.spotify.com/episode/5ijc9uooXZ3Gv2qxmqY45A",
+   "post": "https://dtbrief.com/posts/2026-11-16-huang-comeback-talk.html",
+   "lesson": {
+    "title": "Mixture of Experts, Explained: How AI Models Get Bigger Without Getting Slower",
+    "url": "https://dtbrief.com/learn/2026-11-16-mixture-of-experts-explained.html"
+   }
+  },
+  {
+   "date": "2026-11-14",
+   "ep": 34,
+   "kind": "daily",
+   "title": "Weekly Recap: Huang resigns, Anthropic's $1.4T IPO & the AI bubble question",
+   "duration": "10:27",
+   "qc_dev": null,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-11-13",
+   "ep": 33,
+   "kind": "daily",
+   "title": "Huang resigns, the AI-halt lawsuit & Outlook goes dark",
+   "duration": "9:59",
+   "qc_dev": 1.3,
+   "spotify": "https://open.spotify.com/episode/20Fb3l8bo9OhHnDsgcpJD6",
+   "post": "https://dtbrief.com/posts/2026-11-13-nvidia-huang-resigns-fallout.html",
+   "lesson": {
+    "title": "Neoclouds, Explained: The GPU Landlords Renting Compute to the AI Boom",
+    "url": "https://dtbrief.com/learn/2026-11-13-neoclouds-explained.html"
+   }
+  },
+  {
+   "date": "2026-11-12",
+   "ep": 32,
+   "kind": "special",
+   "title": "Breaking News: Jensen Huang resigns as Nvidia CEO",
+   "duration": "1:54",
+   "qc_dev": -0.0,
+   "spotify": "https://open.spotify.com/episode/3GdnGyNAP7PtGdrSezqMIK",
+   "post": "https://dtbrief.com/posts/2026-11-12-nvidia-board-oust-jensen-huang.html",
+   "lesson": {
+    "title": "How AI Reads DNA, Explained: AlphaGenome 2 and the Cell-by-Cell Map of Disease",
+    "url": "https://dtbrief.com/learn/2026-11-12-alphagenome-dna.html"
+   }
+  },
+  {
+   "date": "2026-11-12",
+   "ep": 31,
+   "kind": "daily",
+   "title": "Nvidia board moves to oust Huang, Fed warns of AI correction & OpenAI's $10B quarter",
+   "duration": "10:34",
+   "qc_dev": 6.0,
+   "spotify": "https://open.spotify.com/episode/3GdnGyNAP7PtGdrSezqMIK",
+   "post": "https://dtbrief.com/posts/2026-11-12-nvidia-board-oust-jensen-huang.html",
+   "lesson": {
+    "title": "How AI Reads DNA, Explained: AlphaGenome 2 and the Cell-by-Cell Map of Disease",
+    "url": "https://dtbrief.com/learn/2026-11-12-alphagenome-dna.html"
+   }
+  },
+  {
+   "date": "2026-11-11",
+   "ep": 30,
+   "kind": "daily",
+   "title": "Anthropic's $1.4T IPO roadshow, Microsoft's China-parts fight & humanoids at Mercedes",
+   "duration": "10:20",
+   "qc_dev": 4.5,
+   "spotify": "https://open.spotify.com/episode/4ddoYVcjdLGGotTeyP65qr",
+   "post": "https://dtbrief.com/posts/2026-11-11-anthropic-ipo-roadshow.html",
+   "lesson": {
+    "title": "Robot Brains, Explained: How Vision-Language-Action Models Teach Machines to Work",
+    "url": "https://dtbrief.com/learn/2026-11-11-vla-robot-brains.html"
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "ep": 29,
+   "kind": "daily",
+   "title": "Anthropic's Fable 5.2 debut, Congress moves on Nvidia & Siri turns agent",
+   "duration": "10:16",
+   "qc_dev": 3.8,
+   "spotify": "https://open.spotify.com/episode/2MkFK08HSLvZfFcC9gtHFh",
+   "post": "https://dtbrief.com/posts/2026-11-10-anthropic-fable-mythos-5-2.html",
+   "lesson": {
+    "title": "AI Agents, Explained: What They Are, How They Work, and Why Siri Wants to Be One",
+    "url": "https://dtbrief.com/learn/2026-11-10-ai-agents-explained.html"
+   }
+  },
+  {
+   "date": "2026-11-09",
+   "ep": 28,
+   "kind": "daily",
+   "title": "Nvidia's board probes Huang, Anthropic's IPO discount & OpenAI's $11B raise",
+   "duration": "10:54",
+   "qc_dev": 10.3,
+   "spotify": "https://open.spotify.com/episode/6RJJ1M4PQsJfdrhHGlWCYl",
+   "post": "https://dtbrief.com/posts/2026-11-09-nvidia-board-probe-jensen-huang.html",
+   "lesson": null
+  },
+  {
+   "date": "2026-11-07",
+   "ep": 27,
+   "kind": "daily",
+   "title": "Weekly Recap: The AI trade implodes, voters vs. data centers & Binance's $6.3B heist",
+   "duration": "10:11",
+   "qc_dev": null,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-11-06",
+   "ep": 26,
+   "kind": "daily",
+   "title": "The AI trade implodes, GPT-6 Cyber goes Critical & OpenAI drops data-center NDAs",
+   "duration": "10:17",
+   "qc_dev": 3.7,
+   "spotify": "https://open.spotify.com/episode/1hSNGBTHB5l6pZfJjE1GWC",
+   "post": "https://dtbrief.com/posts/2026-11-06-tech-stock-rout-ai-trade-implodes.html",
+   "lesson": null
+  },
+  {
+   "date": "2026-11-05",
+   "ep": 25,
+   "kind": "daily",
+   "title": "OpenAI and Meta's coding-agent deals, Uber's four AI rides & ChatGPT's GIFs",
+   "duration": "9:58",
+   "qc_dev": 3.9,
+   "spotify": "https://open.spotify.com/episode/5Cmn4t9sMHoHQHtIbLcBjM",
+   "post": "https://dtbrief.com/posts/2026-11-05-openai-meta-coding-agent-deals.html",
+   "lesson": null
+  },
+  {
+   "date": "2026-11-04",
+   "ep": 24,
+   "kind": "daily",
+   "title": "AMD's record quarter, Meta's $15B bet & CrowdStrike's $500M security spree",
+   "duration": "9:44",
+   "qc_dev": 1.1,
+   "spotify": "https://open.spotify.com/episode/3lbg6ab3ciDAQyGrj7xX3t",
+   "post": "https://dtbrief.com/posts/2026-11-04-amd-record-quarter-ai-data-center.html",
+   "lesson": null
+  },
+  {
+   "date": "2026-11-03",
+   "ep": 23,
+   "kind": "daily",
+   "title": "Apple's record quarter, Marvell's $115B bet & North Korea's Binance denial",
+   "duration": "9:58",
+   "qc_dev": 2.1,
+   "spotify": "https://open.spotify.com/episode/2nR3qiQU4ww029kJuBh1eh",
+   "post": "https://dtbrief.com/posts/2026-11-03-apple-record-quarter-ternus.html",
+   "lesson": null
+  },
+  {
+   "date": "2026-11-02",
+   "ep": 22,
+   "kind": "daily",
+   "title": "OpenAI's $11B shortfall, Google's orbital AI & Apple's earnings test",
+   "duration": "9:50",
+   "qc_dev": 3.0,
+   "spotify": "https://open.spotify.com/episode/2aKD5BzkPcYQkJivDLP9JF",
+   "post": "https://dtbrief.com/posts/2026-11-02-openai-funding-shortfall.html",
+   "lesson": null
+  },
+  {
+   "date": "2026-10-31",
+   "ep": 21,
+   "kind": "daily",
+   "title": "Weekly Recap: Anthropic's Trillion-Dollar IPO, DoorDash's $17B Deal & Binance Heist",
+   "duration": "10:50",
+   "qc_dev": null,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-10-30",
+   "ep": 20,
+   "kind": "daily",
+   "title": "DoorDash's $17B Instacart deal, Binance's $6.3B heist & Mistral's trillion-parameter model",
+   "duration": "9:14",
+   "qc_dev": -2.0,
+   "spotify": "https://open.spotify.com/episode/45MfqBGI0z4Ud4fBJtWVLy",
+   "post": "https://dtbrief.com/posts/2026-10-30-doordash-instacart-deal.html",
+   "lesson": null
+  },
+  {
+   "date": "2026-10-29",
+   "ep": 19,
+   "kind": "daily",
+   "title": "Gemini 4 Carbon's limited launch, Apple's touchscreen MacBook & Azure's $33B quarter",
+   "duration": "9:33",
+   "qc_dev": 0.8,
+   "spotify": "https://open.spotify.com/episode/0UUc7F5i95lmh6lj2qId0m",
+   "post": "https://dtbrief.com/posts/2026-10-29-gemini-4-carbon.html",
+   "lesson": null
+  },
+  {
+   "date": "2026-10-28",
+   "ep": 18,
+   "kind": "daily",
+   "title": "Genie 4's living worlds, Apple's M6 Macs & Anthropic's $63B debt deal",
+   "duration": "9:53",
+   "qc_dev": 1.5,
+   "spotify": "https://open.spotify.com/episode/4e4orIxtbVRXGIIbEXsj0p",
+   "post": "https://dtbrief.com/posts/2026-10-28-genie-4-world-model.html",
+   "lesson": null
+  },
+  {
+   "date": "2026-10-27",
+   "ep": 17,
+   "kind": "daily",
+   "title": "Anthropic's trillion-dollar IPO, GPT-6.1 Terra & a math breakthrough",
+   "duration": "9:59",
+   "qc_dev": 3.2,
+   "spotify": "https://open.spotify.com/episode/5CB9m56UJpE73j2h2mhADF",
+   "post": "https://dtbrief.com/posts/2026-10-27-anthropic-ipo-trillion-dollar-listing.html",
+   "lesson": null
+  },
+  {
+   "date": "2026-10-26",
+   "ep": 16,
+   "kind": "daily",
+   "title": "SpaceX's $40B GPU debt, iPhone Duo's verdict & AWS sold out into 2028",
+   "duration": "9:56",
+   "qc_dev": 4.8,
+   "spotify": null,
+   "post": "https://dtbrief.com/posts/2026-10-26-spacex-40b-gpu-debt.html",
+   "lesson": null
+  },
+  {
+   "date": "2026-10-24",
+   "ep": 15,
+   "kind": "daily",
+   "title": "Weekly Recap: OpenAI's Trillion-Dollar Week, Meta's $25B Penalty & Apple's Foldable First",
+   "duration": "9:57",
+   "qc_dev": null,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-10-23",
+   "ep": 13,
+   "kind": "daily",
+   "title": "OpenAI's trillion-dollar round, Apple's $1,999 foldable & DeepSeek's $15B raise",
+   "duration": "10:10",
+   "qc_dev": 6.8,
+   "spotify": "https://open.spotify.com/episode/6t5tDAf8YNZbBeyoJbHQEi",
+   "post": "https://dtbrief.com/posts/2026-10-23-openai-trillion-dollar-round.html",
+   "lesson": null
+  },
+  {
+   "date": "2026-10-22",
+   "ep": 12,
+   "kind": "daily",
+   "title": "Claude Duet launches, Meta's $25B ruling & Salesforce buys Braze",
+   "duration": "10:01",
+   "qc_dev": 3.6,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-10-21",
+   "ep": 11,
+   "kind": "daily",
+   "title": "Anthropic's $80B loss, Tesla-SpaceX merger talks & Apple's first touchscreen Mac",
+   "duration": "10:36",
+   "qc_dev": 7.6,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-10-20",
+   "ep": 10,
+   "kind": "daily",
+   "title": "Apple's touchscreen MacBook, Mercury 3's benchmark upset & Waymo's 20K robotaxis",
+   "duration": "10:12",
+   "qc_dev": 7.3,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-10-19",
+   "ep": 9,
+   "kind": "daily",
+   "title": "Microsoft's $2B Claude bet, Ramp's $60B raise & the $10B chip bidding war",
+   "duration": "9:18",
+   "qc_dev": -1.9,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-10-17",
+   "ep": 8,
+   "kind": "daily",
+   "title": "Weekly Recap: Meta's open-weights week, OpenAI's FBI nightmare & Tesla's flying Roadster",
+   "duration": "10:22",
+   "qc_dev": null,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-10-16",
+   "ep": 7,
+   "kind": "daily",
+   "title": "Meta's open-weights bomb, Microsoft's 2.8T model & Tesla's flying Roadster",
+   "duration": "10:07",
+   "qc_dev": 2.9,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-10-15",
+   "ep": 6,
+   "kind": "daily",
+   "title": "Anthropic's 45% revenue jump, JPMorgan vs AI agents & 8 states sue OpenAI",
+   "duration": "11:07",
+   "qc_dev": 11.0,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-10-14",
+   "ep": 5,
+   "kind": "daily",
+   "title": "OpenAI engineer arrested, Gemini 4 Argon goes wide & Microsoft's Maia goes multi-gigawatt",
+   "duration": "9:34",
+   "qc_dev": 2.3,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-10-13",
+   "ep": 4,
+   "kind": "daily",
+   "title": "Muse Wonder's agent era, Maia 300's chip bet & AI self-replication fears",
+   "duration": "9:50",
+   "qc_dev": 4.9,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-10-12",
+   "ep": 3,
+   "kind": "daily",
+   "title": "Deno joins Cloudflare, SpaceX takes on the carriers & PC sales crash 20%",
+   "duration": "9:32",
+   "qc_dev": 1.1,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  },
+  {
+   "date": "2026-10-09",
+   "ep": 2,
+   "kind": "daily",
+   "title": "Haiku 5.5's price war, Google's universal agent & OpenAI goes Ultrafast",
+   "duration": "10:02",
+   "qc_dev": 3.3,
+   "spotify": null,
+   "post": null,
+   "lesson": null
+  }
+ ],
+ "breaking": [
+  {
+   "date": "2026-11-23",
+   "date_label": "Monday, November 23, 2026",
+   "headline": "Nvidia reinstates Jensen Huang as CEO, 11 days after his resignation",
+   "summary": "Nvidia's board unanimously reinstated Jensen Huang as president, CEO and board member, effective immediately \u2014 11 days after he resigned amid an affair scandal and a foreign-spying investigation that continues. The stock jumped 31.5%, its best day since 2003, the Nasdaq surged 6.5%, and the rally spread across Asia on Tuesday. The SEC probe and a Senate hearing lie ahead.",
+   "live": false,
+   "links": [
+    {
+     "href": "https://nvidianews.nvidia.com/news/nvidia-board-reinstates-jensen-huang-as-president-ceo-and-board-director",
+     "label": "Nvidia's announcement"
+    },
+    {
+     "href": "https://www.reuters.com/technology/nvidia-reinstates-jensen-huang-ceo-2026-11-23/",
+     "label": "Reuters coverage"
+    },
+    {
+     "href": "https://www.cnn.com/2026/11/23/politics/trump-administration-jensen-huang-reinstated",
+     "label": "CNN: the Trump pressure campaign"
+    },
+    {
+     "href": "posts/2026-11-24-nvidia-reinstates-huang.html",
+     "label": "Background: this morning's briefing",
+     "site": true
+    }
+   ]
+  },
+  {
+   "date": "2026-11-21",
+   "date_label": "Saturday, November 21, 2026",
+   "headline": "FBI probes breach of its nationwide crime database",
+   "summary": "The FBI is investigating an apparent breach of its National Crime Information Center, the database police nationwide use to check warrants and run background checks, CNN first reported Friday. President Trump called the news \u201cnot good\u201d on Saturday. The FBI has not confirmed the breach or said what was taken.",
+   "live": false,
+   "links": [
+    {
+     "href": "https://www.cnn.com/2026/11/20/politics/fbi-hacked-again-target-crime-database",
+     "label": "CNN report"
+    },
+    {
+     "href": "https://www.usatoday.com/story/news/crime/2026/11/21/donald-trump-ncic-breach-fbi/92897372007/",
+     "label": "USA Today coverage"
+    }
+   ]
+  },
+  {
+   "date": "2026-11-17",
+   "date_label": "Tuesday, November 17, 2026",
+   "headline": "Trump administration closes AI chip 'cloud loophole'",
+   "links": [
+    {
+     "href": "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely/",
+     "label": "TechCrunch report"
+    },
+    {
+     "href": "https://krro.com/2026/11/16/us-issues-rule-to-protect-advanced-ai-chips-from-being-accessed-remotely/",
+     "label": "Reuters coverage"
+    },
+    {
+     "href": "posts/2026-11-17-california-sues-openai.html",
+     "label": "Background: this morning's briefing",
+     "site": true
+    }
+   ],
+   "live": false,
+   "summary": "The rule closing the AI chip cloud loophole takes effect when published in the Federal Register, scheduled for November 19. It requires licences for advanced chips sent to data centres in Singapore, Malaysia, Indonesia, Thailand and Brazil, and for remote access above roughly 750 Nvidia chips\u2019 worth of compute. Existing data centres get 90 days to comply, days before Trump meets Xi Jinping in Shenzhen."
+  },
+  {
+   "date": "2026-11-13",
+   "date_label": "Friday, November 13, 2026",
+   "headline": "FAA grounds all US flights after nationwide air-traffic communications failure",
+   "links": [
+    {
+     "href": "https://www.fly.faa.gov",
+     "label": "FAA advisory"
+    },
+    {
+     "href": "https://techcrunch.com/2026/11/13/u-s-government-grounds-all-flights-across-the-united-states-due-to-extraordinary-cirumstances/",
+     "label": "TechCrunch coverage"
+    }
+   ],
+   "live": false,
+   "summary": "The Federal Aviation Administration has grounded departing flights across the US after a communications failure hit the air-traffic control centers that guide planes between airports. More than 13,000 flights were delayed or canceled Friday evening, and the stop \u2014 the first nationwide ground stop since January 2023 \u2014 is still in effect. Officials say there is no sign of an attack."
+  },
+  {
+   "date": "2026-11-13",
+   "date_label": "Friday, November 13, 2026",
+   "headline": "Microsoft 365 blackout: Outlook outage drags into a second day",
+   "links": [
+    {
+     "href": "https://www.usatoday.com/story/tech/2026/11/13/microsoft-outage-outlook-updates-friday/92752697007/",
+     "label": "USA Today live updates"
+    },
+    {
+     "href": "https://status.cloud.microsoft",
+     "label": "Microsoft's service status"
+    },
+    {
+     "href": "posts/2026-11-13-nvidia-huang-resigns-fallout.html",
+     "label": "Background: this morning's briefing",
+     "site": true
+    }
+   ],
+   "live": false,
+   "summary": "A worldwide Microsoft 365 outage that began Thursday afternoon is still not fully fixed Friday morning. Outlook email for work and school accounts went down \u2014 about 130,000 problem reports at Thursday's peak. Microsoft is restoring service in phases, says there is no sign of a cyberattack, and has given no time for full recovery."
+  },
+  {
+   "date": "2026-11-12",
+   "date_label": "Thursday, November 12, 2026",
+   "headline": "Jensen Huang resigns as Nvidia CEO, effective immediately",
+   "links": [
+    {
+     "href": "https://www.globenewswire.com/news-release/2026/11/12/3401635/0/en/nvidia-announces-ceo-transition.html",
+     "label": "Nvidia's announcement"
+    },
+    {
+     "href": "https://www.reuters.com/business/retail-consumer/nvidia-ceo-jensen-huang-step-down-big-blow-ai-boom-2026-11-12/",
+     "label": "Reuters coverage"
+    },
+    {
+     "href": "posts/2026-11-12-nvidia-board-oust-jensen-huang.html",
+     "label": "Background: that morning's briefing",
+     "site": true
+    }
+   ],
+   "live": false,
+   "summary": "Nvidia announced that Jensen Huang \u2014 its co-founder and chief executive for 33 years \u2014 had resigned as president, CEO and board member, effective immediately. CFO Colette Kress stepped in as interim CEO, and Harvey C. Jones became the board's first-ever chair. The shock exit followed a week of turmoil, including a board investigation, and Nvidia shares fell about 12% in premarket trading; Q3 earnings are still due November 17."
+  }
+ ]
+}
