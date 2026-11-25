@@ -1,11 +1,20 @@
 [
   {
+    "title": "Huawei Is Guilty.",
+    "excerpt": "A federal jury in Brooklyn convicted Huawei on ten of twelve criminal counts — bank fraud, wire fraud, sanctions violations and stealing trade secrets from American companies. The case began in 2018. Here is what the verdict means, and what to watch.",
+    "date": "November 25, 2026",
+    "date_iso": "2026-11-25",
+    "episode": 44,
+    "spotify": null,
+    "url": "posts/2026-11-25-huawei-guilty-verdict.html"
+  },
+  {
     "title": "Huang Is Back.",
     "excerpt": "Eleven days after he resigned, Nvidia’s board unanimously reinstated Jensen Huang as CEO. The stock jumped 31.5% — its best day since 2003 — and the Nasdaq had its best day in 19 months. Here is what the comeback means, and what to watch.",
     "date": "November 24, 2026",
     "date_iso": "2026-11-24",
     "episode": 43,
-    "spotify": null,
+    "spotify": "6OUXMEKKlLoaodOZXDM5L9",
     "url": "posts/2026-11-24-nvidia-reinstates-huang.html"
   },
   {

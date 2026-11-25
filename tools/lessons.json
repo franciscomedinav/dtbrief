@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-25",
+    "date_long": "November 25, 2026",
+    "slug": "2026-11-25-quantum-computing-explained",
+    "title": "Quantum Computing, Explained: A Computer That Tries Every Path at Once",
+    "deck_short": "A computer that tries every path at once &mdash; and why Europe just bet &euro;50 billion on it.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A glowing sphere of light with a single qubit at its center, orbited by rings of cyan and warm yellow energy, with a small classical computer chip fading into the background, on a deep navy background with cyan and warm yellow accents",
+      "caption": "One qubit holds more than a zero or a one &mdash; it holds a blend of both, until you look.",
+      "index_alt": "A glowing qubit orbited by rings of light",
+      "index_caption": "Today&rsquo;s lesson: quantum computing &mdash; a computer that tries every path at once.",
+      "src": "assets/quantum-computing-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-24",
     "date_long": "November 24, 2026",
     "slug": "2026-11-24-formal-verification-explained",
