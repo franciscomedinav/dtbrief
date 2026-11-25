@@ -613,6 +613,11 @@
 
         <p class="nr-status" id="nr-status">Loading the latest from the newsroom&hellip;</p>
 
+        <h2 class="nr-h">Watch the process</h2>
+        <div class="nr-proc" id="nr-proc" aria-hidden="true"></div>
+        <div class="nr-procbar"><div class="nr-procfill" id="nr-procfill"></div></div>
+        <p class="nr-proccap" id="nr-proccap">Every weekday at 5:00 AM ET, the team runs the show end to end &mdash; live by 7:00.</p>
+
         <h2 class="nr-h">The team</h2>
         <div class="nr-floor" id="nr-floor"></div>
 
@@ -665,9 +670,71 @@
   .nr-note { font-size: 0.88em; color: var(--ink-faint); line-height: 1.5; }
   .nr-pass { color: #2fbf71; font-weight: 700; }
   .nr-fail { color: #FF5A3C; font-weight: 700; }
+  .nr-proc { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+  .nr-step { display: flex; align-items: center; gap: 8px; border: 1px solid var(--rule); border-radius: 999px; padding: 8px 14px; background: var(--card); font-family: "IBM Plex Mono", monospace; font-size: 0.85em; color: var(--ink-faint); transition: all 0.45s ease; }
+  .nr-step .nr-sdot { width: 9px; height: 9px; border-radius: 50%; background: var(--rule); flex: none; transition: all 0.45s ease; }
+  .nr-step.on { border-color: var(--accent); color: var(--ink); box-shadow: 0 0 0 3px var(--accent-soft); transform: translateY(-2px); }
+  .nr-step.on .nr-sdot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+  .nr-step.done { color: var(--ink-soft); }
+  .nr-step.done .nr-sdot { background: #2fbf71; }
+  .nr-arrow { align-self: center; color: var(--ink-faint); font-size: 0.9em; }
+  .nr-procbar { height: 4px; border-radius: 2px; background: var(--rule); margin-top: 14px; overflow: hidden; }
+  .nr-procfill { height: 100%; width: 0%; background: var(--accent); border-radius: 2px; transition: width 0.45s ease; }
+  .nr-proccap { font-size: 0.95em; color: var(--ink-soft); margin-top: 10px; min-height: 1.5em; }
 </style>
 <script>
 (function () {
+  /* Animated process: the 8 steps light up in sequence, on a loop. */
+  var STEPS = [
+    ["Scout", "Scout scans the overnight news from major outlets."],
+    ["Editor", "Editor picks the 8\u201310 stories that matter."],
+    ["Writer", "Writer drafts the script \u2014 about 1,700 words, in spoken form."],
+    ["Anchor", "Anchor: Melody records the narration."],
+    ["QC", "QC checks the narration against the script, word by word."],
+    ["Mixer", "Mixer ducks the music bed under the voice and masters to \u221216 LUFS."],
+    ["Publisher", "Publisher ships it to Spotify and this site."],
+    ["Teacher", "Teacher turns one story into the day\u2019s lesson."]
+  ];
+  var proc = document.getElementById("nr-proc");
+  var cap = document.getElementById("nr-proccap");
+  var fill = document.getElementById("nr-procfill");
+  if (proc) {
+    proc.innerHTML = STEPS.map(function (s, i) {
+      return (i ? '<span class="nr-arrow">\u203a</span>' : "") +
+        '<span class="nr-step" id="nr-step-' + i + '"><span class="nr-sdot"></span>' + s[0] + "</span>";
+    }).join("");
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      STEPS.forEach(function (s, i) { document.getElementById("nr-step-" + i).classList.add("done"); });
+      fill.style.width = "100%";
+    } else {
+      var idx = -1;
+      setInterval(function () {
+        idx++;
+        if (idx > STEPS.length) {
+          STEPS.forEach(function (s, i) {
+            var el = document.getElementById("nr-step-" + i);
+            el.classList.remove("on"); el.classList.remove("done");
+          });
+          fill.style.width = "0%";
+          cap.textContent = "Every weekday at 5:00 AM ET, the team runs the show end to end \u2014 live by 7:00.";
+          idx = -1;
+          return;
+        }
+        if (idx >= STEPS.length) {
+          cap.textContent = "Episode live by 7:00 AM \u2014 podcast, post and lesson, every weekday.";
+          return;
+        }
+        STEPS.forEach(function (s, i) {
+          var el = document.getElementById("nr-step-" + i);
+          el.classList.toggle("on", i === idx);
+          if (i < idx) el.classList.add("done"); else if (i > idx) el.classList.remove("done");
+        });
+        fill.style.width = ((idx + 1) / STEPS.length * 100) + "%";
+        cap.textContent = STEPS[idx][1];
+      }, 1500);
+    }
+  }
   var ROLES = {
     Scout: "Research \u00b7 scans the overnight news",
     Editor: "Curation \u00b7 picks the top stories",
