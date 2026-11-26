@@ -17,7 +17,7 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
-    <meta property="article:published_time" content="2026-11-25" />
+    <meta property="article:published_time" content="2026-11-26" />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebPage","name":"Newsroom","url":"https://dtbrief.com/newsroom/"}
@@ -619,7 +619,19 @@
         <p class="nr-proccap" id="nr-proccap">Every weekday at 5:00 AM ET, the team runs the show end to end &mdash; live by 7:00.</p>
 
         <h2 class="nr-h">The team</h2>
+        <p class="nr-note">Eight agents, eight jobs. Each tile names the technology that agent actually runs on &mdash; the back end behind the job, not a cartoon of it.</p>
         <div class="nr-floor" id="nr-floor"></div>
+
+        <h2 class="nr-h">The technology behind them</h2>
+        <p class="nr-note">No studio, no staff &mdash; a pipeline of real tools, run the same way every weekday. This is the stack the agents share:</p>
+        <div class="nr-stack">
+          <div class="nr-scard"><div class="nr-sname">The voice</div><div class="nr-sdesc">Text-to-speech synthesis &mdash; a single AI anchor voice (Melody) reads every script, recorded in one pass per story.</div></div>
+          <div class="nr-scard"><div class="nr-sname">The ears</div><div class="nr-sdesc">faster-whisper speech recognition transcribes the finished narration so QC can align it against the script, word by word.</div></div>
+          <div class="nr-scard"><div class="nr-sname">The mixing desk</div><div class="nr-sdesc">FFmpeg &mdash; the music bed is ducked under the voice automatically (sidechain compression) and the episode is mastered to podcast loudness, &minus;16 LUFS.</div></div>
+          <div class="nr-scard"><div class="nr-sname">The research desk</div><div class="nr-sdesc">Live web search and source reading across the major outlets &mdash; every story is grounded in the original publisher&rsquo;s article, never a headline alone.</div></div>
+          <div class="nr-scard"><div class="nr-sname">The printing press</div><div class="nr-sdesc">This site runs on GitHub Pages behind Cloudflare; episodes publish through Spotify for Creators and are archived to Google Drive the same morning.</div></div>
+          <div class="nr-scard"><div class="nr-sname">The clock</div><div class="nr-sdesc">Scheduled jobs start the run at 5:00 AM ET every weekday, keep the breaking-news watch at midday and evening, and refresh this page after each episode.</div></div>
+        </div>
 
         <h2 class="nr-h">Today&rsquo;s production</h2>
         <div class="nr-board" id="nr-board"></div>
@@ -652,6 +664,12 @@
   .nr-dot.failed { background: #FF5A3C; }
   .nr-tile .nr-role { font-family: "IBM Plex Mono", monospace; font-size: 0.78em; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
   .nr-tile .nr-last { font-size: 0.9em; color: var(--ink-soft); margin-top: 8px; line-height: 1.45; }
+  .nr-tile .nr-tech { font-family: "IBM Plex Mono", monospace; font-size: 0.76em; color: var(--ink-faint); margin-top: 8px; line-height: 1.5; border-top: 1px dashed var(--rule); padding-top: 7px; }
+  .nr-tile .nr-tech b { color: var(--accent); font-weight: 600; }
+  .nr-stack { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  .nr-scard { border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px; background: var(--card); }
+  .nr-scard .nr-sname { font-family: Sora, sans-serif; font-weight: 700; font-size: 1.0em; color: var(--ink); }
+  .nr-scard .nr-sdesc { font-size: 0.9em; color: var(--ink-soft); margin-top: 6px; line-height: 1.5; }
   .nr-board { border: 1px solid var(--rule); border-radius: 12px; padding: 18px 20px; background: var(--card); }
   .nr-board .nr-ep { font-family: Sora, sans-serif; font-weight: 700; font-size: 1.25em; color: var(--ink); line-height: 1.3; }
   .nr-board .nr-meta { font-family: "IBM Plex Mono", monospace; font-size: 0.85em; color: var(--ink-faint); margin-top: 6px; }
@@ -745,6 +763,16 @@
     Publisher: "Publishing \u00b7 Spotify + this site",
     Teacher: "Learning Center \u00b7 the daily lesson"
   };
+  var TECH = {
+    Scout: "Live web search \u00b7 Reuters, AP, TechCrunch, The Verge, Bloomberg, Ars Technica, Wired \u2014 the last ~18 hours",
+    Editor: "Cross-outlet ranking \u00b7 original-source verification \u2014 a story covered by more outlets ranks higher",
+    Writer: "Language model \u00b7 ~1,700-word broadcast script, numbers spelled out in spoken form",
+    Anchor: "Text-to-speech \u00b7 the Melody voice, synthesized story by story",
+    QC: "Duration guard (script words \u00f7 175 wpm) + faster-whisper transcription aligned word by word",
+    Mixer: "FFmpeg \u00b7 sidechain ducking + loudnorm to \u221216 LUFS",
+    Publisher: "Spotify for Creators \u00b7 GitHub Pages \u00b7 Google Drive archive",
+    Teacher: "2\u20133 authoritative sources per lesson \u00b7 built and illustrated in the site\u2019s palette"
+  };
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
@@ -781,7 +809,8 @@
       floor.innerHTML = (data.floor || []).map(function (f) {
         return '<div class="nr-tile"><div class="nr-agent"><span class="nr-dot ' + esc(f.state) + '"></span>' +
           esc(f.agent) + '</div><div class="nr-role">' + esc(ROLES[f.agent] || "") + '</div>' +
-          '<div class="nr-last">' + esc(f.last || "Waiting for the next run.") + "</div></div>";
+          '<div class="nr-last">' + esc(f.last || "Waiting for the next run.") + "</div>" +
+          (TECH[f.agent] ? '<div class="nr-tech"><b>Behind it:</b> ' + esc(TECH[f.agent]) + "</div>" : "") + "</div>";
       }).join("");
       // today board
       var board = document.getElementById("nr-board");
@@ -837,6 +866,10 @@
     });
 })();
 </script>
+      </article>
+    </div>
+
+    <!-- site-footer -->
 <style>
   footer.site-footer { border-top: none; background: #0A0F1E; color: #EDF1F8; margin-top: 56px; }
   .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 42px 24px 26px; }
