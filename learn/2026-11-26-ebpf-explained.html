@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Daily Tech Briefing" href="https://dtbrief.com/feed.xml" />
+    <meta name="theme-color" content="#0A0F1E" />
+    <meta name="description" content="eBPF explained in plain English &mdash; what it is, how the verifier keeps the kernel safe, how it differs from kernel modules, and why Cisco and OpenAI just built AI shields on it." />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Daily Tech Briefing" />
+    <meta property="og:title" content="eBPF, Explained &mdash; Daily Tech Briefing" />
+    <meta property="og:description" content="Small, verified programs that run inside the Linux kernel &mdash; the quiet engine behind cloud networking, security, and AI shields." />
+    <meta property="og:url" content="https://dtbrief.com/learn/2026-11-26-ebpf-explained.html" />
+    <meta property="og:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:image" content="https://dtbrief.com/assets/og-card-1200x630.png" />
+    <meta property="article:published_time" content="2026-11-26" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"eBPF, Explained: The Small Programs That Run Inside the Linux Kernel","datePublished":"2026-11-26","author":{"@type":"Organization","name":"Daily Tech Briefing"},"publisher":{"@type":"Organization","name":"Daily Tech Briefing","url":"https://dtbrief.com/"},"mainEntityOfPage":"https://dtbrief.com/learn/2026-11-26-ebpf-explained.html"}
+    </script>
+    <title>eBPF, Explained &mdash; Learning Center &mdash; Daily Tech Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #F4F6F8;
+        --ink: #0A0F1E;
+        --ink-soft: #2E3A52;
+        --ink-faint: #5A6478;
+        --rule: #D8DEE7;
+        --accent: #0090C8;
+        --accent-soft: rgba(0, 144, 200, 0.08);
+        --card: #ffffff;
+        --chip-bg: #0A0F1E;
+        --chip-ink: #F4F6F8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #070B16;
+          --ink: #EDF1F8;
+          --ink-soft: #C7D3E8;
+          --ink-faint: #93A0B8;
+          --rule: #22304F;
+          --accent: #00C2FF;
+          --accent-soft: rgba(0, 194, 255, 0.12);
+          --card: #0D1424;
+          --chip-bg: #EDF1F8;
+          --chip-ink: #070B16;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .sans { font-family: "IBM Plex Sans", system-ui, sans-serif; }
+
+      #progress {
+        position: fixed;
+        top: 0; left: 0;
+        height: 3px;
+        width: 0%;
+        background: #00C2FF;
+        z-index: 50;
+      }
+
+      /* ---------- Masthead ---------- */
+      .masthead {
+        border-bottom: 2px solid var(--ink);
+      }
+      .masthead-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 18px 24px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand-mark {
+        width: 40px; height: 40px;
+        flex: none;
+        display: grid;
+        place-items: center;
+      }
+      .brand-name {
+        font-family: "Sora", sans-serif;
+        font-weight: 800;
+        font-size: 21px;
+        letter-spacing: -0.01em;
+        line-height: 1.05;
+      }
+      .brand-dot { color: var(--accent); }
+      .brand-tag {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 2px;
+      }
+      .masthead-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        text-align: right;
+        line-height: 1.5;
+      }
+      .masthead-meta strong { color: var(--ink); font-weight: 600; }
+
+      /* ---------- Layout ---------- */
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      article {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 44px 0 8px;
+      }
+
+      .dateline-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      .kicker {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .sample-chip {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: var(--chip-bg);
+        color: var(--chip-ink);
+        padding: 4px 9px;
+        border-radius: 999px;
+      }
+
+      h1 {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(34px, 5.4vw, 54px);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px;
+      }
+      h1 .money { color: var(--accent); }
+      .deck {
+        font-size: clamp(19px, 2.6vw, 22px);
+        line-height: 1.45;
+        font-style: italic;
+        color: var(--ink-soft);
+        margin: 0 0 26px;
+      }
+      .byline {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        color: var(--ink-faint);
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        padding: 12px 0;
+        margin-bottom: 34px;
+      }
+      .byline .who { color: var(--ink); font-weight: 600; }
+      .byline .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+
+      /* ---------- Key numbers ---------- */
+      .keynums {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+      .keynum {
+        padding: 20px 20px 16px;
+      }
+      .keynum + .keynum { border-left: 1px solid var(--rule); }
+      .keynum .fig {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(24px, 3.4vw, 32px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .keynum .fig em { font-style: normal; color: var(--accent); }
+      .keynum .lbl {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--ink-faint);
+        margin-top: 8px;
+      }
+
+      /* ---------- Body copy ---------- */
+      section { margin-bottom: 38px; }
+      h2 {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin: 0 0 16px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      h2 .num {
+        font-family: "Sora", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0;
+        color: var(--accent);
+        line-height: 1;
+      }
+      p {
+        font-size: 19px;
+        line-height: 1.68;
+        color: var(--ink-soft);
+        margin: 0 0 18px;
+      }
+      p strong { color: var(--ink); font-weight: 700; }
+      p a, .source-card a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+      .inline-icon { width: 16px; height: 16px; vertical-align: -2px; }
+
+      .pull {
+        border-left: 3px solid var(--accent);
+        padding: 4px 0 4px 20px;
+        margin: 28px 0;
+        font-size: 22px;
+        line-height: 1.4;
+        font-weight: 500;
+        font-style: italic;
+        color: var(--ink);
+      }
+
+      ul.watch {
+        list-style: none;
+        margin: 0 0 18px;
+        padding: 0;
+      }
+      ul.watch li {
+        font-size: 19px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        padding: 12px 0 12px 0;
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 14px;
+      }
+      ul.watch li:first-child { border-top: none; padding-top: 2px; }
+      ul.watch .w-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        padding-top: 5px;
+      }
+
+      /* ---------- Source + episode ---------- */
+      .source-card {
+        background: var(--accent-soft);
+        border-radius: 14px;
+        padding: 22px 24px;
+        margin: 44px 0 18px;
+      }
+      .source-card .sc-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .source-card p { font-size: 17px; margin: 0; line-height: 1.55; }
+
+      .episode-note {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 48px;
+        background: var(--card);
+      }
+      .play-btn {
+        width: 42px; height: 42px;
+        flex: none;
+        border-radius: 50%;
+        background: #00C2FF;
+        display: grid;
+        place-items: center;
+      }
+      .episode-note p { font-size: 16.5px; margin: 0; line-height: 1.55; }
+      .episode-note .ep-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 4px;
+      }
+
+      .listen-bar {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 14px 18px;
+        margin: 0 0 28px;
+        background: var(--card);
+      }
+      .listen-toggle {
+        border: none;
+        padding: 0;
+        cursor: pointer;
+      }
+      .listen-toggle .icon-pause { display: none; }
+      .listen-bar.playing .listen-toggle .icon-play { display: none; }
+      .listen-bar.playing .listen-toggle .icon-pause { display: block; }
+      .listen-label {
+        font-family: "Sora", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 1.3;
+      }
+      .listen-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 3px;
+      }
+
+      footer {
+        border-top: 2px solid var(--ink);
+        margin-top: 8px;
+      }
+      .footer-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 20px 24px 34px;
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 620px) {
+        .keynums { grid-template-columns: 1fr; }
+        .keynum + .keynum { border-left: none; border-top: 1px solid var(--rule); }
+        ul.watch li { grid-template-columns: 1fr; gap: 2px; }
+        ul.watch .w-label { padding-top: 0; }
+        .masthead-meta { text-align: left; }
+        article { padding-top: 32px; }
+      }
+
+      /* Learning Center extras: figures, loop diagram, comparison cards */
+      .figure { margin: 28px 0; }
+      .figure img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--rule); }
+      .figure figcaption { font-size: 13.5px; color: var(--ink-faint); margin-top: 10px; line-height: 1.5; }
+      .loop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+      .loop-step { background: var(--accent-soft); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; }
+      .loop-step .loop-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--chip-bg); color: var(--chip-ink); font-family: "IBM Plex Mono", monospace; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+      .loop-step strong { display: block; font-family: "Sora", sans-serif; font-size: 17px; margin-bottom: 4px; }
+      .loop-step span { display: block; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+      .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+      .vs-card { border: 1px solid var(--rule); border-radius: 12px; padding: 18px; background: var(--card); }
+      .vs-card.agent { border-color: var(--accent); background: var(--accent-soft); }
+      .vs-card strong { display: block; font-family: "Sora", sans-serif; font-size: 18px; margin-bottom: 6px; }
+      .vs-card span { display: block; font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+      @media (max-width: 560px) {
+        .loop-grid, .vs-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="brand" href="../index.html" aria-label="Daily Tech Briefing home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 96 96" aria-hidden="true">
+              <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+              <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+              <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+              <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+            </svg>
+          </span>
+          <span>
+            <span class="brand-name">Tech Briefing<span class="brand-dot">.</span></span>
+            <span class="brand-tag" style="display:block;">Your daily dose of tech news &mdash; signal, not noise.</span>
+          </span>
+        </a>
+        <div class="masthead-meta">
+          <strong>Learning Center</strong><br />
+          One technology, explained in plain English
+        </div>
+      </div>
+    </header>
+<!-- site-topnav -->
+<style>
+  .sitehdr { position: sticky; top: 0; z-index: 50; background: var(--paper, #F4F6F8); border-bottom: 1px solid var(--rule, #D8DEE7); box-shadow: 0 1px 10px rgba(10, 15, 30, 0.07); }
+  .sitehdr-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; min-height: 56px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .sitehdr-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink, #0A0F1E); flex: none; padding: 10px 0; }
+  .sitehdr-brand img { width: 28px; height: 28px; display: block; }
+  .sitehdr-word { font-family: "Sora", sans-serif; font-weight: 800; font-size: 17px; letter-spacing: 0.03em; line-height: 1; }
+  .sitehdr-nav { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
+  .sitehdr-nav > a, .sitehdr-listen-label { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--ink-soft, #2E3A52); text-decoration: none; padding: 8px 9px; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .sitehdr-nav > a:hover, .sitehdr-listen-label:hover { color: var(--ink, #0A0F1E); }
+  .sitehdr-nav > a.active { color: var(--accent, #0090C8); border-bottom-color: var(--accent, #0090C8); }
+  .sitehdr-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #FF5A3C; margin-right: 6px; vertical-align: 2px; animation: sitehdr-pulse 1.6s ease-in-out infinite; }
+  @keyframes sitehdr-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+  @media (prefers-reduced-motion: reduce) { .sitehdr-dot { animation: none; } }
+  .sitehdr-listen { position: relative; display: inline-block; }
+  .sitehdr-listen-label { cursor: pointer; display: inline-block; }
+  .sitehdr-drop { display: none; position: absolute; top: 100%; left: 0; min-width: 190px; background: var(--card, #ffffff); border: 1px solid var(--rule, #D8DEE7); border-radius: 12px; box-shadow: 0 10px 30px rgba(10, 15, 30, 0.14); padding: 8px; z-index: 60; }
+  .sitehdr-listen:hover .sitehdr-drop, .sitehdr-listen:focus-within .sitehdr-drop { display: block; }
+  .sitehdr-drop a { display: block; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 14.5px; font-weight: 600; color: var(--ink, #0A0F1E); text-decoration: none; padding: 9px 11px; border-radius: 8px; white-space: nowrap; }
+  .sitehdr-drop a:hover { background: var(--accent-soft, rgba(0, 144, 200, 0.08)); color: var(--accent, #0090C8); }
+  .sitehdr-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; flex: none; }
+  .sitehdr-iconbtn { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--rule, #D8DEE7); background: var(--card, #ffffff); color: var(--ink-soft, #2E3A52); cursor: pointer; padding: 0; }
+  .sitehdr-iconbtn:hover { color: var(--accent, #0090C8); border-color: var(--accent, #0090C8); }
+  .sitehdr-iconbtn svg { width: 18px; height: 18px; display: block; }
+  .sitehdr-sub { font-family: "IBM Plex Mono", monospace; font-size: 13.5px; font-weight: 600; color: #ffffff; background: var(--accent, #0090C8); border-radius: 999px; padding: 10px 18px; text-decoration: none; white-space: nowrap; }
+  .sitehdr-sub:hover { filter: brightness(1.1); color: #ffffff; }
+  .sitehdr-burger { display: none; }
+  .sitehdr-searchrow { border-top: 1px solid var(--rule, #D8DEE7); }
+  .sitehdr-searchinner { max-width: 1080px; margin: 0 auto; padding: 14px 24px 18px; }
+  .sitehdr-searchbox { width: 100%; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 17px; padding: 13px 16px; border: 1px solid var(--rule, #D8DEE7); border-radius: 12px; background: var(--card, #ffffff); color: var(--ink, #0A0F1E); margin: 0; }
+  .sitehdr-searchbox:focus { outline: 2px solid var(--accent, #0090C8); outline-offset: 1px; }
+  .sitehdr-searchmeta { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--ink-faint, #5A6478); margin: 10px 0 0; }
+  .sitehdr-results { display: grid; gap: 12px; margin-top: 12px; max-height: 55vh; overflow-y: auto; }
+  .sitehdr-results:empty { margin-top: 0; }
+  .sitehdr .pcard { display: block; background: var(--card, #ffffff); border: 1px solid var(--rule, #D8DEE7); border-radius: 14px; padding: 18px 20px; text-decoration: none; color: var(--ink, #0A0F1E); }
+  .sitehdr .pcard:hover { border-color: var(--accent, #0090C8); }
+  .sitehdr .pcard .pkicker { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, #0090C8); }
+  .sitehdr .pcard h3 { font-family: "Sora", sans-serif; font-size: 19px; line-height: 1.25; font-weight: 800; letter-spacing: -0.01em; margin: 8px 0 6px; }
+  .sitehdr .pcard p { font-size: 14.5px; line-height: 1.5; color: var(--ink-soft, #2E3A52); margin: 0 0 8px; }
+  .sitehdr .pcard .meta { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--ink-faint, #5A6478); }
+  @media (max-width: 760px) {
+    .sitehdr-inner { gap: 10px; padding: 0 16px; }
+    .sitehdr-burger { display: inline-flex; }
+    .sitehdr-nav { display: none; order: 5; flex-basis: 100%; flex-direction: column; align-items: stretch; gap: 0; padding: 4px 0 12px; }
+    .sitehdr.open .sitehdr-nav { display: flex; }
+    .sitehdr-nav > a, .sitehdr-listen-label { padding: 11px 6px; border-bottom: 1px solid var(--rule, #D8DEE7); font-size: 14px; }
+    .sitehdr-nav > a.active { border-bottom-color: var(--rule, #D8DEE7); box-shadow: inset 3px 0 0 var(--accent, #0090C8); }
+    .sitehdr-listen { display: block; }
+    .sitehdr-drop { display: block; position: static; border: none; box-shadow: none; background: none; padding: 0 0 4px 16px; min-width: 0; }
+    .sitehdr-drop a { padding: 9px 6px; font-family: "IBM Plex Mono", monospace; font-size: 13.5px; color: var(--ink-soft, #2E3A52); }
+    .sitehdr-searchinner { padding: 12px 16px 16px; }
+  }
+</style>
+    <header class="sitehdr">
+      <div class="sitehdr-inner">
+        <a class="sitehdr-brand" href="../index.html" aria-label="Daily Tech Briefing home">
+          <img src="../favicon.svg" alt="" width="28" height="28" />
+          <span class="sitehdr-word">DTBRIEF</span>
+        </a>
+        <nav class="sitehdr-nav" id="sitehdr-menu" aria-label="Site">
+        <a href="../archive.html" data-nav="latest">Latest</a>
+        <a href="../sections/ai.html" data-nav="ai">AI</a>
+        <a href="../sections/chips.html" data-nav="chips">Chips</a>
+        <a href="../sections/big-tech.html" data-nav="big-tech">Big Tech</a>
+        <a href="../sections/business.html" data-nav="business">Business</a>
+        <a href="../sections/security.html" data-nav="security">Security</a>
+        <a href="../learn/" data-nav="learn" class="active" aria-current="page">Learn</a>
+        <a href="../breaking/" data-nav="breaking"><span class="sitehdr-dot" aria-hidden="true"></span>Breaking</a>
+          <span class="sitehdr-listen">
+            <span class="sitehdr-listen-label" tabindex="0">Listen &#9662;</span>
+            <span class="sitehdr-drop">
+              <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" target="_blank" rel="noopener">Spotify</a>
+              <a href="https://podcasts.apple.com/us/podcast/daily-tech-briefing/id6822945922" target="_blank" rel="noopener">Apple Podcasts</a>
+            </span>
+          </span>
+        </nav>
+        <div class="sitehdr-actions">
+          <button class="sitehdr-iconbtn sitehdr-searchbtn" type="button" aria-expanded="false" aria-controls="sitehdr-searchrow" aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg></button>
+          <a class="sitehdr-sub" href="https://franciscos-newsletter-df7908.beehiiv.com/subscribe" target="_blank" rel="noopener">Subscribe</a>
+          <button class="sitehdr-iconbtn sitehdr-burger" type="button" aria-expanded="false" aria-controls="sitehdr-menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+        </div>
+      </div>
+      <div class="sitehdr-searchrow" id="sitehdr-searchrow" hidden>
+        <div class="sitehdr-searchinner">
+          <input id="hdr-search" class="sitehdr-searchbox" type="search" placeholder="Search stories &mdash; try &ldquo;Anthropic&rdquo; or &ldquo;Apple&rdquo;" autocomplete="off" aria-label="Search the briefing" />
+          <p id="hdr-search-meta" class="sitehdr-searchmeta" aria-live="polite"></p>
+          <div id="hdr-search-results" class="sitehdr-results"></div>
+        </div>
+      </div>
+    </header>
+<script>
+    (function () {
+      var hdr = document.currentScript.previousElementSibling;
+      if (!hdr) return;
+      var PREFIX = "../";
+      var burger = hdr.querySelector('.sitehdr-burger');
+      burger.addEventListener('click', function () {
+        var open = hdr.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      var row = hdr.querySelector('.sitehdr-searchrow');
+      var toggle = hdr.querySelector('.sitehdr-searchbtn');
+      var input = hdr.querySelector('#hdr-search');
+      var meta = hdr.querySelector('#hdr-search-meta');
+      var resultsBox = hdr.querySelector('#hdr-search-results');
+      var index = null, loaded = false, loading = false;
+      function esc(s) {
+        return String(s == null ? '' : s).replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+      function words(q) {
+        return q.toLowerCase().split(/\s+/).filter(function (w) { return w.length > 0; });
+      }
+      function matches(item, ws) {
+        var hay = (item.title + ' ' + item.excerpt + ' ' + item.date).toLowerCase();
+        return ws.every(function (w) { return hay.indexOf(w) !== -1; });
+      }
+      function render() {
+        var query = (input.value || '').trim();
+        if (!query) { resultsBox.innerHTML = ''; meta.textContent = ''; return; }
+        if (!loaded) { meta.textContent = 'Search is still loading\u2026'; return; }
+        var list = index.filter(function (item) { return matches(item, words(query)); });
+        meta.textContent = list.length + (list.length === 1 ? ' result' : ' results') +
+          ' for \u201c' + query + '\u201d';
+        var html = '';
+        list.forEach(function (item) {
+          html += '<a class="pcard" href="' + esc(PREFIX + item.url) + '">' +
+            '<span class="pkicker">Top Story</span>' +
+            '<h3>' + esc(item.title) + '</h3>' +
+            '<p>' + esc(item.excerpt) + '</p>' +
+            '<span class="meta">' + esc(item.date) + ' &middot; Episode ' + esc(item.episode) + '</span></a>';
+        });
+        resultsBox.innerHTML = html;
+      }
+      function loadIndex() {
+        if (loaded || loading) return;
+        loading = true;
+        fetch(PREFIX + 'search-index.json')
+          .then(function (r) { if (!r.ok) throw new Error('index HTTP ' + r.status); return r.json(); })
+          .then(function (data) { index = data; loaded = true; loading = false; render(); })
+          .catch(function () { loading = false; meta.textContent = 'Search is unavailable right now.'; });
+      }
+      toggle.addEventListener('click', function () {
+        var show = row.hidden;
+        row.hidden = !show;
+        toggle.setAttribute('aria-expanded', show ? 'true' : 'false');
+        if (show) { loadIndex(); input.focus(); }
+      });
+      input.addEventListener('input', function () { loadIndex(); render(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !row.hidden) {
+          row.hidden = true;
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+    </script>
+<!-- /site-topnav -->
+
+    <div class="wrap">
+      <article>
+        <div class="dateline-row">
+          <span class="kicker">Learning Center &middot; Lesson 13</span>
+        </div>
+
+        <h1>eBPF, Explained: The Small Programs That Run Inside the Linux Kernel</h1>
+
+        <p class="deck">The Linux kernel used to be a no-go zone: change it and you risked crashing the whole machine. eBPF lets small, verified programs run inside it safely &mdash; and it is now the quiet engine behind cloud networking, security, and this week&rsquo;s AI shields.</p>
+
+        <div class="byline">
+          <span class="who">Daily Tech Briefing</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>November 26, 2026</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>4 min read</span>
+        </div>
+
+                <figure class="figure">
+          <img src="assets/ebpf-hero.webp" alt="A small, glowing program slipping through a checkpoint gate into the heart of a computer kernel, while a shield checks its papers before letting it in" width="2048" height="1152" />
+          <figcaption>Every eBPF program is checked before it enters the kernel. The verifier is the whole trick &mdash; safe code in, crashes kept out.</figcaption>
+        </figure>
+        <div class="keynums" role="group" aria-label="Key ideas">
+          <div class="keynum">
+            <div class="fig">2014</div>
+            <div class="lbl">The year eBPF landed in the Linux kernel &mdash; it grew out of a 1993 packet filter built for tcpdump</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">The verifier</div>
+            <div class="lbl">An in-kernel checker that proves a program is safe before it loads &mdash; no crashes, no endless loops</div>
+          </div>
+          <div class="keynum">
+            <div class="fig">1M instructions</div>
+            <div class="lbl">The maximum size of one eBPF program the verifier will check &mdash; every path proven safe before it runs</div>
+          </div>
+        </div>
+
+        <section aria-labelledby="s2">
+          <h2 id="s2"><span class="num">2</span> How it works: write, verify, load, run</h2>
+          <p>Every eBPF program follows the same four steps:</p>
+          <p><strong>1. Write</strong> &mdash; a developer writes a small program, usually in C or Rust, and compiles it to eBPF bytecode. <strong>2. Verify</strong> &mdash; before anything loads, the kernel&rsquo;s verifier statically checks every path the program could take. <strong>3. Load</strong> &mdash; the program is compiled just in time to native machine code and attached to a hook point: a system call, a network event, a function entry. <strong>4. Run</strong> &mdash; when the hooked event fires, the program runs to completion and writes its results into a shared store called a map, which a user-space program can read.</p>
+          <div class="loop-grid" role="img" aria-label="The agent loop: write, verify, load, run, then repeat">
+            <div class="loop-step"><span class="loop-num">1</span><strong>Write</strong><span>Write the program in C or Rust and compile it to bytecode</span></div>
+            <div class="loop-step"><span class="loop-num">2</span><strong>Verify</strong><span>The kernel verifier checks every path &mdash; safe, or rejected</span></div>
+            <div class="loop-step"><span class="loop-num">3</span><strong>Load</strong><span>The program is JIT-compiled to native code and attached to a hook</span></div>
+            <div class="loop-step"><span class="loop-num">4</span><strong>Run</strong><span>When the event fires, the program runs and writes results to a map</span></div>
+          </div>
+          <p>The verifier is the part that makes all of this possible. It rejects programs that could crash the kernel, dereference unchecked pointers, or loop forever &mdash; bounded loops were only allowed from kernel 5.3, and programs are capped at one million verified instructions. The check happens before the program ever runs, so a bad program never gets near the kernel. That is the difference between eBPF and the old way of extending the kernel, which was to load a module and hope.</p>
+          <p>The name is a leftover. Classic BPF, the Berkeley Packet Filter, was a tiny virtual machine from a 1993 paper by Steven McCanne and Van Jacobson, built to filter network packets for tcpdump. The extended version, led by Alexei Starovoitov and Daniel Borkmann, generalized it into a programmable runtime for the whole kernel. It merged into Linux 3.18 in 2014, and it is now stewarded by the eBPF Foundation, formed under the Linux Foundation in 2021 by Google, Meta, Microsoft, Netflix, and Isovalent.</p>
+        </section>
+
+        <section aria-labelledby="s1">
+          <h2 id="s1"><span class="num">1</span> What it is</h2>
+          <p>eBPF, short for extended Berkeley Packet Filter, is a way to run small programs inside the Linux kernel &mdash; safely, and without changing the kernel itself.</p>
+          <p>The kernel is the layer between your applications and the hardware. It decides what runs on the processor, moves network packets, and hands out files and memory. Historically, if you wanted the kernel to do something new, you had to modify its source code or load a kernel module &mdash; and a bug in either could crash the entire machine. So most people simply did not touch it.</p>
+          <p>eBPF changes that bargain. It is a lightweight, sandboxed virtual machine that lives inside the kernel. You write a small program, the kernel checks it for safety, and then it runs at near-native speed whenever a chosen event happens &mdash; a packet arriving, a file opening, a system call firing. No reboot, no recompiled kernel, no module. That is why it now powers networking, observability, and security across the cloud.</p>
+        </section>
+
+        <section aria-labelledby="s3">
+          <h2 id="s3"><span class="num">3</span> eBPF vs a kernel module</h2>
+          <p>A <strong>kernel module</strong> is a chunk of code loaded directly into the kernel, with full privileges and almost no safety net. It can do anything &mdash; including crashing the system with a single bad pointer. It also has to be built for a specific kernel version, and loading one usually means trusting its author completely.</p>
+          <p>An <strong>eBPF program</strong> is the opposite bargain. It runs in a sandbox, it is checked before it loads, it cannot crash the kernel, and it can be loaded and unloaded on a running system. The trade-off is that it is limited: it cannot do everything a module can, its programs are small, and it needs a reasonably modern kernel. For most jobs &mdash; watching, filtering, counting, blocking &mdash; the limits do not matter, and the safety is worth it.</p>
+          <div class="vs-grid">
+            <div class="vs-card"><strong>Kernel module</strong><span>Full kernel privileges, no safety checks. A bug can crash the machine; built for one kernel version; loaded on trust.</span></div>
+            <div class="vs-card agent"><strong>eBPF program</strong><span>Sandboxed and verified before it loads. Cannot crash the kernel; loads and unloads live; small programs, near-native speed.</span></div>
+          </div>
+          <div class="pull">A kernel module is trusted code with no safety net. An eBPF program is checked code in a sandbox &mdash; and that is the whole point.</div>
+        </section>
+
+        <section aria-labelledby="s4">
+          <h2 id="s4"><span class="num">4</span> Why everyone&rsquo;s building on it now</h2>
+          <p>Three stories in today&rsquo;s briefing are the same story. Cisco and OpenAI launched Shirudo, an open source project that lets AI agents write eBPF shields &mdash; temporary protections that block a vulnerability inside the kernel while teams prepare a real patch. In a test, a shield written by OpenAI&rsquo;s Codex blocked a Java4Shell exploit against a running service, and the service stayed online. Shirudo is a rewrite of Tetragon, the open source eBPF security platform from Isovalent, which Cisco acquired in 2024.</p>
+        <figure class="figure">
+          <img src="assets/ebpf-shirudo.webp" alt="A shield-shaped program sitting on a Linux penguin's shoulder, blocking a red exploit arrow while the system keeps running behind it" width="2048" height="1152" loading="lazy" />
+          <figcaption>Shirudo&rsquo;s shields sit inside the kernel and block the exploit &mdash; while the application keeps running.</figcaption>
+        </figure>
+          <p>That is only the newest use. Cilium, the Kubernetes networking project built on eBPF, graduated from the Cloud Native Computing Foundation and became the default networking layer for Amazon&rsquo;s EKS clusters in 2025 &mdash; the largest cloud vendor&rsquo;s endorsement that eBPF is now mainstream. Observability tools use it to capture HTTP requests, database queries, and DNS lookups without changing a line of application code. And security tools like Tetragon and Falco hook directly at the kernel layer, so they can block a suspicious action the moment it happens, instead of reading a log after the fact.</p>
+          <p>The bet is simple. The kernel sees everything &mdash; every packet, every file, every process &mdash; and eBPF is the first safe way to program what it does with what it sees.</p>
+        </section>
+
+        <section aria-labelledby="s5">
+          <h2 id="s5"><span class="num">5</span> The honest part</h2>
+          <p>Here is the catch. eBPF is Linux only, and the newest features need a modern kernel &mdash; many advanced uses want kernel 5.8 or later. Programs need privileged access to load, which means whoever can load them holds real power over the machine. Encrypted traffic stays opaque unless you hook the TLS library itself, so it complements application-level tracing rather than replacing it. And enforcement is a sharp tool: a wrong rule can stop a legitimate workload, which is why teams usually start with detection only and switch on blocking for a small set of proven rules.</p>
+          <p>There is also a trust question at the heart of this week&rsquo;s news. Shirudo lets AI agents write kernel-level shields &mdash; and its answer is that every shield is cryptographically signed, verified before it runs, and recorded by a hardware chip. The verifier that made eBPF safe for humans is now doing the same job for agents. Whether that is enough is the question the security community will spend the next year answering.</p>
+        </section>
+
+        <section aria-labelledby="terms">
+          <h2 id="terms">Key terms</h2>
+          <ul class="watch">
+            <li>
+              <span class="w-label">eBPF</span>
+              <span>Extended Berkeley Packet Filter: a sandbox in the Linux kernel that runs small, verified programs at kernel events.</span>
+            </li>
+            <li>
+              <span class="w-label">Kernel</span>
+              <span>The core of the operating system, between applications and hardware. It schedules work, moves packets, and hands out files and memory.</span>
+            </li>
+            <li>
+              <span class="w-label">Verifier</span>
+              <span>The in-kernel checker that statically analyzes an eBPF program and rejects it if it could crash, hang, or corrupt memory.</span>
+            </li>
+            <li>
+              <span class="w-label">Hook</span>
+              <span>A point in the kernel where an eBPF program attaches and runs when an event fires: a system call, a packet arrival, a function entry.</span>
+            </li>
+            <li>
+              <span class="w-label">Map</span>
+              <span>An efficient key/value store in kernel space where eBPF programs write results for user-space programs to read.</span>
+            </li>
+            <li>
+              <span class="w-label">XDP</span>
+              <span>eXpress Data Path: an eBPF hook that processes network packets at the earliest possible point, before the kernel&rsquo;s networking stack.</span>
+            </li>
+          </ul>
+        </section>
+
+        <div class="source-card">
+          <div class="sc-label">From today&rsquo;s briefing</div>
+          <p>This lesson comes from today&rsquo;s Daily Tech Briefing (Episode 45, November 26, 2026): Nvidia&rsquo;s downgrade watch, SpaceX&rsquo;s orbital data centers &amp; Claude&rsquo;s desktop apps. Read the full briefing: <a href="../posts/2026-11-26-nvidia-credit-watch.html">S&P Puts Nvidia on Credit Watch &mdash; Daily Tech Briefing</a>.</p>
+        </div>
+
+        <div class="source-card">
+          <div class="sc-label">Sources</div>
+          <p>Wikipedia, &ldquo;eBPF&rdquo; &mdash; the verifier, the 1993 BPF origins, RFC 9669; ebpf.io and the eBPF Foundation &mdash; the three main use areas; ClickHouse Engineering, &ldquo;What is eBPF?&rdquo; &mdash; the verifier&rsquo;s one-million-instruction cap and bounded loops; Tigera, &ldquo;eBPF Explained&rdquo; &mdash; hook points and JIT compilation; Cisco Newsroom on Shirudo (November 23, 2026); Dev.to on eBPF adoption in 2025&ndash;2026 &mdash; AWS EKS and Cilium.</p>
+        </div>
+        <div class="newsletter-band" style="margin:28px 0 8px;padding:24px 20px;border:1px solid #D8DEE7;border-radius:12px;background:#EDF1F8;"><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:21px;line-height:1.25;color:#0A0F1E;margin:0 0 6px;">Get the Daily Tech Briefing in your inbox</div><p style="font-size:15.5px;line-height:1.5;color:#2E3A52;margin:0 0 16px;">The day&rsquo;s top tech stories in plain English &mdash; every weekday morning. Free.</p><a href="https://franciscos-newsletter-df7908.beehiiv.com/subscribe" target="_blank" rel="noopener" style="display:block;text-align:center;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:13px 22px;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;text-decoration:none;">Subscribe</a></div>
+        <div class="share-row" style="margin:28px 0 8px;padding-top:18px;border-top:1px solid #D8DEE7;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5A6478;">Share this lesson</span>
+          <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;">
+            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdtbrief.com%2Flearn%2F2026-11-26-ebpf-explained.html&text=eBPF%2C%20Explained%3A%20The%20Small%20Programs%20That%20Run%20Inside%20the%20Linux%20Kernel" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Post to X</a>
+            <a href="https://wa.me/?text=eBPF%2C%20Explained%3A%20The%20Small%20Programs%20That%20Run%20Inside%20the%20Linux%20Kernel%20https%3A%2F%2Fdtbrief.com%2Flearn%2F2026-11-26-ebpf-explained.html" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">WhatsApp</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdtbrief.com%2Flearn%2F2026-11-26-ebpf-explained.html" target="_blank" rel="noopener" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Facebook</a>
+            <a href="#" onclick="navigator.clipboard.writeText('https://dtbrief.com/learn/2026-11-26-ebpf-explained.html');this.textContent='Link copied';return false;" style="display:inline-block;background:#0A0F1E;color:#F4F6F8;border-radius:999px;padding:8px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;">Copy link</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- site-footer -->
+<style>
+  footer.site-footer { border-top: none; background: #0A0F1E; color: #EDF1F8; margin-top: 56px; }
+  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 42px 24px 26px; }
+  .site-footer-cols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 30px; }
+  @media (max-width: 860px) { .site-footer-cols { grid-template-columns: 1fr 1fr; } }
+  .site-footer h4 { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #93A0B8; margin: 0 0 13px; }
+  .site-footer-cols a { display: block; color: #EDF1F8; text-decoration: none; font-size: 14.5px; line-height: 1.5; margin-bottom: 9px; }
+  .site-footer-cols a:hover { color: #00C2FF; text-decoration: underline; }
+  .site-footer-brand { display: flex; gap: 13px; align-items: flex-start; }
+  .site-footer-name { font-family: "Sora", sans-serif; font-weight: 800; font-size: 19px; line-height: 1.15; }
+  .site-footer-tag { color: #93A0B8; font-size: 13.5px; line-height: 1.55; margin-top: 5px; max-width: 300px; }
+  .site-footer-bottom { border-top: 1px solid #22304F; margin-top: 34px; padding-top: 18px; display: flex; justify-content: space-between; gap: 10px 18px; flex-wrap: wrap; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: #93A0B8; }
+  .site-footer-follow { margin-top: 22px; }
+  .site-footer-social { display: flex; gap: 10px; flex-wrap: wrap; }
+  .site-footer-social a.social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid #22304F; border-radius: 999px; color: #EDF1F8; font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; margin-bottom: 0; }
+  .site-footer-social a.social-btn:hover { border-color: #00C2FF; color: #00C2FF; text-decoration: none; }
+  .site-footer-social a.social-btn svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+</style>
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div class="site-footer-cols">
+          <div>
+            <div class="site-footer-brand">
+              <span aria-hidden="true"><svg width="38" height="38" viewBox="0 0 96 96" aria-hidden="true">
+            <rect x="4" y="14" width="66" height="66" rx="17" fill="#00C2FF"/>
+            <path d="M34 33.5v29c0 2.4 2.6 3.9 4.6 2.6l22.4-14.5c1.9-1.2 1.9-4 0-5.2L38.6 30.9c-2-1.3-4.6.2-4.6 2.6z" fill="#0A0F1E"/>
+            <path d="M76 26a17 17 0 0 1 0 22" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round"/>
+            <path d="M84.5 17.5a29 29 0 0 1 0 39" fill="none" stroke="#FFC800" stroke-width="6.5" stroke-linecap="round" opacity=".45"/>
+          </svg></span>
+              <div>
+                <div class="site-footer-name">Daily Tech Briefing</div>
+                <div class="site-footer-tag">Your daily dose of tech news &mdash; signal, not noise.</div>
+              </div>
+            </div>
+            <div class="site-footer-follow">
+              <h4>Follow us</h4>
+              <div class="site-footer-social">
+                <a class="social-btn" href="https://x.com/dtbrief" target="_blank" rel="noopener" aria-label="Follow Daily Tech Briefing on X (@dtbrief)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"/></svg><span>@dtbrief</span></a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4>Sections</h4>
+            <a href="../sections/ai.html">AI</a>
+            <a href="../sections/chips.html">Chips &amp; Hardware</a>
+            <a href="../sections/big-tech.html">Big Tech</a>
+            <a href="../sections/business.html">Business &amp; Markets</a>
+            <a href="../sections/security.html">Security &amp; Privacy</a>
+          </div>
+          <div>
+            <h4>Site</h4>
+            <a href="../archive.html">Archive</a>
+            <a href="../breaking/">Breaking News archive</a>
+            <a href="../learn/">Learning Center</a>
+            <a href="../standards.html">How we pick stories</a>
+          </div>
+          <div>
+            <h4>Listen</h4>
+            <a href="https://open.spotify.com/show/2ssu27PcFaDaeQkVqPz9ls" target="_blank" rel="noopener">Spotify</a>
+            <a href="https://podcasts.apple.com/us/podcast/daily-tech-briefing/id6822945922" target="_blank" rel="noopener">Apple Podcasts</a>
+          </div>
+          <div>
+            <h4>More</h4>
+            <a href="../advertise.html">Advertise</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../privacy.html">Privacy Policy</a>
+            <a href="../terms.html">Terms of Use</a>
+          </div>
+        </div>
+        <div class="site-footer-bottom">
+          <span>&copy; 2026 Daily Tech Briefing &middot; dtbrief.com</span>
+          <span>AI-assisted and human-directed.</span>
+        </div>
+      </div>
+    </footer>
+<!-- /site-footer -->
+
+    <script>
+      (function () {
+        var bar = document.getElementById('progress');
+        function onScroll() {
+          var h = document.documentElement;
+          var max = h.scrollHeight - h.clientHeight;
+          var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+          bar.style.width = pct + '%';
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+        /* Listen-aloud: toggle the story audio on the play button. */
+        document.querySelectorAll('.listen-bar').forEach(function (listenBar) {
+          var btn = listenBar.querySelector('.listen-toggle');
+          var audio = listenBar.querySelector('audio');
+          btn.addEventListener('click', function () {
+            if (audio.paused) { audio.play(); } else { audio.pause(); }
+          });
+          audio.addEventListener('play', function () {
+            listenBar.classList.add('playing');
+            btn.setAttribute('aria-pressed', 'true');
+          });
+          function stopped() {
+            listenBar.classList.remove('playing');
+            btn.setAttribute('aria-pressed', 'false');
+          }
+          audio.addEventListener('pause', stopped);
+          audio.addEventListener('ended', stopped);
+        });
+      })();
+    </script>
+    <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0d3d9c0c884e4b5b827d30970f4bb08a"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

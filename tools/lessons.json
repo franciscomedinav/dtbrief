@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-26",
+    "date_long": "November 26, 2026",
+    "slug": "2026-11-26-ebpf-explained",
+    "title": "eBPF, Explained: The Small Programs That Run Inside the Linux Kernel",
+    "deck_short": "Small, verified programs that run inside the Linux kernel &mdash; the quiet engine behind cloud networking, security, and AI shields.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A small, glowing program slipping through a checkpoint gate into the heart of a computer kernel, while a shield checks its papers before letting it in",
+      "caption": "Every eBPF program is checked before it enters the kernel. The verifier is the whole trick &mdash; safe code in, crashes kept out.",
+      "index_alt": "A small, glowing program passing a checkpoint gate into the heart of a computer kernel",
+      "index_caption": "Today&rsquo;s lesson: eBPF &mdash; the small programs that run inside the Linux kernel, safely.",
+      "src": "assets/ebpf-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-25",
     "date_long": "November 25, 2026",
     "slug": "2026-11-25-quantum-computing-explained",
