@@ -1,18 +1,18 @@
 {
- "generated_at": "2026-11-25T10:01:46-05:00",
+ "generated_at": "2026-11-26T13:06:42+00:00",
  "latest_run": "2026-11-25-daily",
  "today": {
-  "date": "2026-11-25",
-  "ep": 44,
+  "date": "2026-11-26",
+  "ep": 45,
   "kind": "daily",
-  "title": "Huawei's guilty verdict, Nvidia's fading rally & Dell's record quarter",
-  "duration": "10:39",
-  "qc_dev": 5.2,
-  "spotify": "https://open.spotify.com/episode/4PMwXRbNQ00s2A7UpLE56T",
-  "post": "https://dtbrief.com/posts/2026-11-25-huawei-guilty-verdict.html",
+  "title": "Nvidia's downgrade watch, SpaceX's orbital data centers & Claude's desktop apps",
+  "duration": "9:59",
+  "qc_dev": 3.9,
+  "spotify": "https://open.spotify.com/episode/68A6jK7WOUQ4p99RFwHGz0",
+  "post": "https://dtbrief.com/posts/2026-11-26-nvidia-credit-watch.html",
   "lesson": {
-   "title": "Quantum Computing, Explained: A Computer That Tries Every Path at Once",
-   "url": "https://dtbrief.com/learn/2026-11-25-quantum-computing-explained.html"
+   "title": "eBPF, Explained: The Small Programs That Run Inside the Linux Kernel",
+   "url": "https://dtbrief.com/learn/2026-11-26-ebpf-explained.html"
   }
  },
  "floor": [
@@ -439,6 +439,20 @@
   }
  ],
  "runs": [
+  {
+   "date": "2026-11-26",
+   "ep": 45,
+   "kind": "daily",
+   "title": "Nvidia's downgrade watch, SpaceX's orbital data centers & Claude's desktop apps",
+   "duration": "9:59",
+   "qc_dev": 3.9,
+   "spotify": "https://open.spotify.com/episode/68A6jK7WOUQ4p99RFwHGz0",
+   "post": "https://dtbrief.com/posts/2026-11-26-nvidia-credit-watch.html",
+   "lesson": {
+    "title": "eBPF, Explained: The Small Programs That Run Inside the Linux Kernel",
+    "url": "https://dtbrief.com/learn/2026-11-26-ebpf-explained.html"
+   }
+  },
   {
    "date": "2026-11-25",
    "ep": 44,
