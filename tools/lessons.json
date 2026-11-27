@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-27",
+    "date_long": "November 27, 2026",
+    "slug": "2026-11-27-brain-computer-interfaces-explained",
+    "title": "Brain-Computer Interfaces, Explained: How Thought Becomes a Cursor",
+    "deck_short": "A coin-sized implant turns thought into clicks &mdash; and this week the FDA cleared the first pivotal US trial.",
+    "read_time": "4 min read",
+    "hero": {
+      "alt": "A coin-sized glowing implant with fine threads reaching into a stylized human brain, streams of light flowing from the brain to a computer cursor on a screen",
+      "caption": "The implant listens to the brain's movement signals, and software turns them into a cursor. Thought in, action out.",
+      "index_alt": "A glowing brain implant sending signals from a brain to a computer cursor",
+      "index_caption": "Today&rsquo;s lesson: brain-computer interfaces &mdash; how thought becomes a cursor.",
+      "src": "assets/brain-computer-interfaces-hero.webp"
+    }
+  },
+  {
     "date": "2026-11-26",
     "date_long": "November 26, 2026",
     "slug": "2026-11-26-ebpf-explained",
