@@ -1,18 +1,18 @@
 {
- "generated_at": "2026-11-26T13:06:42+00:00",
+ "generated_at": "2026-11-27T13:06:41+00:00",
  "latest_run": "2026-11-25-daily",
  "today": {
-  "date": "2026-11-26",
-  "ep": 45,
+  "date": "2026-11-27",
+  "ep": 46,
   "kind": "daily",
-  "title": "Nvidia's downgrade watch, SpaceX's orbital data centers & Claude's desktop apps",
-  "duration": "9:59",
-  "qc_dev": 3.9,
-  "spotify": "https://open.spotify.com/episode/68A6jK7WOUQ4p99RFwHGz0",
-  "post": "https://dtbrief.com/posts/2026-11-26-nvidia-credit-watch.html",
+  "title": "Nvidia's Southeast Asia chip halt, Anthropic's slide below its IPO price & SAP's AI job cuts",
+  "duration": "9:54",
+  "qc_dev": -0.4,
+  "spotify": "https://open.spotify.com/episode/56UKIWkqNQ3wsWst1QRhzr",
+  "post": "https://dtbrief.com/posts/2026-11-27-nvidia-southeast-asia-shipment-halt.html",
   "lesson": {
-   "title": "eBPF, Explained: The Small Programs That Run Inside the Linux Kernel",
-   "url": "https://dtbrief.com/learn/2026-11-26-ebpf-explained.html"
+   "title": "Brain-Computer Interfaces, Explained: How Thought Becomes a Cursor",
+   "url": "https://dtbrief.com/learn/2026-11-27-brain-computer-interfaces-explained.html"
   }
  },
  "floor": [
@@ -439,6 +439,20 @@
   }
  ],
  "runs": [
+  {
+   "date": "2026-11-27",
+   "ep": 46,
+   "kind": "daily",
+   "title": "Nvidia's Southeast Asia chip halt, Anthropic's slide below its IPO price & SAP's AI job cuts",
+   "duration": "9:54",
+   "qc_dev": -0.4,
+   "spotify": "https://open.spotify.com/episode/56UKIWkqNQ3wsWst1QRhzr",
+   "post": "https://dtbrief.com/posts/2026-11-27-nvidia-southeast-asia-shipment-halt.html",
+   "lesson": {
+    "title": "Brain-Computer Interfaces, Explained: How Thought Becomes a Cursor",
+    "url": "https://dtbrief.com/learn/2026-11-27-brain-computer-interfaces-explained.html"
+   }
+  },
   {
    "date": "2026-11-26",
    "ep": 45,
