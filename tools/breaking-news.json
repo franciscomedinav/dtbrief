@@ -1,147 +1,147 @@
 {
- "items": [
-  {
-   "date": "2026-11-27",
-   "date_label": "Friday, November 27, 2026",
-   "headline": "Hackers breach US Air Force's flagship Cloud One platform",
-   "summary": "Hackers breached Cloud One, the US Air Force's flagship cloud platform, reaching its control plane — the layer that manages the system. The intrusion, found during an upgrade in the past month, has paused app migrations and blocked software updates, and US Cyber Command is assessing the damage. Who did it and whether data was stolen is still unknown.",
-   "live": true,
-   "links": [
+  "items": [
     {
-     "href": "https://www.reuters.com/world/hackers-breach-us-air-force-flagship-cloud-one-computing-platform-2026-11-27/",
-     "label": "Reuters report"
+      "date": "2026-11-27",
+      "date_label": "Friday, November 27, 2026",
+      "headline": "Hackers breach US Air Force's flagship Cloud One platform",
+      "summary": "Hackers breached Cloud One, the US Air Force's flagship cloud platform, reaching its control plane — the layer that manages the system. The intrusion, found during an upgrade in the past month, has paused app migrations and blocked software updates, and US Cyber Command is assessing the damage. Who did it and whether data was stolen is still unknown.",
+      "live": false,
+      "links": [
+        {
+          "href": "https://www.reuters.com/world/hackers-breach-us-air-force-flagship-cloud-one-computing-platform-2026-11-27/",
+          "label": "Reuters report"
+        },
+        {
+          "href": "https://www.engadget.com/2329586/hackers-reportedly-infiltrated-the-air-force-cloud-systems/",
+          "label": "Engadget coverage"
+        }
+      ]
     },
     {
-     "href": "https://www.engadget.com/2329586/hackers-reportedly-infiltrated-the-air-force-cloud-systems/",
-     "label": "Engadget coverage"
+      "date": "2026-11-23",
+      "date_label": "Monday, November 23, 2026",
+      "headline": "Nvidia reinstates Jensen Huang as CEO, 11 days after his resignation",
+      "summary": "Nvidia's board unanimously reinstated Jensen Huang as president, CEO and board member, effective immediately — 11 days after he resigned amid an affair scandal and a foreign-spying investigation that continues. The stock jumped 31.5%, its best day since 2003, the Nasdaq surged 6.5%, and the rally spread across Asia on Tuesday. The SEC probe and a Senate hearing lie ahead.",
+      "live": false,
+      "links": [
+        {
+          "href": "https://nvidianews.nvidia.com/news/nvidia-board-reinstates-jensen-huang-as-president-ceo-and-board-director",
+          "label": "Nvidia's announcement"
+        },
+        {
+          "href": "https://www.reuters.com/technology/nvidia-reinstates-jensen-huang-ceo-2026-11-23/",
+          "label": "Reuters coverage"
+        },
+        {
+          "href": "https://www.cnn.com/2026/11/23/politics/trump-administration-jensen-huang-reinstated",
+          "label": "CNN: the Trump pressure campaign"
+        },
+        {
+          "href": "posts/2026-11-24-nvidia-reinstates-huang.html",
+          "label": "Background: this morning's briefing",
+          "site": true
+        }
+      ]
+    },
+    {
+      "date": "2026-11-21",
+      "date_label": "Saturday, November 21, 2026",
+      "headline": "FBI probes breach of its nationwide crime database",
+      "summary": "The FBI is investigating an apparent breach of its National Crime Information Center, the database police nationwide use to check warrants and run background checks, CNN first reported Friday. President Trump called the news “not good” on Saturday. The FBI has not confirmed the breach or said what was taken.",
+      "live": false,
+      "links": [
+        {
+          "href": "https://www.cnn.com/2026/11/20/politics/fbi-hacked-again-target-crime-database",
+          "label": "CNN report"
+        },
+        {
+          "href": "https://www.usatoday.com/story/news/crime/2026/11/21/donald-trump-ncic-breach-fbi/92897372007/",
+          "label": "USA Today coverage"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-17",
+      "date_label": "Tuesday, November 17, 2026",
+      "headline": "Trump administration closes AI chip 'cloud loophole'",
+      "links": [
+        {
+          "href": "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely/",
+          "label": "TechCrunch report"
+        },
+        {
+          "href": "https://krro.com/2026/11/16/us-issues-rule-to-protect-advanced-ai-chips-from-being-accessed-remotely/",
+          "label": "Reuters coverage"
+        },
+        {
+          "href": "posts/2026-11-17-california-sues-openai.html",
+          "label": "Background: this morning's briefing",
+          "site": true
+        }
+      ],
+      "live": false,
+      "summary": "The rule closing the AI chip cloud loophole takes effect when published in the Federal Register, scheduled for November 19. It requires licences for advanced chips sent to data centres in Singapore, Malaysia, Indonesia, Thailand and Brazil, and for remote access above roughly 750 Nvidia chips’ worth of compute. Existing data centres get 90 days to comply, days before Trump meets Xi Jinping in Shenzhen."
+    },
+    {
+      "date": "2026-11-13",
+      "date_label": "Friday, November 13, 2026",
+      "headline": "FAA grounds all US flights after nationwide air-traffic communications failure",
+      "links": [
+        {
+          "href": "https://www.fly.faa.gov",
+          "label": "FAA advisory"
+        },
+        {
+          "href": "https://techcrunch.com/2026/11/13/u-s-government-grounds-all-flights-across-the-united-states-due-to-extraordinary-cirumstances/",
+          "label": "TechCrunch coverage"
+        }
+      ],
+      "live": false,
+      "summary": "The Federal Aviation Administration has grounded departing flights across the US after a communications failure hit the air-traffic control centers that guide planes between airports. More than 13,000 flights were delayed or canceled Friday evening, and the stop — the first nationwide ground stop since January 2023 — is still in effect. Officials say there is no sign of an attack."
+    },
+    {
+      "date": "2026-11-13",
+      "date_label": "Friday, November 13, 2026",
+      "headline": "Microsoft 365 blackout: Outlook outage drags into a second day",
+      "links": [
+        {
+          "href": "https://www.usatoday.com/story/tech/2026/11/13/microsoft-outage-outlook-updates-friday/92752697007/",
+          "label": "USA Today live updates"
+        },
+        {
+          "href": "https://status.cloud.microsoft",
+          "label": "Microsoft's service status"
+        },
+        {
+          "href": "posts/2026-11-13-nvidia-huang-resigns-fallout.html",
+          "label": "Background: this morning's briefing",
+          "site": true
+        }
+      ],
+      "live": false,
+      "summary": "A worldwide Microsoft 365 outage that began Thursday afternoon is still not fully fixed Friday morning. Outlook email for work and school accounts went down — about 130,000 problem reports at Thursday's peak. Microsoft is restoring service in phases, says there is no sign of a cyberattack, and has given no time for full recovery."
+    },
+    {
+      "date": "2026-11-12",
+      "date_label": "Thursday, November 12, 2026",
+      "headline": "Jensen Huang resigns as Nvidia CEO, effective immediately",
+      "links": [
+        {
+          "href": "https://www.globenewswire.com/news-release/2026/11/12/3401635/0/en/nvidia-announces-ceo-transition.html",
+          "label": "Nvidia's announcement"
+        },
+        {
+          "href": "https://www.reuters.com/business/retail-consumer/nvidia-ceo-jensen-huang-step-down-big-blow-ai-boom-2026-11-12/",
+          "label": "Reuters coverage"
+        },
+        {
+          "href": "posts/2026-11-12-nvidia-board-oust-jensen-huang.html",
+          "label": "Background: that morning's briefing",
+          "site": true
+        }
+      ],
+      "live": false,
+      "summary": "Nvidia announced that Jensen Huang — its co-founder and chief executive for 33 years — had resigned as president, CEO and board member, effective immediately. CFO Colette Kress stepped in as interim CEO, and Harvey C. Jones became the board's first-ever chair. The shock exit followed a week of turmoil, including a board investigation, and Nvidia shares fell about 12% in premarket trading; Q3 earnings are still due November 17."
     }
-   ]
-  },
-  {
-   "date": "2026-11-23",
-   "date_label": "Monday, November 23, 2026",
-   "headline": "Nvidia reinstates Jensen Huang as CEO, 11 days after his resignation",
-   "summary": "Nvidia's board unanimously reinstated Jensen Huang as president, CEO and board member, effective immediately — 11 days after he resigned amid an affair scandal and a foreign-spying investigation that continues. The stock jumped 31.5%, its best day since 2003, the Nasdaq surged 6.5%, and the rally spread across Asia on Tuesday. The SEC probe and a Senate hearing lie ahead.",
-   "live": false,
-   "links": [
-    {
-     "href": "https://nvidianews.nvidia.com/news/nvidia-board-reinstates-jensen-huang-as-president-ceo-and-board-director",
-     "label": "Nvidia's announcement"
-    },
-    {
-     "href": "https://www.reuters.com/technology/nvidia-reinstates-jensen-huang-ceo-2026-11-23/",
-     "label": "Reuters coverage"
-    },
-    {
-     "href": "https://www.cnn.com/2026/11/23/politics/trump-administration-jensen-huang-reinstated",
-     "label": "CNN: the Trump pressure campaign"
-    },
-    {
-     "href": "posts/2026-11-24-nvidia-reinstates-huang.html",
-     "label": "Background: this morning's briefing",
-     "site": true
-    }
-   ]
-  },
-  {
-   "date": "2026-11-21",
-   "date_label": "Saturday, November 21, 2026",
-   "headline": "FBI probes breach of its nationwide crime database",
-   "summary": "The FBI is investigating an apparent breach of its National Crime Information Center, the database police nationwide use to check warrants and run background checks, CNN first reported Friday. President Trump called the news “not good” on Saturday. The FBI has not confirmed the breach or said what was taken.",
-   "live": false,
-   "links": [
-    {
-     "href": "https://www.cnn.com/2026/11/20/politics/fbi-hacked-again-target-crime-database",
-     "label": "CNN report"
-    },
-    {
-     "href": "https://www.usatoday.com/story/news/crime/2026/11/21/donald-trump-ncic-breach-fbi/92897372007/",
-     "label": "USA Today coverage"
-    }
-   ]
-  },
-  {
-   "date": "2026-11-17",
-   "date_label": "Tuesday, November 17, 2026",
-   "headline": "Trump administration closes AI chip 'cloud loophole'",
-   "links": [
-    {
-     "href": "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely/",
-     "label": "TechCrunch report"
-    },
-    {
-     "href": "https://krro.com/2026/11/16/us-issues-rule-to-protect-advanced-ai-chips-from-being-accessed-remotely/",
-     "label": "Reuters coverage"
-    },
-    {
-     "href": "posts/2026-11-17-california-sues-openai.html",
-     "label": "Background: this morning's briefing",
-     "site": true
-    }
-   ],
-   "live": false,
-   "summary": "The rule closing the AI chip cloud loophole takes effect when published in the Federal Register, scheduled for November 19. It requires licences for advanced chips sent to data centres in Singapore, Malaysia, Indonesia, Thailand and Brazil, and for remote access above roughly 750 Nvidia chips’ worth of compute. Existing data centres get 90 days to comply, days before Trump meets Xi Jinping in Shenzhen."
-  },
-  {
-   "date": "2026-11-13",
-   "date_label": "Friday, November 13, 2026",
-   "headline": "FAA grounds all US flights after nationwide air-traffic communications failure",
-   "links": [
-    {
-     "href": "https://www.fly.faa.gov",
-     "label": "FAA advisory"
-    },
-    {
-     "href": "https://techcrunch.com/2026/11/13/u-s-government-grounds-all-flights-across-the-united-states-due-to-extraordinary-cirumstances/",
-     "label": "TechCrunch coverage"
-    }
-   ],
-   "live": false,
-   "summary": "The Federal Aviation Administration has grounded departing flights across the US after a communications failure hit the air-traffic control centers that guide planes between airports. More than 13,000 flights were delayed or canceled Friday evening, and the stop — the first nationwide ground stop since January 2023 — is still in effect. Officials say there is no sign of an attack."
-  },
-  {
-   "date": "2026-11-13",
-   "date_label": "Friday, November 13, 2026",
-   "headline": "Microsoft 365 blackout: Outlook outage drags into a second day",
-   "links": [
-    {
-     "href": "https://www.usatoday.com/story/tech/2026/11/13/microsoft-outage-outlook-updates-friday/92752697007/",
-     "label": "USA Today live updates"
-    },
-    {
-     "href": "https://status.cloud.microsoft",
-     "label": "Microsoft's service status"
-    },
-    {
-     "href": "posts/2026-11-13-nvidia-huang-resigns-fallout.html",
-     "label": "Background: this morning's briefing",
-     "site": true
-    }
-   ],
-   "live": false,
-   "summary": "A worldwide Microsoft 365 outage that began Thursday afternoon is still not fully fixed Friday morning. Outlook email for work and school accounts went down — about 130,000 problem reports at Thursday's peak. Microsoft is restoring service in phases, says there is no sign of a cyberattack, and has given no time for full recovery."
-  },
-  {
-   "date": "2026-11-12",
-   "date_label": "Thursday, November 12, 2026",
-   "headline": "Jensen Huang resigns as Nvidia CEO, effective immediately",
-   "links": [
-    {
-     "href": "https://www.globenewswire.com/news-release/2026/11/12/3401635/0/en/nvidia-announces-ceo-transition.html",
-     "label": "Nvidia's announcement"
-    },
-    {
-     "href": "https://www.reuters.com/business/retail-consumer/nvidia-ceo-jensen-huang-step-down-big-blow-ai-boom-2026-11-12/",
-     "label": "Reuters coverage"
-    },
-    {
-     "href": "posts/2026-11-12-nvidia-board-oust-jensen-huang.html",
-     "label": "Background: that morning's briefing",
-     "site": true
-    }
-   ],
-   "live": false,
-   "summary": "Nvidia announced that Jensen Huang — its co-founder and chief executive for 33 years — had resigned as president, CEO and board member, effective immediately. CFO Colette Kress stepped in as interim CEO, and Harvey C. Jones became the board's first-ever chair. The shock exit followed a week of turmoil, including a board investigation, and Nvidia shares fell about 12% in premarket trading; Q3 earnings are still due November 17."
-  }
- ]
+  ]
 }
